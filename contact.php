@@ -1,0 +1,599 @@
+<!-- =========================================
+FSPL CONTACT PAGE
+PREMIUM FINAL UI
+========================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us - FSPL</title>
+
+    <!-- TAILWIND -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- AOS ANIMATION -->
+
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+
+</head>
+
+<body class="bg-[#050505] overflow-x-hidden">
+
+<?php include 'components/navbar.php'; ?>
+
+<!-- =========================================
+     HERO SECTION
+========================================= -->
+
+<section class="relative overflow-hidden min-h-screen flex items-center py-20">
+
+    <!-- BG -->
+
+    <div class="absolute inset-0">
+
+        <img
+        src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1800&auto=format&fit=crop"
+        alt=""
+        class="w-full h-full object-cover opacity-[0.05] scale-105">
+
+        <div class="absolute inset-0 bg-black/90"></div>
+
+    </div>
+
+    <!-- GOLD GLOW -->
+
+    <div
+    class="absolute top-[-250px] left-[-150px] w-[550px] h-[550px] bg-[#D4AF37]/10 blur-[160px] rounded-full animate-pulse">
+    </div>
+
+    <div
+    class="absolute bottom-[-250px] right-[-150px] w-[550px] h-[550px] bg-[#D4AF37]/5 blur-[160px] rounded-full animate-pulse">
+    </div>
+
+    <!-- CONTENT -->
+
+    <div
+    class="relative z-10 max-w-6xl mx-auto px-5 lg:px-8 w-full">
+
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+
+            <!-- LEFT -->
+
+            <div data-aos="fade-right">
+
+                <!-- LABEL -->
+
+                <div
+                class="inline-flex items-center gap-3 border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl px-4 py-2 rounded-full">
+
+                    <span
+                    class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse">
+                    </span>
+
+                    <span
+                    class="font-['Outfit']
+                    uppercase
+                    tracking-[3px]
+                    text-[9px]
+                    text-[#F5D76E]/90
+                    font-medium">
+
+                        Contact Future Star League
+
+                    </span>
+
+                </div>
+
+                <!-- HEADING -->
+
+                <h1
+                class="mt-7 font-['Cinzel']
+                text-white
+                text-4xl
+                lg:text-[56px]
+                leading-[0.95]
+                font-bold
+                tracking-[-2px]">
+
+                    Let’s Build
+
+                    <span class="block text-[#D4AF37] mt-2">
+
+                        Your Cricket Future
+
+                    </span>
+
+                </h1>
+
+                <!-- DESC -->
+
+                <p
+                class="mt-5 max-w-[540px]
+                text-white/55
+                font-['Outfit']
+                text-[14px]
+                leading-[30px]
+                font-light">
+
+                    Reach out to Future Star Premier League for registrations,
+                    player trials, sponsorships and partnerships.
+
+                </p>
+
+            </div>
+
+            <!-- RIGHT IMAGE -->
+
+            <div
+            class="relative hidden lg:flex justify-end"
+            data-aos="fade-left">
+
+                <!-- CARD -->
+
+                <div
+                class="group relative overflow-hidden
+                w-full max-w-[420px]
+                rounded-[28px]
+                border border-white/10
+                bg-white/[0.03]
+                backdrop-blur-3xl
+                p-4
+                transition duration-500 hover:-translate-y-2 hover:border-[#D4AF37]/30">
+
+                    <!-- IMAGE -->
+
+                    <div class="relative overflow-hidden rounded-[22px]">
+
+                        <img
+                        src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1400&auto=format&fit=crop"
+                        alt=""
+                        class="w-full h-[480px] object-cover transition duration-700 group-hover:scale-105">
+
+                        <!-- OVERLAY -->
+
+                        <div
+                        class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
+                        </div>
+
+                    </div>
+
+                    <!-- FLOAT CARD -->
+
+                    <div
+                    class="absolute bottom-6 left-6 right-6
+                    rounded-[22px]
+                    border border-white/10
+                    bg-black/40
+                    backdrop-blur-2xl
+                    p-4">
+
+                        <div class="flex items-center justify-between">
+
+                            <div>
+
+                                <p
+                                class="text-[#D4AF37]
+                                uppercase
+                                tracking-[2px]
+                                text-[9px]
+                                font-semibold
+                                font-['Outfit']">
+
+                                    FSPL SUPPORT
+
+                                </p>
+
+                                <h3
+                                class="mt-2 text-white
+                                font-['Cinzel']
+                                text-xl
+                                font-bold">
+
+                                    Contact Our Team
+
+                                </h3>
+
+                            </div>
+
+                            <!-- ICON -->
+
+                            <div
+                            class="w-12 h-12 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center">
+
+                                <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.8"
+                                stroke="currentColor"
+                                class="w-5 h-5 text-[#D4AF37]">
+
+                                    <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M21.75 8.25v7.5A2.25 2.25 0 0119.5 18h-15A2.25 2.25 0 012.25 15.75v-7.5M3 6.75l8.25 5.25a1.5 1.5 0 001.5 0L21 6.75"/>
+
+                                </svg>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================
+     CONTACT SECTION
+========================================= -->
+
+<section class="relative py-20 overflow-hidden">
+
+    <!-- GLOW -->
+
+    <div
+    class="absolute top-0 left-[-200px] w-[450px] h-[450px] bg-[#D4AF37]/5 blur-[160px] rounded-full">
+    </div>
+
+    <div
+    class="absolute bottom-0 right-[-200px] w-[450px] h-[450px] bg-[#D4AF37]/5 blur-[160px] rounded-full">
+    </div>
+
+    <!-- MAIN -->
+
+    <div
+    class="relative z-10 max-w-6xl mx-auto px-5 lg:px-8">
+
+        <div
+        class="grid lg:grid-cols-2 gap-10 items-start">
+
+            <!-- LEFT INFO -->
+
+            <div class="space-y-4">
+
+                <!-- CARD -->
+
+                <div
+                data-aos="fade-up"
+                class="group rounded-[24px]
+                border border-white/10
+                bg-white/[0.03]
+                backdrop-blur-3xl
+                p-5
+                transition duration-500 hover:border-[#D4AF37]/30 hover:-translate-y-1">
+
+                    <div class="flex items-start gap-4">
+
+                        <!-- ICON -->
+
+                        <div
+                        class="w-12 h-12 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center shrink-0">
+
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.8"
+                            stroke="currentColor"
+                            class="w-5 h-5 text-[#D4AF37]">
+
+                                <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+
+                                <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+
+                            </svg>
+
+                        </div>
+
+                        <!-- TEXT -->
+
+                        <div>
+
+                            <h3
+                            class="font-['Cinzel']
+                            text-white
+                            text-xl
+                            font-bold">
+
+                                Location
+
+                            </h3>
+
+                            <p
+                            class="mt-2 text-white/50
+                            font-['Outfit']
+                            text-[14px]
+                            leading-[28px]">
+
+                                Aligarh, Uttar Pradesh, India
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD -->
+
+                <div
+                data-aos="fade-up"
+                data-aos-delay="100"
+                class="group rounded-[24px]
+                border border-white/10
+                bg-white/[0.03]
+                backdrop-blur-3xl
+                p-5
+                transition duration-500 hover:border-[#D4AF37]/30 hover:-translate-y-1">
+
+                    <div class="flex items-start gap-4">
+
+                        <div
+                        class="w-12 h-12 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center shrink-0">
+
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.8"
+                            stroke="currentColor"
+                            class="w-5 h-5 text-[#D4AF37]">
+
+                                <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M2.25 6.75c0-1.243 1.007-2.25 2.25-2.25h2.386c1.026 0 1.93.693 2.193 1.684l.383 1.437a2.25 2.25 0 01-.514 2.11l-1.273 1.273a11.25 11.25 0 005.516 5.516l1.273-1.273a2.25 2.25 0 012.11-.514l1.437.383a2.25 2.25 0 011.684 2.193V19.5c0 1.243-1.007 2.25-2.25 2.25h-.75C9.044 21.75 2.25 14.956 2.25 6.75z"/>
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <h3
+                            class="font-['Cinzel']
+                            text-white
+                            text-xl
+                            font-bold">
+
+                                Phone Number
+
+                            </h3>
+
+                            <p
+                            class="mt-2 text-white/50
+                            font-['Outfit']
+                            text-[14px]">
+
+                                +91 98765 43210
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD -->
+
+                <div
+                data-aos="fade-up"
+                data-aos-delay="200"
+                class="group rounded-[24px]
+                border border-white/10
+                bg-white/[0.03]
+                backdrop-blur-3xl
+                p-5
+                transition duration-500 hover:border-[#D4AF37]/30 hover:-translate-y-1">
+
+                    <div class="flex items-start gap-4">
+
+                        <div
+                        class="w-12 h-12 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center shrink-0">
+
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.8"
+                            stroke="currentColor"
+                            class="w-5 h-5 text-[#D4AF37]">
+
+                                <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M21.75 8.25v7.5A2.25 2.25 0 0119.5 18h-15A2.25 2.25 0 012.25 15.75v-7.5M3 6.75l8.25 5.25a1.5 1.5 0 001.5 0L21 6.75"/>
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <h3
+                            class="font-['Cinzel']
+                            text-white
+                            text-xl
+                            font-bold">
+
+                                Email Address
+
+                            </h3>
+
+                            <p
+                            class="mt-2 text-white/50
+                            font-['Outfit']
+                            text-[14px]">
+
+                                support@fsplleague.com
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CONTACT FORM -->
+
+            <div
+            data-aos="fade-left"
+            class="relative overflow-hidden rounded-[28px]
+            border border-white/10
+            bg-white/[0.03]
+            backdrop-blur-3xl
+            max-w-[430px]
+            mx-auto
+            p-5 sm:p-6">
+
+                <!-- OVERLAY -->
+
+                <div
+                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 via-transparent to-transparent">
+                </div>
+
+                <!-- CONTENT -->
+
+                <div class="relative">
+
+                    <h2
+                    class="font-['Cinzel']
+                    text-white
+                    text-[28px]
+                    lg:text-[34px]
+                    font-bold">
+
+                        Send Message
+
+                    </h2>
+
+                    <p
+                    class="mt-2 text-white/50
+                    font-['Outfit']
+                    text-[13px]
+                    leading-[24px]">
+
+                        Fill out the form and our team will contact you.
+
+                    </p>
+
+                    <!-- FORM -->
+
+                    <form class="mt-5 space-y-3">
+
+                        <input
+                        type="text"
+                        placeholder="Your Full Name"
+                        class="w-full h-[46px] rounded-xl border border-white/10 bg-black/30 px-4 text-[13px] text-white outline-none font-['Outfit'] focus:border-[#D4AF37]/40 transition placeholder:text-white/30">
+
+                        <input
+                        type="email"
+                        placeholder="Your Email Address"
+                        class="w-full h-[46px] rounded-xl border border-white/10 bg-black/30 px-4 text-[13px] text-white outline-none font-['Outfit'] focus:border-[#D4AF37]/40 transition placeholder:text-white/30">
+
+                        <input
+                        type="text"
+                        placeholder="Subject"
+                        class="w-full h-[46px] rounded-xl border border-white/10 bg-black/30 px-4 text-[13px] text-white outline-none font-['Outfit'] focus:border-[#D4AF37]/40 transition placeholder:text-white/30">
+
+                        <textarea
+                        rows="4"
+                        placeholder="Write Your Message..."
+                        class="w-full rounded-xl border border-white/10 bg-black/30 p-4 text-[13px] text-white outline-none resize-none font-['Outfit'] focus:border-[#D4AF37]/40 transition placeholder:text-white/30"></textarea>
+
+                        <!-- BUTTON -->
+
+                        <button
+                        class="group relative overflow-hidden h-[46px] px-8 rounded-full bg-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:scale-105 transition duration-500">
+
+                            <div
+                            class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition duration-1000">
+                            </div>
+
+                            <div
+                            class="relative flex items-center justify-center h-full">
+
+                                <span
+                                class="font-['Cinzel']
+                                uppercase
+                                tracking-[2px]
+                                text-[9px]
+                                font-bold
+                                text-black">
+
+                                    Send Message
+
+                                </span>
+
+                            </div>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<?php include 'components/footer.php'; ?>
+
+<!-- AOS SCRIPT -->
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+
+AOS.init({
+
+    duration: 1000,
+    once: true
+
+});
+
+</script>
+
+</body>
+
+</html>
