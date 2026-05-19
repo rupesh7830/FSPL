@@ -31,8 +31,8 @@ $total_registrations = mysqli_num_rows($result);
 
 $approved_query = mysqli_query(
     $conn,
-    "SELECT COUNT(*) as total FROM trial_registrations WHERE status='Approved'"
-);
+            "SELECT COUNT(*) as total FROM trial_registrations WHERE registration_status='Approved'"
+        );
 
 $approved_data = mysqli_fetch_assoc($approved_query);
 
@@ -42,7 +42,7 @@ $approved_count = $approved_data['total'];
 
 $pending_query = mysqli_query(
     $conn,
-    "SELECT COUNT(*) as total FROM trial_registrations WHERE status='Pending'"
+    "SELECT COUNT(*) as total FROM trial_registrations WHERE registration_status='Pending'"
 );
 
 $pending_data = mysqli_fetch_assoc($pending_query);
@@ -53,7 +53,7 @@ $pending_count = $pending_data['total'];
 
 $rejected_query = mysqli_query(
     $conn,
-    "SELECT COUNT(*) as total FROM trial_registrations WHERE status='Rejected'"
+    "SELECT COUNT(*) as total FROM trial_registrations WHERE registration_status='Rejected'"
 );
 
 $rejected_data = mysqli_fetch_assoc($rejected_query);
@@ -684,7 +684,7 @@ pb-4">
 
                                 <?php
 
-                                $status = $row['status'];
+                                $status = $row['registration_status'];
 
                                 $statusClass = "bg-yellow-500/10 border-yellow-500/20 text-yellow-300";
 

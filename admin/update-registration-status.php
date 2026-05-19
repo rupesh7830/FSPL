@@ -47,10 +47,16 @@ if(!in_array($status, $allowed)){
 $stmt = $conn->prepare("
 
     UPDATE trial_registrations
-    SET status = ?
+
+    SET registration_status = ?
+
     WHERE id = ?
 
 ");
+
+/* =========================================
+   BIND PARAMS
+========================================= */
 
 $stmt->bind_param(
 
@@ -75,5 +81,13 @@ if($stmt->execute()){
     echo "Update Failed : " . $stmt->error;
 
 }
+
+/* =========================================
+   CLOSE
+========================================= */
+
+$stmt->close();
+
+$conn->close();
 
 ?>

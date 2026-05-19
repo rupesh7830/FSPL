@@ -21,6 +21,29 @@ $profile_check = mysqli_query($conn, $sql);
 
 $is_profile_complete = mysqli_num_rows($profile_check) > 0;
 
+$trial_sql = "
+
+SELECT 
+    trials.*
+
+FROM trials_player
+
+INNER JOIN trials
+ON trials_player.trial_id = trials.id
+
+WHERE trials_player.user_id='$user_id'
+
+ORDER BY trials_player.id DESC
+
+LIMIT 1
+
+";
+
+$trial_result = mysqli_query($conn,$trial_sql);
+
+$trial_row = mysqli_fetch_assoc($trial_result);
+$has_trial = $trial_row ? true : false;
+
 
 $sql = "
 SELECT *
@@ -118,7 +141,7 @@ SIDEBAR
         <div>
 
             <!-- LOGO -->
-
+        <a href="index.php">
             <div class="flex items-center gap-3">
 
                 <div
@@ -149,6 +172,7 @@ SIDEBAR
                 </div>
 
             </div>
+        </a>
 
             <!-- MENU -->
 
@@ -686,25 +710,63 @@ class="absolute top-2 right-4 bg-red-500 hover:bg-red-600 transition px-4 py-2 r
 
                     <div class="space-y-5 mt-8">
 
-                        <div>
-                            <p class="text-white/40 text-sm">Trial Name</p>
-                            <h3 class="mt-2 text-lg font-medium"><?php echo $row['trial_name']; ?></h3>
-                        </div>
+                    <?php if($has_trial){ ?>
 
-                        <div>
-                            <p class="text-white/40 text-sm">Venue</p>
-                            <h3 class="mt-2 text-lg font-medium"><?php echo $row['venue']; ?></h3>
-                        </div>
+<div>
+    <p class="text-white/40 text-sm">Trial Name</p>
 
-                        <div>
-                            <p class="text-white/40 text-sm">Trial Date</p>
-                            <h3 class="mt-2 text-lg font-medium"><?php echo $row['trial_date']; ?></h3>
-                        </div>
+    <h3 class="mt-2 text-lg font-medium">
+        <?php echo $trial_row['trial_title']; ?>
+    </h3>
+</div>
 
-                        <div>
-                            <p class="text-white/40 text-sm">Fee</p>
-                            <h3 class="mt-2 text-lg font-medium text-[#D4AF37]">₹<?php echo $row['fee']; ?></h3>
-                        </div>
+<div>
+    <p class="text-white/40 text-sm">Venue</p>
+
+    <h3 class="mt-2 text-lg font-medium">
+        <?php echo $trial_row['ground_name']; ?>
+    </h3>
+</div>
+
+<div>
+    <p class="text-white/40 text-sm">Trial Date</p>
+
+    <h3 class="mt-2 text-lg font-medium">
+        <?php echo $trial_row['trial_date']; ?>
+    </h3>
+</div>
+
+<div>
+    <p class="text-white/40 text-sm">Fee</p>
+
+    <h3 class="mt-2 text-lg font-medium text-[#D4AF37]">
+        ₹<?php echo $trial_row['entry_fee']; ?>
+    </h3>
+</div>
+
+<?php }else{ ?>
+
+<div class="rounded-2xl border border-dashed border-[#D4AF37]/20 bg-[#D4AF37]/5 p-6 text-center">
+
+    <h3 class="text-xl font-bold text-[#D4AF37]">
+        No Trial Registered
+    </h3>
+
+    <p class="mt-3 text-white/50">
+        You have not joined any trial yet.
+    </p>
+
+    <a
+    href="trials.php"
+    class="mt-5 inline-flex items-center justify-center h-[46px] px-6 rounded-xl bg-[#D4AF37] text-black uppercase tracking-[2px] text-[10px] font-bold">
+
+        Register Now
+
+    </a>
+
+</div>
+
+<?php } ?>
 
                     </div>
 
@@ -820,6 +882,3 @@ AOS.init({
 </body>
 </html>
 
-
-
-<?php include 'components/footer.php';

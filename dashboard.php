@@ -147,7 +147,7 @@ SIDEBAR
         <div>
 
             <!-- LOGO -->
-
+            <a href="index.php">
             <div class="flex items-center gap-3">
 
                 <div
@@ -178,6 +178,7 @@ SIDEBAR
                 </div>
 
             </div>
+            </a>
 
             <!-- MENU -->
 
