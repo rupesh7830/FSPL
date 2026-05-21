@@ -1,45 +1,186 @@
-<!-- =========================================
-FSPL ABOUT PAGE
-PREMIUM PROFESSIONAL FINAL UI
-========================================= -->
-
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- =========================================
+    BASIC SEO
+    ========================================= -->
 
-<title>About Us - FSPL</title>
+    <meta charset="UTF-8">
 
-<!-- TAILWIND -->
-<script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- GOOGLE FONTS -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link
-href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@200;300;400;500;600;700&display=swap"
-rel="stylesheet">
+    <!-- =========================================
+    PAGE TITLE
+    ========================================= -->
 
-<!-- AOS -->
-<link
-rel="stylesheet"
-href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+    <title>
+        About FSPL | Future Star Premier League India
+    </title>
 
-<style>
+    <!-- =========================================
+    META DESCRIPTION
+    ========================================= -->
 
-html{
-    scroll-behavior:smooth;
-}
+    <meta
+    name="description"
+    content="Learn about Future Star Premier League (FSPL), India's premium cricket platform for emerging cricket talent, elite trials, professional exposure, and future champions.">
 
-body{
-    background:#050505;
-}
+    <!-- =========================================
+    META KEYWORDS
+    ========================================= -->
 
-</style>
+    <meta
+    name="keywords"
+    content="About FSPL, Future Star Premier League, cricket league India, cricket trials, cricket talent platform, cricket tournament, young cricketers India">
+
+    <!-- =========================================
+    AUTHOR
+    ========================================= -->
+
+    <meta
+    name="author"
+    content="Future Star Premier League">
+
+    <!-- =========================================
+    ROBOTS
+    ========================================= -->
+
+    <meta
+    name="robots"
+    content="index, follow">
+
+    <!-- =========================================
+    THEME COLOR
+    ========================================= -->
+
+    <meta
+    name="theme-color"
+    content="#050505">
+
+    <!-- =========================================
+    CANONICAL URL
+    ========================================= -->
+
+    <link
+    rel="canonical"
+    href="https://yourdomain.com/about.php">
+
+    <!-- =========================================
+    OPEN GRAPH SEO
+    ========================================= -->
+
+    <meta
+    property="og:title"
+    content="About FSPL | Future Star Premier League">
+
+    <meta
+    property="og:description"
+    content="Discover the vision, mission, and journey of FSPL — India's elite cricket platform for future champions.">
+
+    <meta
+    property="og:image"
+    content="https://yourdomain.com/assets/images/about-banner.webp">
+
+    <meta
+    property="og:url"
+    content="https://yourdomain.com/about.php">
+
+    <meta
+    property="og:type"
+    content="website">
+
+    <!-- =========================================
+    TWITTER SEO
+    ========================================= -->
+
+    <meta
+    name="twitter:card"
+    content="summary_large_image">
+
+    <meta
+    name="twitter:title"
+    content="About FSPL">
+
+    <meta
+    name="twitter:description"
+    content="India’s premium cricket scouting and talent development platform.">
+
+    <meta
+    name="twitter:image"
+    content="https://yourdomain.com/assets/images/about-banner.webp">
+
+    <!-- =========================================
+    FAVICON
+    ========================================= -->
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="assets/images/favicon.png">
+
+    <!-- =========================================
+    GOOGLE FONTS
+    ========================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+    <!-- =========================================
+    TAILWIND CSS
+    ========================================= -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- =========================================
+    SCHEMA MARKUP SEO
+    ========================================= -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsOrganization",
+      "name": "Future Star Premier League",
+      "alternateName": "FSPL",
+      "url": "https://yourdomain.com",
+      "logo": "https://yourdomain.com/assets/images/logo.png",
+      "description": "Future Star Premier League is India's premium cricket platform for emerging talent and elite cricket opportunities.",
+      "sport": "Cricket",
+      "sameAs": [
+        "https://facebook.com/yourpage",
+        "https://instagram.com/yourpage",
+        "https://youtube.com/yourchannel"
+      ]
+    }
+    </script>
+
+    <!-- =========================================
+    GLOBAL STYLE
+    ========================================= -->
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#050505;
+            overflow-x:hidden;
+        }
+
+    </style>
 
 </head>
 

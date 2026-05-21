@@ -1,13 +1,183 @@
-<!-- =========================================
-PREMIUM TRIALS HERO SECTION
-FINAL PROFESSIONAL UI
-========================================= -->
+<head>
+
+    <!-- =========================================
+    BASIC SEO
+    ========================================= -->
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- =========================================
+    PAGE TITLE
+    ========================================= -->
+
+    <title>
+        FSPL Cricket Trials 2026 | Future Star Premier League Registration
+    </title>
+
+    <!-- =========================================
+    META DESCRIPTION
+    ========================================= -->
+
+    <meta
+    name="description"
+    content="Register for official FSPL Cricket Trials 2026 and showcase your talent in front of professional selectors, coaches, and franchise teams across India.">
+
+    <!-- =========================================
+    META KEYWORDS
+    ========================================= -->
+
+    <meta
+    name="keywords"
+    content="FSPL trials, cricket trials India, cricket registration, cricket tournament, cricket selection, Future Star Premier League, cricket academy India, cricket talent hunt">
+
+    <!-- =========================================
+    AUTHOR
+    ========================================= -->
+
+    <meta
+    name="author"
+    content="Future Star Premier League">
+
+    <!-- =========================================
+    ROBOTS
+    ========================================= -->
+
+    <meta
+    name="robots"
+    content="index, follow">
+
+    <!-- =========================================
+    THEME COLOR
+    ========================================= -->
+
+    <meta
+    name="theme-color"
+    content="#050505">
+
+    <!-- =========================================
+    CANONICAL URL
+    ========================================= -->
+
+    <link
+    rel="canonical"
+    href="https://yourdomain.com/trials.php">
+
+    <!-- =========================================
+    OPEN GRAPH SEO
+    ========================================= -->
+
+    <meta
+    property="og:title"
+    content="FSPL Cricket Trials 2026">
+
+    <meta
+    property="og:description"
+    content="Join FSPL Cricket Trials and get selected by elite cricket scouts and professional franchise teams.">
+
+    <meta
+    property="og:image"
+    content="https://yourdomain.com/assets/images/trial-banner.webp">
+
+    <meta
+    property="og:url"
+    content="https://yourdomain.com/trials.php">
+
+    <meta
+    property="og:type"
+    content="website">
+
+    <!-- =========================================
+    TWITTER SEO
+    ========================================= -->
+
+    <meta
+    name="twitter:card"
+    content="summary_large_image">
+
+    <meta
+    name="twitter:title"
+    content="FSPL Cricket Trials 2026">
+
+    <meta
+    name="twitter:description"
+    content="Participate in FSPL Trials and showcase your cricket talent professionally.">
+
+    <meta
+    name="twitter:image"
+    content="https://yourdomain.com/assets/images/trial-banner.webp">
+
+    <!-- =========================================
+    FAVICON
+    ========================================= -->
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="assets/images/favicon.png">
+
+    <!-- =========================================
+    GOOGLE FONTS
+    ========================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+    <!-- =========================================
+    TAILWIND CSS
+    ========================================= -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- =========================================
+    SCHEMA MARKUP SEO
+    ========================================= -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsEvent",
+      "name": "FSPL Cricket Trials 2026",
+      "description": "Official cricket trials organized by Future Star Premier League for emerging cricket talent in India.",
+      "sport": "Cricket",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "organizer": {
+        "@type": "SportsOrganization",
+        "name": "Future Star Premier League",
+        "url": "https://yourdomain.com"
+      }
+    }
+    </script>
+    <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+html,
+body{
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+    background:#050505;
+}
+</style>
+
+</head>
+<body>
 
 <?php include "components/navbar.php"; ?>
 
-<section class="relative overflow-hidden min-h-screen bg-[#050505] flex items-center py-10">
-
-    <!-- BACKGROUND -->
+<section class="relative overflow-hidden min-h-[100svh] bg-[#050505] flex items-center pt-0 lg:pt-0 px-4 sm:px-5">
 
     <div class="absolute inset-0">
 
@@ -41,7 +211,7 @@ FINAL PROFESSIONAL UI
     <!-- MAIN -->
 
     <div
-    class="relative z-10 max-w-6xl mx-auto px-5 lg:px-8 w-full pt-28 lg:pt-20">
+    class="relative z-10 max-w-6xl mx-auto lg:px-8 w-full">
 
         <div
         class="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-10 items-center">
@@ -50,12 +220,14 @@ FINAL PROFESSIONAL UI
                  LEFT CONTENT
             ========================================= -->
 
-            <div data-aos="fade-right">
+            <div
+                data-aos="fade-right"
+                class="px-1 sm:px-0 pt-4 sm:pt-0">
 
                 <!-- LABEL -->
 
                 <div
-                class="inline-flex items-center gap-2 border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl px-4 py-2 rounded-full">
+                class="inline-flex items-center gap-2 border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl px-3 sm:px-4 py-2 rounded-full">
 
                     <span
                     class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse">
@@ -64,7 +236,7 @@ FINAL PROFESSIONAL UI
                     <span
                     class="font-['Outfit']
                     uppercase
-                    tracking-[3px]
+                    tracking-[2px] sm:tracking-[3px]
                     text-[9px]
                     text-[#F5D76E]/90
                     font-medium">
@@ -78,14 +250,14 @@ FINAL PROFESSIONAL UI
                 <!-- HEADING -->
 
                 <h1
-                class="mt-7 font-['Cinzel']
+                class="mt-6 font-['Cinzel']
                 text-white
-                text-4xl
-                sm:text-[46px]
+                text-[30px]
+                sm:text-[42px]
                 lg:text-[58px]
-                leading-[0.95]
+                leading-[1.05]
                 font-bold
-                tracking-[-2px]
+                tracking-[-1px]
                 max-w-[700px]">
 
                     Elite Cricket
@@ -101,12 +273,14 @@ FINAL PROFESSIONAL UI
                 <!-- DESCRIPTION -->
 
                 <p
-                class="mt-5 max-w-[560px]
-                text-white/55
-                font-['Outfit']
-                text-[14px]
-                leading-[30px]
-                font-light">
+                    class="mt-5 max-w-[560px]
+                    text-white/60
+                    font-['Outfit']
+                    text-[15px]
+                    sm:text-[16px]
+                    leading-[28px]
+                    sm:leading-[32px]
+                    font-light">
 
                     Step into India’s premium cricket scouting platform and showcase your talent in front of professional selectors and elite mentors.
 
@@ -2640,3 +2814,5 @@ TAG STYLE
 </style>
 
 <?php include 'components/footer.php'; ?>
+</body>
+</html>

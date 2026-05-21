@@ -1,36 +1,195 @@
-<!-- =========================================
-FSPL CONTACT PAGE
-PREMIUM FINAL UI
-========================================= -->
-
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
+
+    <!-- =========================================
+    BASIC SEO
+    ========================================= -->
 
     <meta charset="UTF-8">
 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Contact Us - FSPL</title>
+    <!-- =========================================
+    PAGE TITLE
+    ========================================= -->
 
-    <!-- TAILWIND -->
+    <title>
+        Contact FSPL | Future Star Premier League Support
+    </title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- =========================================
+    META DESCRIPTION
+    ========================================= -->
 
-    <!-- GOOGLE FONTS -->
+    <meta
+    name="description"
+    content="Contact Future Star Premier League (FSPL) for cricket trials, player registration, tournament details, partnerships, and official support inquiries.">
+
+    <!-- =========================================
+    META KEYWORDS
+    ========================================= -->
+
+    <meta
+    name="keywords"
+    content="Contact FSPL, cricket support India, cricket trials contact, FSPL help, Future Star Premier League support, cricket registration help">
+
+    <!-- =========================================
+    AUTHOR
+    ========================================= -->
+
+    <meta
+    name="author"
+    content="Future Star Premier League">
+
+    <!-- =========================================
+    ROBOTS
+    ========================================= -->
+
+    <meta
+    name="robots"
+    content="index, follow">
+
+    <!-- =========================================
+    THEME COLOR
+    ========================================= -->
+
+    <meta
+    name="theme-color"
+    content="#050505">
+
+    <!-- =========================================
+    CANONICAL URL
+    ========================================= -->
+
+    <link
+    rel="canonical"
+    href="https://yourdomain.com/contact.php">
+
+    <!-- =========================================
+    OPEN GRAPH SEO
+    ========================================= -->
+
+    <meta
+    property="og:title"
+    content="Contact FSPL | Official Support">
+
+    <meta
+    property="og:description"
+    content="Get in touch with FSPL regarding cricket trials, player registration, tournaments, and partnerships.">
+
+    <meta
+    property="og:image"
+    content="https://yourdomain.com/assets/images/contact-banner.webp">
+
+    <meta
+    property="og:url"
+    content="https://yourdomain.com/contact.php">
+
+    <meta
+    property="og:type"
+    content="website">
+
+    <!-- =========================================
+    TWITTER SEO
+    ========================================= -->
+
+    <meta
+    name="twitter:card"
+    content="summary_large_image">
+
+    <meta
+    name="twitter:title"
+    content="Contact FSPL">
+
+    <meta
+    name="twitter:description"
+    content="Official contact page of Future Star Premier League.">
+
+    <meta
+    name="twitter:image"
+    content="https://yourdomain.com/assets/images/contact-banner.webp">
+
+    <!-- =========================================
+    FAVICON
+    ========================================= -->
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="assets/images/favicon.png">
+
+    <!-- =========================================
+    GOOGLE FONTS
+    ========================================= -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- AOS ANIMATION -->
-
     <link
-    rel="stylesheet"
-    href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+    <!-- =========================================
+    TAILWIND CSS
+    ========================================= -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- =========================================
+    SCHEMA MARKUP SEO
+    ========================================= -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "FSPL Contact Page",
+      "url": "https://yourdomain.com/contact.php",
+      "description": "Official contact and support page of Future Star Premier League.",
+      "publisher": {
+        "@type": "SportsOrganization",
+        "name": "Future Star Premier League",
+        "url": "https://yourdomain.com"
+      }
+    }
+    </script>
+
+    <!-- =========================================
+    GLOBAL STYLE
+    ========================================= -->
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#050505;
+            overflow-x:hidden;
+            font-family:'Outfit', sans-serif;
+        }
+
+        img{
+            image-rendering:auto;
+        }
+
+        input,
+        textarea,
+        button{
+            outline:none;
+            border:none;
+        }
+
+    </style>
 
 </head>
 

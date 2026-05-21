@@ -1,10 +1,194 @@
+<head>
+
+    <!-- =========================================
+    BASIC SEO
+    ========================================= -->
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- =========================================
+    PAGE TITLE
+    ========================================= -->
+
+    <title>
+        FSPL Players | Official Cricket Players & Rising Talent
+    </title>
+
+    <!-- =========================================
+    META DESCRIPTION
+    ========================================= -->
+
+    <meta
+    name="description"
+    content="Explore official FSPL cricket players, rising talent, player profiles, match statistics, achievements, and emerging cricket stars from across India.">
+
+    <!-- =========================================
+    META KEYWORDS
+    ========================================= -->
+
+    <meta
+    name="keywords"
+    content="FSPL Players, cricket players India, cricket talent, player profiles, cricket stars, Future Star Premier League, cricket statistics, cricket athletes">
+
+    <!-- =========================================
+    AUTHOR
+    ========================================= -->
+
+    <meta
+    name="author"
+    content="Future Star Premier League">
+
+    <!-- =========================================
+    ROBOTS
+    ========================================= -->
+
+    <meta
+    name="robots"
+    content="index, follow">
+
+    <!-- =========================================
+    THEME COLOR
+    ========================================= -->
+
+    <meta
+    name="theme-color"
+    content="#050505">
+
+    <!-- =========================================
+    CANONICAL URL
+    ========================================= -->
+
+    <link
+    rel="canonical"
+    href="https://yourdomain.com/players.php">
+
+    <!-- =========================================
+    OPEN GRAPH SEO
+    ========================================= -->
+
+    <meta
+    property="og:title"
+    content="FSPL Players | Rising Cricket Stars">
+
+    <meta
+    property="og:description"
+    content="Meet talented FSPL cricket players, future stars, and elite performers from across India.">
+
+    <meta
+    property="og:image"
+    content="https://yourdomain.com/assets/images/players-banner.webp">
+
+    <meta
+    property="og:url"
+    content="https://yourdomain.com/players.php">
+
+    <meta
+    property="og:type"
+    content="website">
+
+    <!-- =========================================
+    TWITTER SEO
+    ========================================= -->
+
+    <meta
+    name="twitter:card"
+    content="summary_large_image">
+
+    <meta
+    name="twitter:title"
+    content="FSPL Players">
+
+    <meta
+    name="twitter:description"
+    content="Explore official player profiles and cricket talent from FSPL.">
+
+    <meta
+    name="twitter:image"
+    content="https://yourdomain.com/assets/images/players-banner.webp">
+
+    <!-- =========================================
+    FAVICON
+    ========================================= -->
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="assets/images/favicon.png">
+
+    <!-- =========================================
+    GOOGLE FONTS
+    ========================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+    <!-- =========================================
+    TAILWIND CSS
+    ========================================= -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- =========================================
+    SCHEMA MARKUP SEO
+    ========================================= -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsOrganization",
+      "name": "Future Star Premier League",
+      "url": "https://yourdomain.com",
+      "sport": "Cricket",
+      "member": [
+        {
+          "@type": "Person",
+          "name": "FSPL Players"
+        }
+      ],
+      "description": "Official player profiles and cricket talent platform of FSPL."
+    }
+    </script>
+
+    <!-- =========================================
+    GLOBAL STYLE
+    ========================================= -->
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#050505;
+            overflow-x:hidden;
+            font-family:'Outfit', sans-serif;
+        }
+
+        img{
+            image-rendering:auto;
+        }
+
+    </style>
+
+</head>
+<body>
 <?php include 'components/navbar.php'; ?>
-
-<!-- =========================================
-FSPL PLAYERS HERO SECTION
-PREMIUM FINAL UI
-========================================= -->
-
 <section
 class="relative overflow-hidden bg-[#050505] min-h-screen flex items-center py-28">
 
@@ -2487,3 +2671,5 @@ class="relative overflow-hidden py-16 lg:py-24 bg-[#050505]">
 </section>
 
 <?php include 'components/footer.php'; ?>
+</body>
+</html>

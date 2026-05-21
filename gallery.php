@@ -1,6 +1,191 @@
-<!-- =========================================
-FSPL GALLERY HERO SECTION
-========================================= -->
+<head>
+
+    <!-- =========================================
+    BASIC SEO
+    ========================================= -->
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- =========================================
+    PAGE TITLE
+    ========================================= -->
+
+    <title>
+        FSPL Gallery | Cricket Match Photos & Tournament Moments
+    </title>
+
+    <!-- =========================================
+    META DESCRIPTION
+    ========================================= -->
+
+    <meta
+    name="description"
+    content="Explore the official FSPL Gallery featuring cricket trials, match highlights, player moments, team celebrations, and premium tournament experiences across India.">
+
+    <!-- =========================================
+    META KEYWORDS
+    ========================================= -->
+
+    <meta
+    name="keywords"
+    content="FSPL Gallery, cricket gallery, cricket tournament photos, cricket match highlights, FSPL moments, cricket trials India, cricket images">
+
+    <!-- =========================================
+    AUTHOR
+    ========================================= -->
+
+    <meta
+    name="author"
+    content="Future Star Premier League">
+
+    <!-- =========================================
+    ROBOTS
+    ========================================= -->
+
+    <meta
+    name="robots"
+    content="index, follow">
+
+    <!-- =========================================
+    THEME COLOR
+    ========================================= -->
+
+    <meta
+    name="theme-color"
+    content="#050505">
+
+    <!-- =========================================
+    CANONICAL URL
+    ========================================= -->
+
+    <link
+    rel="canonical"
+    href="https://yourdomain.com/gallery.php">
+
+    <!-- =========================================
+    OPEN GRAPH SEO
+    ========================================= -->
+
+    <meta
+    property="og:title"
+    content="FSPL Gallery | Match Moments & Cricket Highlights">
+
+    <meta
+    property="og:description"
+    content="Discover premium cricket moments, player highlights, and official FSPL tournament gallery images.">
+
+    <meta
+    property="og:image"
+    content="https://yourdomain.com/assets/images/gallery-banner.webp">
+
+    <meta
+    property="og:url"
+    content="https://yourdomain.com/gallery.php">
+
+    <meta
+    property="og:type"
+    content="website">
+
+    <!-- =========================================
+    TWITTER SEO
+    ========================================= -->
+
+    <meta
+    name="twitter:card"
+    content="summary_large_image">
+
+    <meta
+    name="twitter:title"
+    content="FSPL Gallery">
+
+    <meta
+    name="twitter:description"
+    content="Explore official FSPL cricket gallery moments and highlights.">
+
+    <meta
+    name="twitter:image"
+    content="https://yourdomain.com/assets/images/gallery-banner.webp">
+
+    <!-- =========================================
+    FAVICON
+    ========================================= -->
+
+    <link
+    rel="icon"
+    type="image/png"
+    href="assets/images/favicon.png">
+
+    <!-- =========================================
+    GOOGLE FONTS
+    ========================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+    <!-- =========================================
+    TAILWIND CSS
+    ========================================= -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- =========================================
+    SCHEMA MARKUP SEO
+    ========================================= -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "FSPL Gallery",
+      "description": "Official gallery of Future Star Premier League cricket tournaments and match moments.",
+      "url": "https://yourdomain.com/gallery.php",
+      "publisher": {
+        "@type": "SportsOrganization",
+        "name": "Future Star Premier League",
+        "url": "https://yourdomain.com"
+      }
+    }
+    </script>
+
+    <!-- =========================================
+    GLOBAL STYLE
+    ========================================= -->
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            background:#050505;
+            overflow-x:hidden;
+            font-family:'Outfit', sans-serif;
+        }
+
+        img{
+            image-rendering:auto;
+        }
+
+    </style>
+
+</head>
+<body>
 <?php include 'components/navbar.php'; ?>
 <section
 class="relative overflow-hidden bg-[#050505] min-h-screen flex items-center ">
@@ -1027,3 +1212,6 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
 </section>
 
 <?php include 'components/footer.php'; ?>
+
+</body>
+</html>

@@ -1,12 +1,116 @@
 <?php 
-
-
-include "components/navbar.php";
-
 include "admin/config/db_connect.php";
 
+$stmt= $conn->prepare("SELECT * FROM trials");
+$stmt->execute();
+$result = $stmt->get_result();
+
+$stmt= $conn->prepare("SELECT * FROM trials_player");
+$stmt->execute();
+$player_result = $stmt->get_result();
+$row = mysqli_fetch_assoc($player_result);
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic SEO -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Future Star Premier League (FSPL) | Cricket Tournament & Player Registration</title>
+
+    <!-- Meta Description -->
+    <meta name="description" content="Join Future Star Premier League (FSPL), India's emerging cricket platform for young cricket talent. Register now for cricket tournaments, player trials, and league updates.">
+
+    <!-- Keywords -->
+    <meta name="keywords" content="FSPL, Future Star Premier League, cricket tournament, cricket registration, cricket league India, young cricketers, cricket trials, cricket academy, player registration">
+
+    <!-- Author -->
+    <meta name="author" content="Future Star Premier League">
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourdomain.com/">
+
+    <!-- Open Graph SEO -->
+    <meta property="og:title" content="Future Star Premier League (FSPL)">
+    <meta property="og:description" content="India's emerging cricket league platform for young players. Register now for tournaments and trials.">
+    <meta property="og:image" content="https://yourdomain.com/assets/images/fspl-banner.jpg">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Future Star Premier League (FSPL)">
+    <meta name="twitter:description" content="Join FSPL and showcase your cricket talent.">
+    <meta name="twitter:image" content="https://yourdomain.com/assets/images/fspl-banner.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsOrganization",
+      "name": "Future Star Premier League",
+      "alternateName": "FSPL",
+      "url": "https://yourdomain.com",
+      "logo": "https://yourdomain.com/assets/images/logo.png",
+      "sameAs": [
+        "https://facebook.com/yourpage",
+        "https://instagram.com/yourpage",
+        "https://youtube.com/yourchannel"
+      ],
+      "description": "Future Star Premier League is a cricket platform for emerging cricket players in India.",
+      "sport": "Cricket"
+    }
+    </script>
+    <style>
+
+/* PREMIUM GOLD BORDER FIX */
+
+.border-white\/5{
+    border-color:rgba(212,175,55,0.08)!important;
+}
+
+.border-white\/10{
+    border-color:rgba(212,175,55,0.12)!important;
+}
+
+/* REMOVE UGLY WHITE LOOK */
+
+img,
+video,
+div,
+section{
+    outline:none;
+}
+
+/* CLEAN UI */
+
+body{
+    background:#050505;
+    overflow-x:hidden;
+}
+
+</style>
+
+</head>
+<body>
+<?php include 'components/navbar.php'; ?>
 <!-- HERO SECTION -->
 
 <!-- =========================================
@@ -128,7 +232,7 @@ class="group relative overflow-hidden h-[66px] px-10 rounded-full border border-
 
     <div class="relative flex items-center gap-4">
 
-<a href="<?php echo isset($_SESSION['user_id']) ? 'login.php' : 'register.php'; ?>">
+<a href="<?php echo isset($_SESSION['user_id']) ? 'dashboard.php' : 'register.php' ?>">
 
     <span
         class="font-['Cinzel']
@@ -138,7 +242,7 @@ class="group relative overflow-hidden h-[66px] px-10 rounded-full border border-
         font-bold
         text-[#F5D76E]">
 
-        <?php echo isset($_SESSION['user_id']) ? 'Login' : 'Register Now'; ?>
+        <?php echo isset($_SESSION['user_id']) ? 'Go to Dashboard' : 'Register Now'; ?>
 
     </span>
 
@@ -174,7 +278,7 @@ class="group relative overflow-hidden h-[66px] px-10 rounded-full border border-
                         class="group flex items-center gap-4">
 
                         <div
-                            class="w-14 h-14 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center group-hover:border-[#D4AF37]/40 transition">
+                            class="w-14 h-14 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center group-hover:border-[#D4AF37]/40 transition">
 
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-4 h-4 text-white"
@@ -216,7 +320,7 @@ RIGHT VISUAL
     <!-- VIDEO FRAME -->
 
     <div
-    class="relative z-10 w-full max-w-[650px] rounded-[36px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-2xl shadow-[0_40px_120px_rgba(0,0,0,0.9)]">
+    class="relative z-10 w-full max-w-[650px] rounded-[36px] overflow-hidden border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl shadow-[0_40px_120px_rgba(0,0,0,0.9)]">
 
         <!-- TOP LIGHT -->
 
@@ -376,7 +480,7 @@ WHY FSPL SECTION
             ========================================= -->
 
             <div
-            class="group relative overflow-hidden rounded-[36px] border border-white/5 bg-white/[0.03] backdrop-blur-2xl p-10 hover:border-[#D4AF37]/20 transition duration-500">
+            class="group relative overflow-hidden rounded-[36px] border border-[#D4AF37]/10 bg-white/[0.03] backdrop-blur-2xl p-10 hover:border-[#D4AF37]/20 transition duration-500">
 
                 <!-- TOP LIGHT -->
 
@@ -436,7 +540,7 @@ WHY FSPL SECTION
             ========================================= -->
 
             <div
-            class="group relative overflow-hidden rounded-[36px] border border-white/5 bg-white/[0.03] backdrop-blur-2xl p-10 hover:border-[#D4AF37]/20 transition duration-500">
+            class="group relative overflow-hidden rounded-[36px] border border-[#D4AF37]/10 bg-white/[0.03] backdrop-blur-2xl p-10 hover:border-[#D4AF37]/20 transition duration-500">
 
                 <!-- TOP LIGHT -->
 
@@ -496,7 +600,7 @@ WHY FSPL SECTION
             ========================================= -->
 
             <div
-            class="group relative overflow-hidden rounded-[36px] border border-white/5 bg-white/[0.03] backdrop-blur-2xl p-10 hover:border-[#D4AF37]/20 transition duration-500">
+            class="group relative overflow-hidden rounded-[36px] border border-[#D4AF37]/10 bg-white/[0.03] backdrop-blur-2xl p-10 hover:border-[#D4AF37]/20 transition duration-500">
 
                 <!-- TOP LIGHT -->
 
@@ -963,9 +1067,10 @@ UPCOMING TRIALS
              TRIAL CARDS
         ========================================= -->
 
+
         <div
         class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 lg:gap-6 mt-16 lg:mt-20">
-
+        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <!-- =========================================
                  CARD 1
             ========================================= -->
@@ -989,7 +1094,7 @@ UPCOMING TRIALS
                 leading-[1]
                 font-bold">
 
-                    Delhi
+                    <?php echo $row['trial_title'] ?>
 
                 </h3>
 
@@ -1016,7 +1121,7 @@ UPCOMING TRIALS
                         <p
                         class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
 
-                            18 June 2026
+                        <?php echo $row['trial_date'] ?>
 
                         </p>
 
@@ -1040,7 +1145,7 @@ UPCOMING TRIALS
                         <p
                         class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
 
-                            Under 16 • Under 19
+                            <?php echo $row['age_group'] ?>
 
                         </p>
 
@@ -1064,7 +1169,7 @@ UPCOMING TRIALS
                         <p
                         class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
 
-                            120 Players
+                            <?php echo $row['total_slots'] ?> Players
 
                         </p>
 
@@ -1073,7 +1178,7 @@ UPCOMING TRIALS
                 </div>
 
                 <!-- BUTTON -->
-
+                <a href="apply.php?user_id=<?php echo $row['user_id']; ?>">
                 <button
                 class="relative z-10 mt-6 w-full h-[46px] lg:h-[50px]
                 rounded-full border border-[#D4AF37]/15
@@ -1092,353 +1197,10 @@ UPCOMING TRIALS
                     Register Now
 
                 </button>
+                </a>
 
             </div>
-
-            <!-- =========================================
-                 CARD 2
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[30px] border border-white/5 bg-white/[0.03] backdrop-blur-2xl p-5 lg:p-6 hover:border-[#D4AF37]/20 transition duration-500">
-
-                <div
-                class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(212,175,55,0.08),transparent_35%)] opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <h3
-                class="relative z-10 font-['Cinzel']
-                text-white
-                text-[28px]
-                lg:text-[32px]
-                leading-[1]
-                font-bold">
-
-                    Mumbai
-
-                </h3>
-
-                <div
-                class="relative z-10 mt-6 space-y-4">
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Trial Date
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            25 June 2026
-
-                        </p>
-
-                    </div>
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Category
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            Under 14 • Under 19
-
-                        </p>
-
-                    </div>
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Limited Slots
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            150 Players
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <button
-                class="relative z-10 mt-6 w-full h-[46px] lg:h-[50px]
-                rounded-full border border-[#D4AF37]/15
-                bg-[#D4AF37]/5
-                text-[#F5D76E]
-                font-['Cinzel']
-                uppercase
-                tracking-[2px]
-                text-[10px]
-                lg:text-[11px]
-                font-bold
-                transition duration-300
-                hover:bg-[#D4AF37]
-                hover:text-black">
-
-                    Register Now
-
-                </button>
-
-            </div>
-
-            <!-- =========================================
-                 CARD 3
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[30px] border border-white/5 bg-white/[0.03] backdrop-blur-2xl p-5 lg:p-6 hover:border-[#D4AF37]/20 transition duration-500">
-
-                <div
-                class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(212,175,55,0.08),transparent_35%)] opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <h3
-                class="relative z-10 font-['Cinzel']
-                text-white
-                text-[28px]
-                lg:text-[32px]
-                leading-[1]
-                font-bold">
-
-                    Lucknow
-
-                </h3>
-
-                <div
-                class="relative z-10 mt-6 space-y-4">
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Trial Date
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            02 July 2026
-
-                        </p>
-
-                    </div>
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Category
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            Under 16 • Open
-
-                        </p>
-
-                    </div>
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Limited Slots
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            100 Players
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <button
-                class="relative z-10 mt-6 w-full h-[46px] lg:h-[50px]
-                rounded-full border border-[#D4AF37]/15
-                bg-[#D4AF37]/5
-                text-[#F5D76E]
-                font-['Cinzel']
-                uppercase
-                tracking-[2px]
-                text-[10px]
-                lg:text-[11px]
-                font-bold
-                transition duration-300
-                hover:bg-[#D4AF37]
-                hover:text-black">
-
-                    Register Now
-
-                </button>
-
-            </div>
-
-            <!-- =========================================
-                 CARD 4
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[30px] border border-white/5 bg-white/[0.03] backdrop-blur-2xl p-5 lg:p-6 hover:border-[#D4AF37]/20 transition duration-500">
-
-                <div
-                class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(212,175,55,0.08),transparent_35%)] opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <h3
-                class="relative z-10 font-['Cinzel']
-                text-white
-                text-[28px]
-                lg:text-[32px]
-                leading-[1]
-                font-bold">
-
-                    Jaipur
-
-                </h3>
-
-                <div
-                class="relative z-10 mt-6 space-y-4">
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Trial Date
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            10 July 2026
-
-                        </p>
-
-                    </div>
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Category
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            Under 15 • Open
-
-                        </p>
-
-                    </div>
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-['Outfit']">
-
-                            Limited Slots
-
-                        </span>
-
-                        <p
-                        class="mt-1 text-white/75 font-['Outfit'] text-[14px] lg:text-[15px]">
-
-                            130 Players
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <button
-                class="relative z-10 mt-6 w-full h-[46px] lg:h-[50px]
-                rounded-full border border-[#D4AF37]/15
-                bg-[#D4AF37]/5
-                text-[#F5D76E]
-                font-['Cinzel']
-                uppercase
-                tracking-[2px]
-                text-[10px]
-                lg:text-[11px]
-                font-bold
-                transition duration-300
-                hover:bg-[#D4AF37]
-                hover:text-black">
-
-                    Register Now
-
-                </button>
-
-            </div>
+            <?php } ?>
 
         </div>
 
@@ -2853,7 +2615,7 @@ MODERN FSPL CTA SECTION
 
         <div
         class="relative overflow-hidden rounded-[28px] lg:rounded-[34px]
-        border border-white/10
+        border border-[#D4AF37]/15
         bg-white/[0.03]
         backdrop-blur-3xl
         px-5 sm:px-8 lg:px-12
@@ -3174,3 +2936,6 @@ MODERN FSPL CTA SECTION
 </section>
 
 <?php include 'components/footer.php'; ?>
+
+</body>
+</html>
