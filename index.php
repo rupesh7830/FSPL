@@ -4,11 +4,6 @@ include "admin/config/db_connect.php";
 $stmt= $conn->prepare("SELECT * FROM trials");
 $stmt->execute();
 $result = $stmt->get_result();
-
-$stmt= $conn->prepare("SELECT * FROM trials_player");
-$stmt->execute();
-$player_result = $stmt->get_result();
-$row = mysqli_fetch_assoc($player_result);
 ?>
 
 <!DOCTYPE html>
@@ -1178,7 +1173,7 @@ UPCOMING TRIALS
                 </div>
 
                 <!-- BUTTON -->
-                <a href="apply.php?user_id=<?php echo $row['user_id']; ?>">
+                <a href="register.php?redirect=apply.php?trial_id=<?php echo $row['id']; ?>">
                 <button
                 class="relative z-10 mt-6 w-full h-[46px] lg:h-[50px]
                 rounded-full border border-[#D4AF37]/15

@@ -483,7 +483,7 @@ SIDEBAR
                 <!-- ITEM -->
 
                 <a
-                href="#"
+                href="dashboard.php"
                 class="flex items-center gap-4 h-[52px] px-5 rounded-2xl bg-[#D4AF37] text-black font-medium shadow-[0_0_30px_rgba(212,175,55,0.18)]">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5">

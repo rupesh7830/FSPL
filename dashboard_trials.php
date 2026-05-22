@@ -864,7 +864,7 @@ class="group rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur
             <!-- BUTTON -->
 
             <a
-            href="trial_apply.php?id=<?php echo $trial['id']; ?>"
+            href="apply.php?trial_id=<?php echo $trial['id']; ?>"
             class="h-[40px] px-5 rounded-xl bg-[#D4AF37] text-black flex items-center justify-center uppercase tracking-[2px] text-[9px] font-bold hover:scale-[1.02] transition duration-300">
 
                 Apply

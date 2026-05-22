@@ -2,35 +2,29 @@
 session_start();
 include "admin/config/db_connect.php";
 
-/* =========================================
+/* =========================
 CHECK LOGIN
-========================================= */
+========================= */
 
 if(!isset($_SESSION['user_id'])){
     header("Location: login.php");
     exit();
 }
 
-/* =========================================
-CHECK TRIAL ID
-========================================= */
-
+$user_id  = $_SESSION['user_id'];
 if(!isset($_GET['trial_id'])){
-    header("Location: index.php");
-    exit();
+
+    die("Trial not found");
+
 }
 
-$user_id  = intval($_SESSION['user_id']);
 $trial_id = intval($_GET['trial_id']);
 
-/* =========================================
+/* =========================
 FETCH USER
-========================================= */
+========================= */
 
-$user_stmt = $conn->prepare("
-SELECT * FROM trial_registrations WHERE id = ?
-");
-
+$user_stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
 $user_stmt->bind_param("i", $user_id);
 $user_stmt->execute();
 
@@ -42,9 +36,9 @@ if($user_result->num_rows === 0){
 
 $user = $user_result->fetch_assoc();
 
-/* =========================================
+/* =========================
 FETCH TRIAL
-========================================= */
+========================= */
 
 $trial_stmt = $conn->prepare("
 SELECT * FROM trials WHERE id = ? LIMIT 1
@@ -61,24 +55,24 @@ if($trial_result->num_rows === 0){
 
 $trial = $trial_result->fetch_assoc();
 
-/* =========================================
-CHECK ALREADY APPLIED
-========================================= */
+/* =========================
+CHECK APPLIED
+========================= */
 
 $check_stmt = $conn->prepare("
-SELECT id FROM trial_registrations
+SELECT id FROM trials_player
 WHERE trial_id = ?
 AND user_id = ?
 ");
 
-$check_stmt->bind_param("ii", $trial_id, $user_id);
+$check_stmt->bind_param("ii",$trial_id,$user_id);
 $check_stmt->execute();
 
 $already_applied = $check_stmt->get_result()->num_rows > 0;
 
-/* =========================================
+/* =========================
 FORM SUBMIT
-========================================= */
+========================= */
 
 $success = false;
 $error   = "";
@@ -93,69 +87,89 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $playing_role = trim($_POST['playing_role']);
 
-        $insert = $conn->prepare("
-        INSERT INTO trial_registrations
-        (
-            trial_id,
-            user_id,
-            full_name,
-            mobile,
-            email,
-            playing_role,
-            application_status,
-            payment_status,
-            created_at
-        )
-        VALUES
-        (
-            ?, ?, ?, ?, ?, ?, 'Pending', 'Pending', NOW()
-        )
-        ");
+            $insert = $conn->prepare("
+            INSERT INTO trials_player
+            (
+                trial_id,
+                user_id,
+                full_name,
+                mobile,
+                email,
+                playing_role,
+                application_status,
+                payment_status,
+                created_at
+            )
+            VALUES
+            (
+                ?, ?, ?, ?, ?, ?, 'Pending', 'Pending', NOW()
+            )
+            ");
 
-        $insert->bind_param(
-            "iissss",
-            $trial_id,
-            $user_id,
-            $user['name'],
-            $user['mobile'],
-            $user['email'],
-            $playing_role
-        );
+            $insert->bind_param(
+                "iissss",
+                $trial_id,
+                $user_id,
+                $user['full_name'],
+                $user['mobile'],
+                $user['email'],
+                $playing_role
+            );
 
-        if($insert->execute()){
+            if($insert->execute()){
 
-            $success = true;
+                header("Location: pay.php?trial_id=".$trial_id);
 
-        }else{
+                exit();
 
-            $error = "Something went wrong.";
+            }else{
 
-        }
+                $error = "Something went wrong.";
+            }
     }
 }
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FSPL Trial Registration</title>
+<title>
+<?php echo htmlspecialchars($trial['trial_title']); ?>
+- FSPL Registration
+</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-    background:#050505;
+
+    background:
+    radial-gradient(circle at top left,#3b2c00 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#2a1d00 0%,transparent 25%),
+    linear-gradient(135deg,#020202,#070707,#020202);
+
     font-family:'Outfit',sans-serif;
+
+    color:white;
+
     overflow-x:hidden;
 }
 
@@ -166,7 +180,141 @@ body{
 }
 
 ::-webkit-scrollbar-thumb{
+    background:linear-gradient(#D4AF37,#F5D76E);
+    border-radius:50px;
+}
+
+/* GLOW */
+
+.glow{
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    border-radius:50%;
+
+    filter:blur(150px);
+
+    opacity:.12;
+
+    z-index:0;
+}
+
+.glow-1{
     background:#D4AF37;
+    top:-250px;
+    left:-180px;
+}
+
+.glow-2{
+    background:#D4AF37;
+    bottom:-300px;
+    right:-200px;
+}
+
+/* GLASS */
+
+.glass{
+
+    position:relative;
+
+    background:rgba(255,255,255,0.04);
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    backdrop-filter:blur(24px);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+
+    overflow:hidden;
+}
+
+.glass::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:80%;
+    height:100%;
+
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.06),
+        transparent
+    );
+
+    transform:skewX(-20deg);
+
+    transition:1s;
+}
+
+.glass:hover::before{
+    left:130%;
+}
+
+/* TITLE */
+
+.main-title{
+
+    font-family:'Cinzel',serif;
+
+font-size:clamp(28px,4vw,56px);
+line-height:1.1;
+letter-spacing:-1px;
+}
+
+/* INFO CARD */
+
+.info-card{
+
+    background:rgba(255,255,255,0.03);
+
+    border:1px solid rgba(212,175,55,0.08);
+
+    border-radius:28px;
+
+    padding:28px;
+
+    transition:.35s;
+}
+
+.info-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:rgba(212,175,55,0.35);
+
+    box-shadow:
+    0 10px 35px rgba(212,175,55,0.15);
+}
+
+/* LABEL */
+
+.label{
+
+    display:block;
+
+    margin-bottom:12px;
+
+    color:#F5D76E;
+
+    font-size:11px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    font-weight:700;
 }
 
 /* INPUT */
@@ -174,19 +322,20 @@ body{
 .input{
 
     width:100%;
-    height:62px;
 
-    border-radius:22px;
+    height:64px;
 
-    border:1px solid rgba(212,175,55,0.08);
+    border-radius:20px;
 
-    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
 
-    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,0.04);
 
     padding:0 22px;
 
     color:white;
+
+    font-size:15px;
 
     outline:none;
 
@@ -195,412 +344,538 @@ body{
 
 .input:focus{
 
-    border-color:rgba(212,175,55,0.4);
+    border-color:#D4AF37;
 
-    box-shadow:0 0 0 4px rgba(212,175,55,0.05);
+    background:rgba(255,255,255,0.06);
+
+    box-shadow:
+    0 0 0 4px rgba(212,175,55,0.08),
+    0 10px 30px rgba(212,175,55,0.10);
 }
 
-.label{
+select.input{
+    appearance:none;
+    -webkit-appearance:none;
+}
 
-    display:block;
+select.input option{
+    background:#111;
+}
 
-    margin-bottom:14px;
+/* BUTTON */
 
-    color:#F5D76E;
+.primary-btn{
 
-    font-size:10px;
+    width:100%;
 
-    letter-spacing:3px;
+    height:68px;
+
+    border:none;
+
+    border-radius:22px;
+
+    background:
+    linear-gradient(135deg,#D4AF37,#F5D76E);
+
+    color:black;
+
+    font-size:12px;
+
+    letter-spacing:4px;
 
     text-transform:uppercase;
+
+    font-weight:800;
+
+    transition:.35s;
+
+    cursor:pointer;
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 15px 40px rgba(212,175,55,0.35);
+}
+
+/* ALERT */
+
+.success-box{
+
+    border:1px solid rgba(34,197,94,0.25);
+
+    background:rgba(34,197,94,0.08);
+
+    color:#86efac;
+
+    padding:20px;
+
+    border-radius:22px;
+}
+
+.error-box{
+
+    border:1px solid rgba(239,68,68,0.25);
+
+    background:rgba(239,68,68,0.08);
+
+    color:#fca5a5;
+
+    padding:20px;
+
+    border-radius:22px;
 }
 
 </style>
 
 </head>
+
 <body>
 
-<section class="relative min-h-screen overflow-hidden py-14 lg:py-20 px-5">
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
 
-    <!-- BG -->
+<section class="relative min-h-screen py-10 lg:py-0 px-4 sm:px-6 overflow-hidden">
 
-    <div class="absolute inset-0">
+<div class="relative z-10 max-w-7xl mx-auto">
 
-        <img
-        src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1800&auto=format&fit=crop"
-        class="w-full h-full object-cover opacity-[0.10]">
+<div class="relative text-center max-w-6xl mx-auto py-10">
 
-        <div class="absolute inset-0 bg-black/85"></div>
+    <!-- TOP BADGE -->
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.10),transparent_45%)]"></div>
+    <div class="inline-flex items-center gap-3 px-7 py-4 rounded-full border border-[#D4AF37]/20 bg-black/40 backdrop-blur-2xl shadow-[0_0_40px_rgba(212,175,55,0.08)]">
+
+        <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+
+        <span class="uppercase tracking-[5px] text-[11px] text-[#F5D76E] font-semibold">
+
+            FSPL Elite Registration
+
+        </span>
+
+        <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
 
     </div>
 
-    <!-- GOLD GLOW -->
+    <!-- BIG TITLE -->
 
-    <div class="absolute top-[-250px] left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-[#D4AF37]/10 blur-[170px] rounded-full"></div>
+    <div class="mt-10 relative">
 
-    <!-- MAIN -->
+        <h1 class="font-['Cinzel'] text-white text-[48px] sm:text-[72px] lg:text-[110px] leading-[0.9] font-black tracking-[-4px]">
 
-    <div class="relative z-10 max-w-7xl mx-auto">
+            Trial
 
-        <!-- TOP -->
+            <span class="block bg-gradient-to-b from-[#F5D76E] to-[#D4AF37] bg-clip-text text-transparent mt-2">
 
-        <div class="text-center">
-
-            <span class="inline-flex items-center gap-3 border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl px-6 py-3 rounded-full">
-
-                <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
-
-                <span class="uppercase tracking-[4px] text-[11px] text-[#F5D76E]">
-                    FSPL Elite Registration
-                </span>
+                Registration
 
             </span>
 
-            <h1 class="mt-8 font-['Cinzel'] text-white text-5xl lg:text-7xl font-bold leading-[0.95]">
+        </h1>
 
-                Trial
+        <!-- GOLD LINE -->
 
-                <span class="block text-[#D4AF37]">
-                    Registration
-                </span>
+        <div class="flex items-center justify-center gap-5 mt-8">
 
-            </h1>
+            <div class="w-28 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]"></div>
 
-        </div>
+            <div class="text-[#D4AF37] text-xl">
 
-        <!-- GRID -->
-
-        <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-8 mt-16">
-
-            <!-- LEFT -->
-
-            <div class="relative overflow-hidden rounded-[40px] border border-[#D4AF37]/10 bg-white/[0.03] backdrop-blur-2xl">
-
-                <!-- IMAGE -->
-
-                <div class="relative h-[320px] overflow-hidden">
-
-                    <img
-                    src="https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?q=80&w=1600&auto=format&fit=crop"
-                    class="w-full h-full object-cover">
-
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-
-                    <!-- LIVE -->
-
-                    <div class="absolute top-6 left-6">
-
-                        <span class="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-red-500/20 bg-black/40 backdrop-blur-xl">
-
-                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-
-                            <span class="uppercase tracking-[3px] text-[10px] text-white/80">
-                                Live Trial Registration
-                            </span>
-
-                        </span>
-
-                    </div>
-
-                    <!-- TITLE -->
-
-                    <div class="absolute bottom-8 left-8">
-
-                        <h2 class="font-['Cinzel'] text-white text-4xl lg:text-5xl font-bold leading-[1]">
-
-                            <?php echo htmlspecialchars($trial['trial_title']); ?>
-
-                        </h2>
-
-                    </div>
-
-                </div>
-
-                <!-- DETAILS -->
-
-                <div class="p-8 lg:p-10">
-
-                    <div class="grid sm:grid-cols-2 gap-6">
-
-                        <!-- CARD -->
-
-                        <div class="rounded-[26px] border border-[#D4AF37]/10 bg-black/30 p-6">
-
-                            <span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-                                Trial Date
-                            </span>
-
-                            <h3 class="mt-4 text-white text-2xl font-semibold">
-                                <?php echo htmlspecialchars($trial['trial_date']); ?>
-                            </h3>
-
-                        </div>
-
-                        <!-- CARD -->
-
-                        <div class="rounded-[26px] border border-[#D4AF37]/10 bg-black/30 p-6">
-
-                            <span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-                                Entry Fee
-                            </span>
-
-                            <h3 class="mt-4 text-[#F5D76E] text-3xl font-bold">
-                                ₹<?php echo htmlspecialchars($trial['entry_fee']); ?>
-                            </h3>
-
-                        </div>
-
-                        <!-- CARD -->
-
-                        <div class="rounded-[26px] border border-[#D4AF37]/10 bg-black/30 p-6">
-
-                            <span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-                                Venue
-                            </span>
-
-                            <h3 class="mt-4 text-white text-xl leading-[1.5]">
-                                <?php echo htmlspecialchars($trial['ground_name']); ?>
-                            </h3>
-
-                        </div>
-
-                        <!-- CARD -->
-
-                        <div class="rounded-[26px] border border-[#D4AF37]/10 bg-black/30 p-6">
-
-                            <span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-                                Location
-                            </span>
-
-                            <h3 class="mt-4 text-white text-xl">
-                                <?php echo htmlspecialchars($trial['city']); ?>,
-                                <?php echo htmlspecialchars($trial['state']); ?>
-                            </h3>
-
-                        </div>
-
-                    </div>
-
-                    <!-- DESCRIPTION -->
-
-                    <div class="mt-8 rounded-[30px] border border-[#D4AF37]/10 bg-black/30 p-7">
-
-                        <span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-                            About Trial
-                        </span>
-
-                        <p class="mt-5 text-white/60 leading-[34px]">
-
-                            <?php echo htmlspecialchars($trial['description']); ?>
-
-                        </p>
-
-                    </div>
-
-                </div>
+                👑
 
             </div>
 
-            <!-- RIGHT -->
+            <div class="w-28 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]"></div>
 
-            <div class="relative overflow-hidden rounded-[40px] border border-[#D4AF37]/10 bg-white/[0.03] backdrop-blur-2xl p-8 lg:p-10">
+        </div>
 
-                <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(212,175,55,0.08),transparent_40%)]"></div>
+        <!-- DESCRIPTION -->
 
-                <div class="relative z-10">
+        <p class="max-w-3xl mx-auto mt-8 text-white/60 text-[15px] sm:text-[17px] leading-[34px] font-light">
 
-                    <!-- PROFILE -->
+            Take the first step towards your professional cricket journey with
+            Future Star Premier League and showcase your talent on a premium platform.
 
-                    <div class="flex items-center gap-5 pb-8 border-b border-[#D4AF37]/10">
+        </p>
 
-                        <!-- IMAGE -->
+    </div>
 
-                        <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-[#D4AF37]/20">
+    <!-- FEATURE BOXES -->
 
-                            <img
-                            src="https://ui-avatars.com/api/?name=<?php echo urlencode($user['name']); ?>&background=000000&color=D4AF37&size=200"
-                            class="w-full h-full object-cover">
+    <div class="grid md:grid-cols-3 gap-5 mt-14">
 
-                        </div>
+        <!-- CARD -->
 
-                        <!-- INFO -->
+        <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/30 transition duration-500">
 
-                        <div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
 
-                            <h2 class="font-['Cinzel'] text-white text-2xl font-bold">
+            <div class="relative">
 
-                                <?php echo htmlspecialchars($user['name']); ?>
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
 
-                            </h2>
-
-                            <p class="mt-2 text-[#F5D76E] uppercase tracking-[3px] text-[10px]">
-
-                                Verified FSPL Player
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <!-- ALERT -->
-
-                    <?php if($success): ?>
-
-                        <div class="mt-8 rounded-[24px] border border-green-500/20 bg-green-500/10 p-5">
-
-                            <p class="text-green-300 leading-[30px]">
-
-                                Your registration has been submitted successfully.
-
-                            </p>
-
-                        </div>
-
-                    <?php endif; ?>
-
-                    <?php if(!empty($error)): ?>
-
-                        <div class="mt-8 rounded-[24px] border border-red-500/20 bg-red-500/10 p-5">
-
-                            <p class="text-red-300 leading-[30px]">
-
-                                <?php echo $error; ?>
-
-                            </p>
-
-                        </div>
-
-                    <?php endif; ?>
-
-                    <!-- FORM -->
-
-                    <form method="POST" class="mt-10 space-y-7">
-
-                        <!-- NAME -->
-
-                        <div>
-
-                            <label class="label">
-                                Full Name
-                            </label>
-
-                            <input
-                            type="text"
-                            class="input"
-                            value="<?php echo htmlspecialchars($user['name']); ?>"
-                            readonly>
-
-                        </div>
-
-                        <!-- MOBILE -->
-
-                        <div>
-
-                            <label class="label">
-                                Mobile Number
-                            </label>
-
-                            <input
-                            type="text"
-                            class="input"
-                            value="<?php echo htmlspecialchars($user['mobile']); ?>"
-                            readonly>
-
-                        </div>
-
-                        <!-- EMAIL -->
-
-                        <div>
-
-                            <label class="label">
-                                Email Address
-                            </label>
-
-                            <input
-                            type="email"
-                            class="input"
-                            value="<?php echo htmlspecialchars($user['email']); ?>"
-                            readonly>
-
-                        </div>
-
-                        <!-- ROLE -->
-
-                        <div>
-
-                            <label class="label">
-                                Playing Role
-                            </label>
-
-                            <select
-                            name="playing_role"
-                            required
-                            class="input">
-
-                                <option value="">
-                                    Select Playing Role
-                                </option>
-
-                                <option value="Batsman">
-                                    Batsman
-                                </option>
-
-                                <option value="Bowler">
-                                    Bowler
-                                </option>
-
-                                <option value="All-Rounder">
-                                    All-Rounder
-                                </option>
-
-                                <option value="Wicket Keeper">
-                                    Wicket Keeper
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                        <!-- BUTTON -->
-
-                        <?php if($already_applied): ?>
-
-                            <button
-                            type="button"
-                            class="w-full h-[64px] rounded-full bg-white/10 text-white/50 uppercase tracking-[4px] text-[11px] font-bold cursor-not-allowed">
-
-                                Already Applied
-
-                            </button>
-
-                        <?php else: ?>
-
-                            <button
-                            type="submit"
-                            class="group relative overflow-hidden w-full h-[64px] rounded-full bg-[#D4AF37] text-black uppercase tracking-[4px] text-[11px] font-bold transition duration-500 hover:scale-[1.02]">
-
-                                <span class="relative z-10">
-
-                                    Apply For Trial
-
-                                </span>
-
-                            </button>
-
-                        <?php endif; ?>
-
-                    </form>
+                    🛡️
 
                 </div>
+
+                <h3 class="mt-5 font-semibold text-xl">
+
+                    Verified Trials
+
+                </h3>
+
+                <p class="mt-3 text-white/45 leading-[28px] text-sm">
+
+                    All cricket trials are verified and professionally managed by FSPL.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CARD -->
+
+        <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/30 transition duration-500">
+
+            <div class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
+            <div class="relative">
+
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
+
+                    🏏
+
+                </div>
+
+                <h3 class="mt-5 font-semibold text-xl">
+
+                    Professional Platform
+
+                </h3>
+
+                <p class="mt-3 text-white/45 leading-[28px] text-sm">
+
+                    Get opportunities to perform in front of selectors and coaches.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CARD -->
+
+        <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/30 transition duration-500">
+
+            <div class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
+            <div class="relative">
+
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
+
+                    🏆
+
+                </div>
+
+                <h3 class="mt-5 font-semibold text-xl">
+
+                    Build Your Career
+
+                </h3>
+
+                <p class="mt-3 text-white/45 leading-[28px] text-sm">
+
+                    Showcase your cricket skills and grow your professional journey.
+
+                </p>
 
             </div>
 
         </div>
 
     </div>
+
+</div>
+
+<div class="grid xl:grid-cols-[1.15fr_.85fr] gap-8 mt-14">
+
+<!-- LEFT -->
+
+<div class="glass rounded-[36px] overflow-hidden">
+
+<div class="relative h-[300px] lg:h-[420px] overflow-hidden">
+
+<img
+src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1800&auto=format&fit=crop"
+class="w-full h-full object-cover scale-105">
+
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+
+<div class="absolute bottom-8 left-8">
+
+<h2 class="font-['Cinzel'] text-3xl lg:text-5xl font-bold leading-tight tracking-[-1px]">
+
+<?php echo htmlspecialchars($trial['trial_title']); ?>
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="p-6 sm:p-8 lg:p-10">
+
+<div class="grid sm:grid-cols-2 gap-5">
+
+<div class="info-card">
+
+<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
+Trial Date
+</span>
+
+<h3 class="mt-4 text-2xl font-semibold">
+
+<?php echo htmlspecialchars($trial['trial_date']); ?>
+
+</h3>
+
+</div>
+
+<div class="info-card">
+
+<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
+Entry Fee
+</span>
+
+<h3 class="mt-4 text-[#F5D76E] text-4xl font-bold">
+
+₹<?php echo htmlspecialchars($trial['entry_fee']); ?>
+
+</h3>
+
+</div>
+
+<div class="info-card">
+
+<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
+Venue
+</span>
+
+<h3 class="mt-4 text-xl">
+
+<?php echo htmlspecialchars($trial['ground_name']); ?>
+
+</h3>
+
+</div>
+
+<div class="info-card">
+
+<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
+Location
+</span>
+
+<h3 class="mt-4 text-xl">
+
+<?php echo htmlspecialchars($trial['city']); ?>,
+
+<?php echo htmlspecialchars($trial['state']); ?>
+
+</h3>
+
+</div>
+
+</div>
+
+<div class="info-card mt-6">
+
+<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
+About Trial
+</span>
+
+<p class="mt-5 text-white/70 leading-[34px]">
+
+<?php echo nl2br(htmlspecialchars($trial['description'])); ?>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="glass rounded-[36px] p-6 sm:p-8 lg:p-10 h-fit sticky top-6">
+
+<div class="flex items-center gap-5 pb-8 border-b border-[#D4AF37]/10">
+
+<div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#D4AF37] to-[#F5D76E] flex items-center justify-center text-black text-2xl font-bold">
+
+<?php echo strtoupper(substr($user['full_name'],0,1)); ?>
+
+</div>
+
+<div>
+
+<h2 class="font-['Cinzel'] text-3xl font-bold">
+
+<?php echo htmlspecialchars($user['full_name']); ?>
+
+</h2>
+
+<p class="mt-2 text-[#F5D76E] uppercase tracking-[3px] text-[10px]">
+
+Verified FSPL Player
+
+</p>
+
+</div>
+
+</div>
+
+<?php if($success): ?>
+
+<div class="success-box mt-8">
+
+Registration submitted successfully.
+
+</div>
+
+<?php endif; ?>
+
+<?php if(!empty($error)): ?>
+
+<div class="error-box mt-8">
+
+<?php echo $error; ?>
+
+</div>
+
+<?php endif; ?>
+
+<form method="POST" class="mt-8 space-y-6">
+
+<div>
+
+<label class="label">
+Full Name
+</label>
+
+<input
+type="text"
+class="input"
+value="<?php echo htmlspecialchars($user['full_name']); ?>"
+readonly>
+
+</div>
+
+<div>
+
+<label class="label">
+Mobile Number
+</label>
+
+<input
+type="text"
+class="input"
+value="<?php echo htmlspecialchars($user['mobile']); ?>"
+readonly>
+
+</div>
+
+<div>
+
+<label class="label">
+Email Address
+</label>
+
+<input
+type="email"
+class="input"
+value="<?php echo htmlspecialchars($user['email']); ?>"
+readonly>
+
+</div>
+
+<div>
+
+<label class="label">
+Playing Role
+</label>
+
+<div class="relative">
+
+<select
+name="playing_role"
+required
+class="input pr-14">
+
+<option value="" disabled selected>
+Select Playing Role
+</option>
+
+<option value="Batsman">
+Batsman
+</option>
+
+<option value="Bowler">
+Bowler
+</option>
+
+<option value="All-Rounder">
+All-Rounder
+</option>
+
+<option value="Wicket Keeper">
+Wicket Keeper
+</option>
+
+</select>
+
+<div class="absolute right-5 top-1/2 -translate-y-1/2 text-[#D4AF37]">
+
+▼
+
+</div>
+
+</div>
+
+</div>
+
+<?php if($already_applied): ?>
+
+<button
+type="button"
+class="w-full h-[68px] rounded-[22px] bg-white/10 text-white/40 uppercase tracking-[4px] text-[11px] font-bold cursor-not-allowed">
+
+Already Applied
+
+</button>
+
+<?php else: ?>
+
+<button
+type="submit"
+class="primary-btn">
+
+Apply For Trial
+
+</button>
+
+<?php endif; ?>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 

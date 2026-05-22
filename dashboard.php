@@ -56,39 +56,45 @@ if(isset($_POST['apply_trial'])){
 
     }else{
 
-        // INSERT
-
         mysqli_query($conn,"
-        INSERT INTO trials_player
-        (
-            trial_id,
-            user_id,
-            full_name,
-            mobile,
-            email,
-            playing_role
-        )
-        VALUES
-        (
-            '$trial_id',
-            '$user_id',
-            '$full_name',
-            '$phone',
-            '$email',
-            '$playing_role'
-        )
-        ");
+            INSERT INTO trials_player
+            (
+                trial_id,
+                user_id,
+                full_name,
+                mobile,
+                email,
+                playing_role,
+                application_status,
+                payment_status,
+                created_at
+            )
+            VALUES
+            (
+                '$trial_id',
+                '$user_id',
+                '$full_name',
+                '$phone',
+                '$email',
+                '$playing_role',
+                'Pending',
+                'Pending',
+                NOW()
+            )
+            ");
 
-        // UPDATE REGISTERED PLAYERS
+            /* UPDATE PLAYERS */
 
-        mysqli_query($conn,"
-        UPDATE trials
-        SET registered_players = registered_players + 1
-        WHERE id='$trial_id'
-        ");
+            mysqli_query($conn,"
+            UPDATE trials
+            SET registered_players = registered_players + 1
+            WHERE id='$trial_id'
+            ");
 
-        header("Location:pay.php");
+            /* REDIRECT */
 
+            header("Location: pay.php?trial_id=$trial_id");
+            exit();
     }
 
 }
@@ -631,7 +637,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
 
             <!-- STATS -->
 
-            <div class="grid grid-cols-2 xl:grid-co
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-5 mt-8">
 
                 <!-- CARD -->
 
@@ -887,24 +893,20 @@ if(mysqli_num_rows($trial_query) > 0){
 
             <!-- BUTTON -->
 
-            <button
-            onclick="openTrialModal(
-            '<?php echo $row['id']; ?>',
-            '<?php echo $row['trial_title']; ?>',
-            '<?php echo date('d M Y',strtotime($row['trial_date'])); ?>'
-            )"
-            class="group relative overflow-hidden flex items-center justify-center w-full h-[48px] rounded-2xl bg-[#D4AF37] mt-6 shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:scale-[1.02] transition duration-500">
+                <a
+                href="apply.php?trial_id=<?php echo $row['id']; ?>"
+                class="group relative overflow-hidden flex items-center justify-center w-full h-[48px] rounded-2xl bg-[#D4AF37] mt-6 shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:scale-[1.02] transition duration-500">
 
-                <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition duration-1000"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition duration-1000"></div>
 
-                <span
-                class="relative uppercase tracking-[2px] text-[9px] font-bold text-black">
+                    <span
+                    class="relative uppercase tracking-[2px] text-[9px] font-bold text-black">
 
-                    Apply Now
+                        Apply Now
 
-                </span>
+                    </span>
 
-            </button>
+                </a>
 
         </div>
 
@@ -1050,35 +1052,7 @@ class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-whit
     </div>
 
 </div>
-
-<!-- SCRIPT -->
-
-<script>
-
-function openTrialModal(id,title,date){
-
-    document.getElementById('trialModal').classList.remove('hidden');
-
-    document.getElementById('trialModal').classList.add('flex');
-
-    document.getElementById('trialTitle').innerText = title;
-
-    document.getElementById('trialDate').innerText = date;
-
-    document.getElementById('modalTrialId').value = id;
-
-}
-
-function closeTrialModal(){
-
-    document.getElementById('trialModal').classList.add('hidden');
-
-    document.getElementById('trialModal').classList.remove('flex');
-
-}
-
-</script>
-        </div>
+ </div>
 
     </main>
 

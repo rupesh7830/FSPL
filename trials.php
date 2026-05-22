@@ -1,8 +1,49 @@
-<head>
+<?php 
+session_start();
+include "admin/config/db_connect.php";
 
-    <!-- =========================================
-    BASIC SEO
-    ========================================= -->
+/* UPCOMING */
+$status = "Upcoming";
+
+$stmt = $conn->prepare("
+SELECT *
+FROM trials
+WHERE status = ?
+AND trial_date >= CURDATE()
+ORDER BY trial_date ASC
+LIMIT 1
+");
+
+$stmt->bind_param("s", $status);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+$trial = $result->fetch_assoc();
+
+
+
+$page = 1;
+
+$limit = 3;
+
+$offset = ($page - 1) * $limit;
+
+$stmt = $conn->prepare("
+SELECT *
+FROM trials
+LIMIT ?, ?
+");
+
+$stmt->bind_param("ii", $offset, $limit);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+?>
+
+<head>
 
     <meta charset="UTF-8">
 
@@ -533,7 +574,6 @@ body{
             <!-- =========================================
                  RIGHT FLOATING CARD
             ========================================= -->
-
             <div
             class="hidden xl:block"
             data-aos="fade-left">
@@ -550,7 +590,8 @@ body{
                 hover:border-[#D4AF37]/30
                 transition duration-700">
 
-                    <!-- GOLD LIGHT -->
+                    <!-- GOLD LIGHT --> 
+
 
                     <div
                     class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent">
@@ -581,7 +622,7 @@ body{
                                 leading-[1.1]
                                 font-bold">
 
-                                    Aligarh
+                                        <?php echo $trial['trial_title']; ?>
 
                                 </h3>
 
@@ -598,14 +639,14 @@ body{
                                 text-2xl
                                 font-bold">
 
-                                    18
+                                    <?php echo date('d', strtotime($trial['trial_date'])); ?>
 
                                 </span>
 
                                 <span
                                 class="mt-1 text-white/45 text-[8px] uppercase tracking-[2px]">
 
-                                    April
+                                    <?php echo date('M', strtotime($trial['trial_date'])); ?>
 
                                 </span>
 
@@ -632,7 +673,7 @@ body{
                                 <span
                                 class="text-white text-[12px]">
 
-                                    FSPL Cricket Ground
+                                    <?php echo $trial['ground_name']; ?>
 
                                 </span>
 
@@ -653,7 +694,7 @@ body{
                                 <span
                                 class="text-[#D4AF37] text-[12px] font-medium">
 
-                                    48 Remaining
+                                    <?php echo $trial['total_slots']; ?> Remaining
 
                                 </span>
 
@@ -684,8 +725,7 @@ body{
 
                         <!-- BUTTON -->
 
-                        <a
-                        href="register.php"
+                        <a href="register.php?redirect=apply.php?trial_id=<?php echo $trial['id']; ?>"
                         class="group relative overflow-hidden flex items-center justify-center w-full h-[46px] rounded-xl bg-[#D4AF37] mt-7 shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:scale-[1.02] transition duration-500">
 
                             <!-- SHINE -->
@@ -712,7 +752,7 @@ body{
 
                     </div>
 
-                </div>
+                </div>          
 
             </div>
 
@@ -906,6 +946,8 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                  CARD 1
             ========================================= -->
 
+             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+
             <div
             class="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-6 lg:p-7 hover:border-[#D4AF37]/20 transition duration-500">
 
@@ -927,7 +969,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         <span
                         class="text-[#D4AF37]/80 uppercase tracking-[3px] text-[10px] font-['Outfit']">
 
-                            Uttar Pradesh
+                         <?php echo $row['trial_title'] ?>
 
                         </span>
 
@@ -938,7 +980,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         leading-[1.1]
                         font-bold">
 
-                            Aligarh
+                            <?php echo $row['state'] ?>
 
                         </h3>
 
@@ -955,14 +997,14 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         text-3xl
                         font-bold">
 
-                            18
+                            <?php echo date('d', strtotime($trial['trial_date'])); ?>
 
                         </span>
 
                         <span
                         class="mt-1 text-white/45 text-[10px] uppercase tracking-[3px]">
 
-                            April
+                            <?php echo date('M', strtotime($trial['trial_date'])); ?>
 
                         </span>
 
@@ -989,7 +1031,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         <span
                         class="text-white text-[14px]">
 
-                            FSPL Cricket Ground
+                            <?php echo $row['ground_name'] ?>
 
                         </span>
 
@@ -1010,7 +1052,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         <span
                         class="text-[#D4AF37] text-[14px] font-medium">
 
-                            ₹799
+                            ₹<?php echo $row['entry_fee'] ?>
 
                         </span>
 
@@ -1031,7 +1073,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         <span
                         class="text-white text-[14px]">
 
-                            48 Remaining
+                            <?php echo $row['total_slots'] ?> Remaining
 
                         </span>
 
@@ -1052,7 +1094,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         <span
                         class="text-white text-[14px]">
 
-                            Open Selection
+                            <?php echo $row['status'] ?> Selection
 
                         </span>
 
@@ -1062,8 +1104,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
 
                 <!-- BUTTON -->
 
-                <a
-                href="register.php"
+                <a href="register.php?redirect=apply.php?trial_id=<?php echo $row['id']; ?>"
                 class="group/btn relative overflow-hidden flex items-center justify-center w-full h-[56px] rounded-2xl bg-[#D4AF37] mt-10 shadow-[0_0_35px_rgba(212,175,55,0.18)]">
 
                     <!-- SHINE -->
@@ -1090,355 +1131,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
 
             </div>
 
-
-            <!-- =========================================
-                 CARD 2
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-6 lg:p-7 hover:border-[#D4AF37]/20 transition duration-500">
-
-                <!-- LIGHT -->
-
-                <div
-                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <!-- TOP -->
-
-                <div
-                class="relative flex items-start justify-between gap-5">
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]/80 uppercase tracking-[3px] text-[10px] font-['Outfit']">
-
-                            Uttar Pradesh
-
-                        </span>
-
-                        <h3
-                        class="mt-3 font-['Cinzel']
-                        text-white
-                        text-3xl
-                        leading-[1.1]
-                        font-bold">
-
-                            Lucknow
-
-                        </h3>
-
-                    </div>
-
-                    <!-- DATE -->
-
-                    <div
-                    class="w-[88px] h-[88px] rounded-3xl border border-[#D4AF37]/15 bg-[#D4AF37]/5 flex flex-col items-center justify-center shrink-0">
-
-                        <span
-                        class="font-['Cinzel']
-                        text-[#D4AF37]
-                        text-3xl
-                        font-bold">
-
-                            24
-
-                        </span>
-
-                        <span
-                        class="mt-1 text-white/45 text-[10px] uppercase tracking-[3px]">
-
-                            April
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- DETAILS -->
-
-                <div class="relative space-y-5 mt-10">
-
-                    <div
-                    class="flex items-center justify-between border-b border-white/5 pb-4">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Venue
-
-                        </span>
-
-                        <span
-                        class="text-white text-[14px]">
-
-                            Green Park Stadium
-
-                        </span>
-
-                    </div>
-
-                    <div
-                    class="flex items-center justify-between border-b border-white/5 pb-4">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Registration Fee
-
-                        </span>
-
-                        <span
-                        class="text-[#D4AF37] text-[14px] font-medium">
-
-                            ₹799
-
-                        </span>
-
-                    </div>
-
-                    <div
-                    class="flex items-center justify-between border-b border-white/5 pb-4">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Slots Left
-
-                        </span>
-
-                        <span
-                        class="text-white text-[14px]">
-
-                            32 Remaining
-
-                        </span>
-
-                    </div>
-
-                    <div
-                    class="flex items-center justify-between">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Trial Type
-
-                        </span>
-
-                        <span
-                        class="text-white text-[14px]">
-
-                            Open Selection
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- BUTTON -->
-
-                <a
-                href="register.php"
-                class="group/btn relative overflow-hidden flex items-center justify-center w-full h-[56px] rounded-2xl bg-[#D4AF37] mt-10 shadow-[0_0_35px_rgba(212,175,55,0.18)]">
-
-                    <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition duration-1000">
-                    </div>
-
-                    <span
-                    class="relative font-['Cinzel']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-bold
-                    text-black">
-
-                        Reserve Slot
-
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- =========================================
-                 CARD 3
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-6 lg:p-7 hover:border-[#D4AF37]/20 transition duration-500">
-
-                <!-- LIGHT -->
-
-                <div
-                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <!-- TOP -->
-
-                <div
-                class="relative flex items-start justify-between gap-5">
-
-                    <div>
-
-                        <span
-                        class="text-[#D4AF37]/80 uppercase tracking-[3px] text-[10px] font-['Outfit']">
-
-                            Delhi NCR
-
-                        </span>
-
-                        <h3
-                        class="mt-3 font-['Cinzel']
-                        text-white
-                        text-3xl
-                        leading-[1.1]
-                        font-bold">
-
-                            New Delhi
-
-                        </h3>
-
-                    </div>
-
-                    <!-- DATE -->
-
-                    <div
-                    class="w-[88px] h-[88px] rounded-3xl border border-[#D4AF37]/15 bg-[#D4AF37]/5 flex flex-col items-center justify-center shrink-0">
-
-                        <span
-                        class="font-['Cinzel']
-                        text-[#D4AF37]
-                        text-3xl
-                        font-bold">
-
-                            30
-
-                        </span>
-
-                        <span
-                        class="mt-1 text-white/45 text-[10px] uppercase tracking-[3px]">
-
-                            April
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- DETAILS -->
-
-                <div class="relative space-y-5 mt-10">
-
-                    <div
-                    class="flex items-center justify-between border-b border-white/5 pb-4">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Venue
-
-                        </span>
-
-                        <span
-                        class="text-white text-[14px]">
-
-                            National Sports Arena
-
-                        </span>
-
-                    </div>
-
-                    <div
-                    class="flex items-center justify-between border-b border-white/5 pb-4">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Registration Fee
-
-                        </span>
-
-                        <span
-                        class="text-[#D4AF37] text-[14px] font-medium">
-
-                            ₹999
-
-                        </span>
-
-                    </div>
-
-                    <div
-                    class="flex items-center justify-between border-b border-white/5 pb-4">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Slots Left
-
-                        </span>
-
-                        <span
-                        class="text-white text-[14px]">
-
-                            21 Remaining
-
-                        </span>
-
-                    </div>
-
-                    <div
-                    class="flex items-center justify-between">
-
-                        <span
-                        class="text-white/45 uppercase tracking-[2px] text-[10px]">
-
-                            Trial Type
-
-                        </span>
-
-                        <span
-                        class="text-white text-[14px]">
-
-                            Elite Selection
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- BUTTON -->
-
-                <a
-                href="register.php"
-                class="group/btn relative overflow-hidden flex items-center justify-center w-full h-[56px] rounded-2xl bg-[#D4AF37] mt-10 shadow-[0_0_35px_rgba(212,175,55,0.18)]">
-
-                    <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition duration-1000">
-                    </div>
-
-                    <span
-                    class="relative font-['Cinzel']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-bold
-                    text-black">
-
-                        Reserve Slot
-
-                    </span>
-
-                </a>
-
-            </div>
+            <?php } ?>
 
         </div>
 
@@ -1450,49 +1143,33 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
 TRIAL CATEGORIES SECTION
 CLEAN PREMIUM 4 CARDS UI
 ========================================= -->
+<section class="relative overflow-hidden py-16 lg:py-0 bg-[#050505]">
 
-<section
-class="relative overflow-hidden py-20 lg:py-28 bg-[#050505]">
+    <!-- PREMIUM GLOW -->
 
-    <!-- =========================================
-         GOLD GLOW
-    ========================================= -->
+    <div class="absolute bottom-[-250px] left-[-150px] w-[650px] h-[650px] bg-[#D4AF37]/5 blur-[180px] rounded-full"></div>
 
-    <div
-    class="absolute bottom-[-250px] left-[-150px] w-[650px] h-[650px] bg-[#D4AF37]/5 blur-[180px] rounded-full">
-    </div>
+    <div class="absolute top-[-250px] right-[-120px] w-[500px] h-[500px] bg-[#D4AF37]/5 blur-[160px] rounded-full"></div>
 
-    <!-- =========================================
-         MAIN WRAPPER
-    ========================================= -->
+    <!-- MAIN CONTAINER -->
 
-    <div
-    class="relative z-10 max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- =========================================
-             SECTION HEADER
-        ========================================= -->
+        <!-- HEADER -->
 
-        <div
-        class="text-center max-w-4xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto">
 
             <!-- LABEL -->
 
-            <div
-            class="inline-flex items-center gap-3 border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl px-5 py-3 rounded-full">
+            <div class="inline-flex items-center gap-3 px-5 py-3 rounded-full
+            border border-[#D4AF37]/20
+            bg-white/[0.03]
+            backdrop-blur-xl">
 
-                <span
-                class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse">
-                </span>
+                <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
 
-                <span
-                class="font-['Outfit']
-                uppercase
-                tracking-[4px]
-                text-[10px]
-                lg:text-[11px]
-                text-[#F5D76E]/90
-                font-medium">
+                <span class="uppercase tracking-[4px] text-[10px] sm:text-[11px]
+                text-[#F5D76E]/90 font-semibold">
 
                     Trial Categories
 
@@ -1501,40 +1178,27 @@ class="relative overflow-hidden py-20 lg:py-28 bg-[#050505]">
             </div>
 
             <!-- HEADING -->
+                <h2 class="mt-7 text-white font-bold leading-none
+                text-[36px]
+                sm:text-[48px]
+                lg:text-[64px]
+                tracking-[-2px]">
 
-            <h2
-            class="mt-8 font-['Cinzel']
-            text-white
-            text-4xl
-            sm:text-5xl
-            lg:text-[55px]
-            leading-[0.95]
-            font-bold
-            tracking-[-3px]">
+                    Unlock Your
 
-                Choose Your
+                    <span class="block text-[#D4AF37] mt-2">
+                        Cricket Potential
+                    </span>
 
-                <span class="block text-[#D4AF37] mt-3">
+                </h2>
 
-                    Playing Role
+            <!-- DESCRIPTION -->
 
-                </span>
+            <p class="mt-6 text-white/55 text-[14px] sm:text-[16px]
+            leading-[28px] max-w-[760px] mx-auto">
 
-            </h2>
-
-            <!-- DESC -->
-
-            <p
-            class="mt-8 max-w-[760px] mx-auto
-            text-white/50
-            font-['Outfit']
-            text-[15px]
-            lg:text-[17px]
-            leading-[34px]
-            lg:leading-[38px]
-            font-light">
-
-                Select the category that best represents your cricketing strengths, skills, and playing style during the trials.
+                Select the category that best represents your cricketing strengths,
+                skills and playing style during the trials.
 
             </p>
 
@@ -1542,52 +1206,59 @@ class="relative overflow-hidden py-20 lg:py-28 bg-[#050505]">
 
 
         <!-- =========================================
-             CARDS GRID
+             RESPONSIVE CARDS GRID
         ========================================= -->
 
-        <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mt-16">
+        <div class="grid 
+        grid-cols-1 
+        md:grid-cols-2 
+        xl:grid-cols-4 
+        gap-5 lg:gap-6 
+        mt-14">
 
-            <!-- =========================================
-                 CARD 1
-            ========================================= -->
+            <!-- CARD START -->
 
-            <div
-            class="group relative overflow-hidden rounded-[28px]
+            <div class="group relative overflow-hidden rounded-[28px]
+            bg-white/[0.04]
             border border-white/10
-            bg-white/[0.03]
-            backdrop-blur-3xl
+            backdrop-blur-2xl
             p-5
-            hover:border-[#D4AF37]/20
-            transition duration-500">
+            transition-all duration-500
+            hover:-translate-y-2
+            hover:border-[#D4AF37]/40
+            hover:shadow-[0_20px_70px_rgba(212,175,55,0.16)]">
 
-                <!-- GLOW -->
+                <!-- HOVER GLOW -->
 
-                <div
-                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+
+                    <div class="absolute -top-20 right-[-40px]
+                    w-[180px] h-[180px]
+                    bg-[#D4AF37]/20
+                    blur-[90px]
+                    rounded-full"></div>
+
                 </div>
 
                 <!-- TOP -->
 
                 <div class="relative flex items-center justify-between">
 
-                    <span
-                    class="text-[#D4AF37]/70
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
+                    <span class="text-[#D4AF37]/70 text-[11px]
+                    tracking-[3px] uppercase font-semibold">
 
                         01
 
                     </span>
 
-                    <div
-                    class="w-12 h-12 rounded-2xl
-                    border border-[#D4AF37]/15
-                    bg-[#D4AF37]/5
+                    <!-- ICON -->
+
+                    <div class="w-14 h-14 rounded-2xl
+                    bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5
+                    border border-[#D4AF37]/20
                     flex items-center justify-center
-                    text-2xl">
+                    text-[26px]
+                    shadow-[0_0_30px_rgba(212,175,55,0.15)]">
 
                         🏏
 
@@ -1597,48 +1268,49 @@ class="relative overflow-hidden py-20 lg:py-28 bg-[#050505]">
 
                 <!-- TITLE -->
 
-                <h3
-                class="relative mt-6
-                font-['Cinzel']
-                text-white
-                text-[28px]
-                leading-none
-                font-bold">
+                <h3 class="mt-5 text-white text-[24px]
+                font-bold tracking-[-1px]">
 
                     Batsman
 
                 </h3>
 
-                <!-- DESC -->
+                <!-- DESCRIPTION -->
 
-                <p
-                class="relative mt-4
-                text-white/45
-                text-[13px]
-                leading-[26px]">
+                <p class="mt-3 text-white/50 text-[13px]
+                leading-[24px]">
 
-                    Showcase timing, footwork and powerful shot selection under pressure.
+                    Showcase timing, clean hitting and elite
+                    footwork under pressure.
 
                 </p>
 
                 <!-- TAGS -->
 
-                <div
-                class="relative flex flex-wrap gap-2 mt-6">
+                <div class="flex flex-wrap gap-2 mt-5">
 
-                    <span class="clean-tag">
+                    <span class="px-3 py-1 rounded-full
+                    bg-white/[0.05]
+                    border border-white/10
+                    text-[11px] text-white/70">
 
                         Timing
 
                     </span>
 
-                    <span class="clean-tag">
+                    <span class="px-3 py-1 rounded-full
+                    bg-white/[0.05]
+                    border border-white/10
+                    text-[11px] text-white/70">
 
                         Power
 
                     </span>
 
-                    <span class="clean-tag">
+                    <span class="px-3 py-1 rounded-full
+                    bg-white/[0.05]
+                    border border-white/10
+                    text-[11px] text-white/70">
 
                         Footwork
 
@@ -1646,504 +1318,53 @@ class="relative overflow-hidden py-20 lg:py-28 bg-[#050505]">
 
                 </div>
 
-                <!-- PRICE -->
+                <!-- FOOTER -->
 
-                <div
-                class="relative mt-8">
+                <div class="mt-6 flex items-end justify-between">
 
-                    <span
-                    class="text-white/35
-                    uppercase
-                    tracking-[2px]
-                    text-[9px]">
+                    <!-- PRICE -->
 
-                        Registration
+                    <div>
 
-                    </span>
+                        <p class="text-white/35 uppercase
+                        tracking-[2px] text-[9px]">
 
-                    <h4
-                    class="mt-2
-                    font-['Cinzel']
-                    text-[#D4AF37]
-                    text-3xl
-                    font-bold">
+                            Registration
 
-                        ₹799
+                        </p>
 
-                    </h4>
+                        <h4 class="text-[#D4AF37]
+                        text-[30px]
+                        font-bold mt-1">
 
-                </div>
+                            ₹799
 
-                <!-- BUTTON -->
+                        </h4>
 
-                <a
-                href="register.php"
-                class="group/btn relative overflow-hidden
-                flex items-center justify-center
-                w-full h-[48px]
-                rounded-xl
-                bg-[#D4AF37]
-                mt-7
-                shadow-[0_0_25px_rgba(212,175,55,0.15)]">
-
-                    <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition duration-1000">
                     </div>
 
-                    <span
-                    class="relative
-                    font-['Cinzel']
-                    uppercase
-                    tracking-[3px]
-                    text-[9px]
+                    <!-- BUTTON -->
+
+                    <a href="register.php"
+                    class="h-[46px] px-6 rounded-xl
+                    bg-[#D4AF37]
+                    text-black
+                    text-[11px]
                     font-bold
-                    text-black">
-
-                        Register
-
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- =========================================
-                 CARD 2
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px]
-            border border-white/10
-            bg-white/[0.03]
-            backdrop-blur-3xl
-            p-5
-            hover:border-[#D4AF37]/20
-            transition duration-500">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div class="relative flex items-center justify-between">
-
-                    <span
-                    class="text-[#D4AF37]/70
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        02
-
-                    </span>
-
-                    <div
-                    class="w-12 h-12 rounded-2xl
-                    border border-[#D4AF37]/15
-                    bg-[#D4AF37]/5
+                    uppercase tracking-[2px]
                     flex items-center justify-center
-                    text-2xl">
-
-                        ⚡
-
-                    </div>
-
-                </div>
-
-                <h3
-                class="relative mt-6
-                font-['Cinzel']
-                text-white
-                text-[28px]
-                leading-none
-                font-bold">
-
-                    Bowler
-
-                </h3>
-
-                <p
-                class="relative mt-4
-                text-white/45
-                text-[13px]
-                leading-[26px]">
-
-                    Demonstrate pace, swing, spin control and wicket-taking consistency.
-
-                </p>
-
-                <div
-                class="relative flex flex-wrap gap-2 mt-6">
-
-                    <span class="clean-tag">
-
-                        Pace
-
-                    </span>
-
-                    <span class="clean-tag">
-
-                        Swing
-
-                    </span>
-
-                    <span class="clean-tag">
-
-                        Spin
-
-                    </span>
-
-                </div>
-
-                <div
-                class="relative mt-8">
-
-                    <span
-                    class="text-white/35
-                    uppercase
-                    tracking-[2px]
-                    text-[9px]">
-
-                        Registration
-
-                    </span>
-
-                    <h4
-                    class="mt-2
-                    font-['Cinzel']
-                    text-[#D4AF37]
-                    text-3xl
-                    font-bold">
-
-                        ₹799
-
-                    </h4>
-
-                </div>
-
-                <a
-                href="register.php"
-                class="group/btn relative overflow-hidden
-                flex items-center justify-center
-                w-full h-[48px]
-                rounded-xl
-                bg-[#D4AF37]
-                mt-7
-                shadow-[0_0_25px_rgba(212,175,55,0.15)]">
-
-                    <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition duration-1000">
-                    </div>
-
-                    <span
-                    class="relative
-                    font-['Cinzel']
-                    uppercase
-                    tracking-[3px]
-                    text-[9px]
-                    font-bold
-                    text-black">
+                    transition duration-300
+                    hover:scale-105">
 
                         Register
 
-                    </span>
+                    </a>
 
-                </a>
+                </div>
 
             </div>
 
-
-            <!-- =========================================
-                 CARD 3
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px]
-            border border-white/10
-            bg-white/[0.03]
-            backdrop-blur-3xl
-            p-5
-            hover:border-[#D4AF37]/20
-            transition duration-500">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div class="relative flex items-center justify-between">
-
-                    <span
-                    class="text-[#D4AF37]/70
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        03
-
-                    </span>
-
-                    <div
-                    class="w-12 h-12 rounded-2xl
-                    border border-[#D4AF37]/15
-                    bg-[#D4AF37]/5
-                    flex items-center justify-center
-                    text-2xl">
-
-                        ⭐
-
-                    </div>
-
-                </div>
-
-                <h3
-                class="relative mt-6
-                font-['Cinzel']
-                text-white
-                text-[28px]
-                leading-none
-                font-bold">
-
-                    All-Rounder
-
-                </h3>
-
-                <p
-                class="relative mt-4
-                text-white/45
-                text-[13px]
-                leading-[26px]">
-
-                    Impact the game with both batting and bowling under pressure situations.
-
-                </p>
-
-                <div
-                class="relative flex flex-wrap gap-2 mt-6">
-
-                    <span class="clean-tag">
-
-                        Batting
-
-                    </span>
-
-                    <span class="clean-tag">
-
-                        Bowling
-
-                    </span>
-
-                    <span class="clean-tag">
-
-                        Fitness
-
-                    </span>
-
-                </div>
-
-                <div
-                class="relative mt-8">
-
-                    <span
-                    class="text-white/35
-                    uppercase
-                    tracking-[2px]
-                    text-[9px]">
-
-                        Registration
-
-                    </span>
-
-                    <h4
-                    class="mt-2
-                    font-['Cinzel']
-                    text-[#D4AF37]
-                    text-3xl
-                    font-bold">
-
-                        ₹999
-
-                    </h4>
-
-                </div>
-
-                <a
-                href="register.php"
-                class="group/btn relative overflow-hidden
-                flex items-center justify-center
-                w-full h-[48px]
-                rounded-xl
-                bg-[#D4AF37]
-                mt-7
-                shadow-[0_0_25px_rgba(212,175,55,0.15)]">
-
-                    <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition duration-1000">
-                    </div>
-
-                    <span
-                    class="relative
-                    font-['Cinzel']
-                    uppercase
-                    tracking-[3px]
-                    text-[9px]
-                    font-bold
-                    text-black">
-
-                        Register
-
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- =========================================
-                 CARD 4
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px]
-            border border-white/10
-            bg-white/[0.03]
-            backdrop-blur-3xl
-            p-5
-            hover:border-[#D4AF37]/20
-            transition duration-500">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div class="relative flex items-center justify-between">
-
-                    <span
-                    class="text-[#D4AF37]/70
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        04
-
-                    </span>
-
-                    <div
-                    class="w-12 h-12 rounded-2xl
-                    border border-[#D4AF37]/15
-                    bg-[#D4AF37]/5
-                    flex items-center justify-center
-                    text-2xl">
-
-                        🧤
-
-                    </div>
-
-                </div>
-
-                <h3
-                class="relative mt-6
-                font-['Cinzel']
-                text-white
-                text-[26px]
-                leading-none
-                font-bold">
-
-                    Wicket Keeper
-
-                </h3>
-
-                <p
-                class="relative mt-4
-                text-white/45
-                text-[13px]
-                leading-[26px]">
-
-                    Showcase reflexes, glove work and elite match awareness behind wickets.
-
-                </p>
-
-                <div
-                class="relative flex flex-wrap gap-2 mt-6">
-
-                    <span class="clean-tag">
-
-                        Reflexes
-
-                    </span>
-
-                    <span class="clean-tag">
-
-                        Catching
-
-                    </span>
-
-                    <span class="clean-tag">
-
-                        Agility
-
-                    </span>
-
-                </div>
-
-                <div
-                class="relative mt-8">
-
-                    <span
-                    class="text-white/35
-                    uppercase
-                    tracking-[2px]
-                    text-[9px]">
-
-                        Registration
-
-                    </span>
-
-                    <h4
-                    class="mt-2
-                    font-['Cinzel']
-                    text-[#D4AF37]
-                    text-3xl
-                    font-bold">
-
-                        ₹999
-
-                    </h4>
-
-                </div>
-
-                <a
-                href="register.php"
-                class="group/btn relative overflow-hidden
-                flex items-center justify-center
-                w-full h-[48px]
-                rounded-xl
-                bg-[#D4AF37]
-                mt-7
-                shadow-[0_0_25px_rgba(212,175,55,0.15)]">
-
-                    <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition duration-1000">
-                    </div>
-
-                    <span
-                    class="relative
-                    font-['Cinzel']
-                    uppercase
-                    tracking-[3px]
-                    text-[9px]
-                    font-bold
-                    text-black">
-
-                        Register
-
-                    </span>
-
-                </a>
-
-            </div>
+            <!-- CARD END -->
 
         </div>
 

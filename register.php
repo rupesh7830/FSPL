@@ -1,6 +1,32 @@
+
 <?php
 
+session_start();
+
+/* IF USER ALREADY LOGGED IN */
+
+if(isset($_SESSION['user_id'])){
+
+    if(isset($_GET['redirect'])){
+
+        header("Location: ".$_GET['redirect']);
+
+    }else{
+
+        header("Location: dashboard.php");
+    }
+
+    exit();
+}
+
 include 'admin/config/db_connect.php';
+
+/* REDIRECT URL SAVE */
+
+if(isset($_GET['redirect'])){
+
+    $_SESSION['redirect_after_login'] = $_GET['redirect'];
+}
 
 if(isset($_POST['register'])){
 
@@ -10,7 +36,7 @@ if(isset($_POST['register'])){
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
 
-    // CHECK PASSWORD
+    /* CHECK PASSWORD */
 
     if($password != $confirm_password){
 
@@ -18,7 +44,7 @@ if(isset($_POST['register'])){
 
     }else{
 
-        // CHECK EMAIL EXISTS
+        /* CHECK EMAIL */
 
         $check_stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
 
@@ -34,17 +60,19 @@ if(isset($_POST['register'])){
 
         }else{
 
-            // HASH PASSWORD
+            /* HASH PASSWORD */
 
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            // INSERT USER
+            /* INSERT USER */
 
             $insert_stmt = $conn->prepare("
                 INSERT INTO users
                 (full_name, email, mobile, password)
                 VALUES (?, ?, ?, ?)
             ");
+
+            /* BIND VALUES */
 
             $insert_stmt->bind_param(
                 "ssss",
@@ -54,14 +82,28 @@ if(isset($_POST['register'])){
                 $hashed_password
             );
 
+            /* EXECUTE */
+
             if($insert_stmt->execute()){
+
+                /* AUTO LOGIN */
+
+                $_SESSION['user_id'] = $insert_stmt->insert_id;
+
+                /* REDIRECT URL */
+
+                $redirect_url = isset($_SESSION['redirect_after_login'])
+                ? $_SESSION['redirect_after_login']
+                : "dashboard.php";
+
+                unset($_SESSION['redirect_after_login']);
 
                 echo "
                 <script>
 
                     alert('Registration Successful');
 
-                    window.location.href='dashboard.php';
+                    window.location.href='$redirect_url';
 
                 </script>
                 ";
@@ -73,13 +115,10 @@ if(isset($_POST['register'])){
             }
 
             $insert_stmt->close();
-
         }
 
         $check_stmt->close();
-
     }
-
 }
 
 ?>
@@ -426,12 +465,12 @@ if(isset($_POST['register'])){
                             Already have an account?
 
                             <a
-                            href="login.php"
-                            class="text-[#D4AF37] hover:text-white transition">
+                                href="login.php?redirect=<?php echo urlencode($_GET['redirect'] ?? 'dashboard.php'); ?>"
+                                class="text-[#D4AF37] hover:text-white transition">
 
                                 Login
 
-                            </a>
+                                </a>
 
                         </p>
 
