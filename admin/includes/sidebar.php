@@ -99,27 +99,6 @@ lg:translate-x-0">
 
         </a>
 
-        <!-- PLAYERS -->
-
-        <a
-        href="players.php"
-        class="flex items-center gap-4
-        h-[56px]
-        px-4
-        rounded-2xl
-        text-white/70
-        hover:bg-white/[0.04]
-        hover:text-white
-        transition-all duration-300
-        font-medium
-        font-['Outfit']">
-
-            <span class="text-lg">👨‍💼</span>
-
-            <span>Players</span>
-
-        </a>
-
         <!-- TRIALS -->
 
         <a
@@ -141,6 +120,26 @@ lg:translate-x-0">
 
         </a>
 
+
+        <a
+        href="trial_players.php"
+        class="flex items-center gap-4
+        h-[56px]
+        px-4
+        rounded-2xl
+        text-white/70
+        hover:bg-white/[0.04]
+        hover:text-white
+        transition-all duration-300
+        font-medium
+        font-['Outfit']">
+
+            <span class="text-lg">👥</span>
+
+            <span>Trials Players </span>
+
+        </a>
+
         <!-- REGISTRATIONS -->
 
         <a
@@ -158,7 +157,7 @@ lg:translate-x-0">
 
             <span class="text-lg">📝</span>
 
-            <span>Registrations</span>
+            <span>League Registrations</span>
 
         </a>
 

@@ -1,3 +1,13 @@
+<?php session_start(); 
+
+include 'admin/config/db_connect.php';
+
+$gallery_query = mysqli_query(
+$conn,
+"SELECT * FROM gallery ORDER BY id DESC"
+);
+
+?>
 <head>
 
     <!-- =========================================
@@ -64,7 +74,7 @@
 
     <link
     rel="canonical"
-    href="https://yourdomain.com/gallery.php">
+    href="https://yourdomain.com/gallery">
 
     <!-- =========================================
     OPEN GRAPH SEO
@@ -84,7 +94,7 @@
 
     <meta
     property="og:url"
-    content="https://yourdomain.com/gallery.php">
+    content="https://yourdomain.com/gallery">
 
     <meta
     property="og:type"
@@ -147,7 +157,7 @@
       "@type": "ImageGallery",
       "name": "FSPL Gallery",
       "description": "Official gallery of Future Star Premier League cricket tournaments and match moments.",
-      "url": "https://yourdomain.com/gallery.php",
+      "url": "https://yourdomain.com/gallery",
       "publisher": {
         "@type": "SportsOrganization",
         "name": "Future Star Premier League",
@@ -256,7 +266,7 @@ class="relative overflow-hidden bg-[#050505] min-h-screen flex items-center ">
                     class="font-['Outfit']
                     uppercase
                     tracking-[4px]
-                    text-[10px]
+                    text-[8px]
                     lg:text-[11px]
                     text-[#F5D76E]/90
                     font-medium">
@@ -272,9 +282,9 @@ class="relative overflow-hidden bg-[#050505] min-h-screen flex items-center ">
                 <h1
                 class="mt-10 font-['Cinzel']
                 text-white
-                text-4xl
-                sm:text-5xl
-                lg:text-[55px]
+                text-[48px]
+                sm:text-[58px]
+                lg:text-[68px]
                 leading-[0.92]
                 font-bold
                 tracking-[-3px]
@@ -539,158 +549,79 @@ class="relative overflow-hidden bg-[#050505] min-h-screen flex items-center ">
                  RIGHT SHOWCASE GRID
             ========================================= -->
 
-            <div
-            class="hidden xl:grid grid-cols-2 gap-5">
+<div
+class="hidden xl:grid grid-cols-2 gap-5">
 
-                <!-- LARGE CARD -->
+<?php
+$showcase_count = 0;
 
-                <div
-                class="relative overflow-hidden rounded-[34px] h-[520px]">
+while(
+$showcase = mysqli_fetch_assoc($gallery_query)
+){
 
-                    <img
-                    src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1200&auto=format&fit=crop"
-                    alt=""
-                    class="w-full h-full object-cover transition duration-700 hover:scale-110">
+    if($showcase_count >= 3){
+        break;
+    }
 
-                    <!-- OVERLAY -->
+    $heights = [
+        "h-[520px]",
+        "h-[250px]",
+        "h-[250px]"
+    ];
 
-                    <div
-                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                    </div>
+?>
 
-                    <!-- CONTENT -->
+    <div
+    class="relative overflow-hidden rounded-[34px] <?php echo $heights[$showcase_count]; ?>">
 
-                    <div
-                    class="absolute bottom-0 left-0 p-7">
+        <img
+        src="admin/<?php echo $showcase['image']; ?>"
+        alt="<?php echo $showcase['title']; ?>"
+        class="w-full h-full object-cover transition duration-700 hover:scale-110">
 
-                        <span
-                        class="text-[#D4AF37]
-                        uppercase
-                        tracking-[3px]
-                        text-[10px]
-                        font-medium">
+        <!-- OVERLAY -->
 
-                            Championship
+        <div
+        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
+        </div>
 
-                        </span>
+        <!-- CONTENT -->
 
-                        <h3
-                        class="mt-3 font-['Cinzel']
-                        text-white
-                        text-3xl
-                        leading-[1.1]
-                        font-bold">
+        <div
+        class="absolute bottom-0 left-0 p-7">
 
-                            Elite Match Moments
+            <span
+            class="text-[#D4AF37]
+            uppercase
+            tracking-[3px]
+            text-[10px]
+            font-medium">
 
-                        </h3>
+                <?php echo $showcase['category']; ?>
 
-                    </div>
+            </span>
 
-                </div>
+            <h3
+            class="mt-3 font-['Cinzel']
+            text-white
+            text-3xl
+            leading-[1.1]
+            font-bold">
 
-                <!-- SMALL GRID -->
+                <?php echo $showcase['title']; ?>
 
-                <div
-                class="flex flex-col gap-5">
+            </h3>
 
-                    <!-- CARD -->
+        </div>
 
-                    <div
-                    class="relative overflow-hidden rounded-[30px] h-[250px]">
+    </div>
 
-                        <img
-                        src="https://images.unsplash.com/photo-1624880357913-a8539238245b?q=80&w=1200&auto=format&fit=crop"
-                        alt=""
-                        class="w-full h-full object-cover transition duration-700 hover:scale-110">
+<?php
+$showcase_count++;
+}
+?>
 
-                        <!-- OVERLAY -->
-
-                        <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                        </div>
-
-                        <!-- CONTENT -->
-
-                        <div
-                        class="absolute bottom-0 left-0 p-6">
-
-                            <span
-                            class="text-[#D4AF37]
-                            uppercase
-                            tracking-[3px]
-                            text-[10px]
-                            font-medium">
-
-                                Trials
-
-                            </span>
-
-                            <h3
-                            class="mt-2 font-['Cinzel']
-                            text-white
-                            text-2xl
-                            leading-[1.1]
-                            font-bold">
-
-                                Selection Camp
-
-                            </h3>
-
-                        </div>
-
-                    </div>
-
-                    <!-- CARD -->
-
-                    <div
-                    class="relative overflow-hidden rounded-[30px] h-[250px]">
-
-                        <img
-                        src="https://images.unsplash.com/photo-1512719994953-eabf50895df7?q=80&w=1200&auto=format&fit=crop"
-                        alt=""
-                        class="w-full h-full object-cover transition duration-700 hover:scale-110">
-
-                        <!-- OVERLAY -->
-
-                        <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                        </div>
-
-                        <!-- CONTENT -->
-
-                        <div
-                        class="absolute bottom-0 left-0 p-6">
-
-                            <span
-                            class="text-[#D4AF37]
-                            uppercase
-                            tracking-[3px]
-                            text-[10px]
-                            font-medium">
-
-                                Celebration
-
-                            </span>
-
-                            <h3
-                            class="mt-2 font-['Cinzel']
-                            text-white
-                            text-2xl
-                            leading-[1.1]
-                            font-bold">
-
-                                Victory Nights
-
-                            </h3>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+</div>
 
         </div>
 
@@ -797,415 +728,100 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
              MASONRY GRID
         ========================================= -->
 
-        <div
-        class="columns-1 sm:columns-2 xl:columns-4 gap-5 space-y-5 mt-16 lg:mt-20">
+            <?php
 
-            <!-- =========================================
-                 IMAGE 1
-            ========================================= -->
+            $gallery_query2 = mysqli_query(
+            $conn,
+            "SELECT * FROM gallery ORDER BY id DESC"
+            );
 
-            <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
-
-                <img
-                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[520px] object-cover transition duration-700 group-hover:scale-110">
-
-                <!-- OVERLAY -->
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                </div>
-
-                <!-- GOLD LIGHT -->
-
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <!-- CONTENT -->
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Championship
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-3xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Match Victory
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
-                 IMAGE 2
-            ========================================= -->
+            ?>
 
             <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
+            class="columns-1 sm:columns-2 xl:columns-4 gap-5 space-y-5 mt-16 lg:mt-20">
 
-                <img
-                src="https://images.unsplash.com/photo-1624880357913-a8539238245b?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[340px] object-cover transition duration-700 group-hover:scale-110">
+            <?php
+
+            $count = 0;
+
+            while(
+            $img = mysqli_fetch_assoc($gallery_query2)
+            ){
+
+                $heights = [
+                    "h-[520px]",
+                    "h-[340px]",
+                    "h-[460px]",
+                    "h-[350px]",
+                    "h-[500px]",
+                    "h-[360px]",
+                    "h-[450px]",
+                    "h-[330px]"
+                ];
+
+                $height = $heights[$count % count($heights)];
+
+            ?>
 
                 <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
+                class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
+
+                    <!-- IMAGE -->
+
+                    <img
+                    src="admin/<?php echo $img['image']; ?>"
+                    alt="<?php echo $img['title']; ?>"
+                    class="w-full <?php echo $height; ?> object-cover transition duration-700 group-hover:scale-110">
+
+                    <!-- OVERLAY -->
+
+                    <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
+                    </div>
+
+                    <!-- GOLD LIGHT -->
+
+                    <div
+                    class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
+                    </div>
+
+                    <!-- CONTENT -->
+
+                    <div
+                    class="absolute bottom-0 left-0 p-6">
+
+                        <span
+                        class="text-[#D4AF37]
+                        uppercase
+                        tracking-[3px]
+                        text-[10px]
+                        font-medium">
+
+                            <?php echo $img['category']; ?>
+
+                        </span>
+
+                        <h3
+                        class="mt-3 font-['Cinzel']
+                        text-white
+                        text-2xl
+                        leading-[1.1]
+                        font-bold">
+
+                            <?php echo $img['title']; ?>
+
+                        </h3>
+
+                    </div>
+
                 </div>
 
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Trials
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-2xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Selection Camp
-
-                    </h3>
-
-                </div>
+            <?php
+            $count++;
+            }
+            ?>
 
             </div>
-
-
-            <!-- =========================================
-                 IMAGE 3
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
-
-                <img
-                src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[460px] object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                </div>
-
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Batting
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-2xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Power Shots
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
-                 IMAGE 4
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
-
-                <img
-                src="https://images.unsplash.com/photo-1512719994953-eabf50895df7?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[350px] object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                </div>
-
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Celebration
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-2xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Victory Moments
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
-                 IMAGE 5
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
-
-                <img
-                src="https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[500px] object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                </div>
-
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Bowling
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-3xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Pace Attack
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
-                 IMAGE 6
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
-
-                <img
-                src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[360px] object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                </div>
-
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Awards
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-2xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Player Honors
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
-                 IMAGE 7
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
-
-                <img
-                src="https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[450px] object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                </div>
-
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Team Spirit
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-3xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Squad Unity
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
-                 IMAGE 8
-            ========================================= -->
-
-            <div
-            class="group relative overflow-hidden rounded-[28px] break-inside-avoid">
-
-                <img
-                src="https://images.unsplash.com/photo-1508098682722-e99c643e7485?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-[330px] object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent">
-                </div>
-
-                <div
-                class="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition duration-500">
-                </div>
-
-                <div
-                class="absolute bottom-0 left-0 p-6">
-
-                    <span
-                    class="text-[#D4AF37]
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    font-medium">
-
-                        Practice
-
-                    </span>
-
-                    <h3
-                    class="mt-3 font-['Cinzel']
-                    text-white
-                    text-2xl
-                    leading-[1.1]
-                    font-bold">
-
-                        Training Session
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 

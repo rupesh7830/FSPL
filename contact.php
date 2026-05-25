@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <head>
 
     <!-- =========================================
@@ -64,7 +65,7 @@
 
     <link
     rel="canonical"
-    href="https://yourdomain.com/contact.php">
+    href="https://yourdomain.com/contact">
 
     <!-- =========================================
     OPEN GRAPH SEO
@@ -84,7 +85,7 @@
 
     <meta
     property="og:url"
-    content="https://yourdomain.com/contact.php">
+    content="https://yourdomain.com/contact">
 
     <meta
     property="og:type"
@@ -146,7 +147,7 @@
       "@context": "https://schema.org",
       "@type": "ContactPage",
       "name": "FSPL Contact Page",
-      "url": "https://yourdomain.com/contact.php",
+      "url": "https://yourdomain.com/contact",
       "description": "Official contact and support page of Future Star Premier League.",
       "publisher": {
         "@type": "SportsOrganization",
@@ -173,7 +174,7 @@
         }
 
         body{
-            background:#050505;
+            background: radial-gradient(circle at top, #111 0%, #000 60%);
             overflow-x:hidden;
             font-family:'Outfit', sans-serif;
         }
@@ -188,14 +189,14 @@
             outline:none;
             border:none;
         }
-
+    
     </style>
 
 </head>
 
 <body class="bg-[#050505] overflow-x-hidden">
 
-<?php include 'components/navbar.php'; ?>
+<?php include 'components/navbar'; ?>
 
 <!-- =========================================
      HERO SECTION
@@ -203,197 +204,526 @@
 
 <section class="relative overflow-hidden min-h-screen flex items-center py-20">
 
-    <!-- BG -->
+<!-- BACKGROUND -->
 
-    <div class="absolute inset-0">
+<div class="absolute inset-0">
 
-        <img
-        src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1800&auto=format&fit=crop"
-        alt=""
-        class="w-full h-full object-cover opacity-[0.05] scale-105">
+    <img
+    src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1800&auto=format&fit=crop"
+    alt=""
+    class="w-full h-full object-cover opacity-[0.04] scale-105">
 
-        <div class="absolute inset-0 bg-black/90"></div>
+    <div class="absolute inset-0 bg-black"></div>
 
-    </div>
+</div>
 
-    <!-- GOLD GLOW -->
+<!-- GOLD GLOW -->
 
-    <div
-    class="absolute top-[-250px] left-[-150px] w-[550px] h-[550px] bg-[#D4AF37]/10 blur-[160px] rounded-full animate-pulse">
-    </div>
+<div
+class="absolute top-[-250px] left-[-150px]
+w-[550px] h-[550px]
+bg-[#D4AF37]/10
+blur-[160px]
+rounded-full">
+</div>
 
-    <div
-    class="absolute bottom-[-250px] right-[-150px] w-[550px] h-[550px] bg-[#D4AF37]/5 blur-[160px] rounded-full animate-pulse">
-    </div>
+<div
+class="absolute bottom-[-250px] right-[-150px]
+w-[550px] h-[550px]
+bg-[#D4AF37]/5
+blur-[160px]
+rounded-full">
+</div>
 
-    <!-- CONTENT -->
+<!-- CONTENT -->
 
-    <div
-    class="relative z-10 max-w-6xl mx-auto px-5 lg:px-8 w-full">
+<div class="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 w-full">
 
-        <div class="grid lg:grid-cols-2 gap-10 items-center">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
 
-            <!-- LEFT -->
+        <!-- LEFT CONTENT -->
 
-            <div data-aos="fade-right">
+        <div data-aos="fade-right " class="relative">
 
-                <!-- LABEL -->
+            <!-- LABEL -->
 
-                <div
-                class="inline-flex items-center gap-3 border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl px-4 py-2 rounded-full">
+            <div
+            class="inline-flex items-center gap-3
+            border border-[#D4AF37]/15
+            bg-white/[0.03]
+            backdrop-blur-xl
+            px-4 py-2 rounded-full">
 
-                    <span
-                    class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse">
-                    </span>
+                <span
+                class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse">
+                </span>
 
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[9px]
-                    text-[#F5D76E]/90
-                    font-medium">
+                <span
+                class="font-['Outfit']
+                uppercase
+                tracking-[3px]
+                text-[9px]
+                text-[#F5D76E]/90
+                font-medium">
 
-                        Contact Future Star League
+                    Contact Future Star League
 
-                    </span>
-
-                </div>
-
-                <!-- HEADING -->
-
-                <h1
-                class="mt-7 font-['Cinzel']
-                text-white
-                text-4xl
-                lg:text-[56px]
-                leading-[0.95]
-                font-bold
-                tracking-[-2px]">
-
-                    Let’s Build
-
-                    <span class="block text-[#D4AF37] mt-2">
-
-                        Your Cricket Future
-
-                    </span>
-
-                </h1>
-
-                <!-- DESC -->
-
-                <p
-                class="mt-5 max-w-[540px]
-                text-white/55
-                font-['Outfit']
-                text-[14px]
-                leading-[30px]
-                font-light">
-
-                    Reach out to Future Star Premier League for registrations,
-                    player trials, sponsorships and partnerships.
-
-                </p>
+                </span>
 
             </div>
 
-            <!-- RIGHT IMAGE -->
+            <!-- HEADING -->
 
-            <div
-            class="relative hidden lg:flex justify-end"
-            data-aos="fade-left">
+            <h1
+            class="mt-7
+            font-['Cinzel']
+            text-white
+            text-[48px]
+            sm:text-[60px]
+            leading-[0.95]
+            font-bold
+            tracking-[-2px]">
 
-                <!-- CARD -->
+                Let’s Build
+
+                <span class="block text-[#D4AF37] mt-2">
+
+                    Your Cricket Future
+
+                </span>
+
+            </h1>
+
+            <!-- DESC -->
+
+            <p
+            class="mt-6
+            max-w-[560px]
+            text-white/55
+            font-['Outfit']
+            text-[15px]
+            leading-[30px]
+            font-light">
+
+                Reach out to Future Star Premier League for player trials,
+                registrations, sponsorship opportunities and team support.
+                Our management team is always ready to assist future stars.
+
+            </p>
+
+            <!-- FEATURES -->
+
+            <div class="mt-10 grid sm:grid-cols-2 gap-5">
+
+                <!-- ITEM -->
 
                 <div
-                class="group relative overflow-hidden
-                w-full max-w-[420px]
-                rounded-[28px]
+                class="flex items-start gap-4
                 border border-white/10
                 bg-white/[0.03]
-                backdrop-blur-3xl
-                p-4
-                transition duration-500 hover:-translate-y-2 hover:border-[#D4AF37]/30">
+                backdrop-blur-xl
+                rounded-2xl
+                p-5">
 
-                    <!-- IMAGE -->
+                    <div
+                    class="w-12 h-12 rounded-xl
+                    bg-[#D4AF37]/10
+                    border border-[#D4AF37]/20
+                    flex items-center justify-center">
 
-                    <div class="relative overflow-hidden rounded-[22px]">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.8"
+                        stroke="currentColor"
+                        class="w-5 h-5 text-[#D4AF37]">
 
-                        <img
-                        src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=1400&auto=format&fit=crop"
-                        alt=""
-                        class="w-full h-[480px] object-cover transition duration-700 group-hover:scale-105">
+                            <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 5.25h18M3 12h18M3 18.75h18"/>
 
-                        <!-- OVERLAY -->
-
-                        <div
-                        class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                        </div>
+                        </svg>
 
                     </div>
 
-                    <!-- FLOAT CARD -->
+                    <div>
+
+                        <h4
+                        class="text-white
+                        text-[16px]
+                        font-semibold
+                        font-['Outfit']">
+
+                            Quick Registration
+
+                        </h4>
+
+                        <p
+                        class="mt-1 text-white/50
+                        text-[13px]
+                        leading-[24px]">
+
+                            Fast support for player entries and trials.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ITEM -->
+
+                <div
+                class="flex items-start gap-4
+                border border-white/10
+                bg-white/[0.03]
+                backdrop-blur-xl
+                rounded-2xl
+                p-5">
 
                     <div
-                    class="absolute bottom-6 left-6 right-6
-                    rounded-[22px]
-                    border border-white/10
-                    bg-black/40
-                    backdrop-blur-2xl
-                    p-4">
+                    class="w-12 h-12 rounded-xl
+                    bg-[#D4AF37]/10
+                    border border-[#D4AF37]/20
+                    flex items-center justify-center">
 
-                        <div class="flex items-center justify-between">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.8"
+                        stroke="currentColor"
+                        class="w-5 h-5 text-[#D4AF37]">
+
+                            <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 18v-6m0 0V6m0 6h6m-6 0H6"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div>
+
+                        <h4
+                        class="text-white
+                        text-[16px]
+                        font-semibold
+                        font-['Outfit']">
+
+                            Sponsorship Support
+
+                        </h4>
+
+                        <p
+                        class="mt-1 text-white/50
+                        text-[13px]
+                        leading-[24px]">
+
+                            Partnership and branding collaboration support.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT PREMIUM PANEL -->
+
+        <div
+        class="relative"
+        data-aos="fade-left">
+
+            <div class="space-y-5">
+
+                <!-- TOP CARD -->
+
+                <div
+                class="relative overflow-hidden
+                rounded-[32px]
+                border border-white/10
+                bg-white/[0.04]
+                backdrop-blur-3xl
+                p-8">
+
+                    <!-- GLOW -->
+
+                    <div
+                    class="absolute -top-24 -right-24
+                    w-60 h-60
+                    bg-[#D4AF37]/10
+                    blur-[120px]
+                    rounded-full">
+                    </div>
+
+                    <div class="relative z-10">
+
+                        <span
+                        class="text-[#D4AF37]
+                        uppercase
+                        tracking-[3px]
+                        text-[10px]
+                        font-semibold
+                        font-['Outfit']">
+
+                            Quick Connect
+
+                        </span>
+
+                        <h2
+                        class="mt-4
+                        text-white
+                        text-[38px]
+                        leading-[1.1]
+                        font-bold
+                        font-['Cinzel']">
+
+                            We’re Always
+
+                            <span class="block text-[#D4AF37]">
+
+                                Ready To Help
+
+                            </span>
+
+                        </h2>
+
+                        <p
+                        class="mt-5
+                        text-white/55
+                        text-[14px]
+                        leading-[28px]
+                        max-w-[420px]">
+
+                            Connect instantly with the FSPL support team
+                            for trials, registrations and sponsorships.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- STATS -->
+
+                <div class="grid grid-cols-2 gap-5">
+
+                    <!-- CARD -->
+
+                    <div
+                    class="rounded-[28px]
+                    border border-white/10
+                    bg-white/[0.03]
+                    backdrop-blur-2xl
+                    p-6">
+
+                        <h3
+                        class="text-[#D4AF37]
+                        text-4xl
+                        font-bold
+                        font-['Cinzel']">
+
+                            10m
+
+                        </h3>
+
+                        <p
+                        class="mt-3
+                        text-white/55
+                        text-[13px]
+                        leading-[24px]
+                        font-['Outfit']">
+
+                            Average Response Time
+
+                        </p>
+
+                    </div>
+
+                    <!-- CARD -->
+
+                    <div
+                    class="rounded-[28px]
+                    border border-white/10
+                    bg-white/[0.03]
+                    backdrop-blur-2xl
+                    p-6">
+
+                        <h3
+                        class="text-[#D4AF37]
+                        text-4xl
+                        font-bold
+                        font-['Cinzel']">
+
+                            24/7
+
+                        </h3>
+
+                        <p
+                        class="mt-3
+                        text-white/55
+                        text-[13px]
+                        leading-[24px]
+                        font-['Outfit']">
+
+                            Team Support Available
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- CONTACT BOX -->
+
+                <div
+                class="rounded-[32px]
+                border border-white/10
+                bg-white/[0.03]
+                backdrop-blur-3xl
+                p-7">
+
+                    <div class="space-y-4">
+
+                        <!-- BUTTON -->
+
+                        <a href="#"
+                        class="group flex items-center justify-between
+                        px-5 py-5 rounded-2xl
+                        border border-white/10
+                        bg-black/30
+                        hover:bg-[#D4AF37]
+                        transition duration-300">
 
                             <div>
 
-                                <p
-                                class="text-[#D4AF37]
-                                uppercase
-                                tracking-[2px]
-                                text-[9px]
+                                <h4
+                                class="text-white
+                                text-[15px]
                                 font-semibold
                                 font-['Outfit']">
 
-                                    FSPL SUPPORT
+                                    WhatsApp Support
+
+                                </h4>
+
+                                <p
+                                class="text-white/50
+                                text-[12px]
+                                mt-1">
+
+                                    Instant communication with our team
 
                                 </p>
 
-                                <h3
-                                class="mt-2 text-white
-                                font-['Cinzel']
-                                text-xl
-                                font-bold">
+                            </div>
 
-                                    Contact Our Team
+                            <span
+                            class="text-[#D4AF37]
+                            text-xl
+                            group-hover:text-black
+                            transition">
 
-                                </h3>
+                                →
+
+                            </span>
+
+                        </a>
+
+                        <!-- BUTTON -->
+
+                        <a href="#"
+                        class="group flex items-center justify-between
+                        px-5 py-5 rounded-2xl
+                        border border-white/10
+                        bg-black/30
+                        hover:bg-[#D4AF37]
+                        transition duration-300">
+
+                            <div>
+
+                                <h4
+                                class="text-white
+                                text-[15px]
+                                font-semibold
+                                font-['Outfit']">
+
+                                    Call Our Team
+
+                                </h4>
+
+                                <p
+                                class="text-white/50
+                                text-[12px]
+                                mt-1">
+
+                                    Direct support for registrations
+
+                                </p>
 
                             </div>
 
-                            <!-- ICON -->
+                            <span
+                            class="text-[#D4AF37]
+                            text-xl
+                            group-hover:text-black
+                            transition">
 
-                            <div
-                            class="w-12 h-12 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center">
+                                →
 
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.8"
-                                stroke="currentColor"
-                                class="w-5 h-5 text-[#D4AF37]">
+                            </span>
 
-                                    <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M21.75 8.25v7.5A2.25 2.25 0 0119.5 18h-15A2.25 2.25 0 012.25 15.75v-7.5M3 6.75l8.25 5.25a1.5 1.5 0 001.5 0L21 6.75"/>
+                        </a>
 
-                                </svg>
+                        <!-- BUTTON -->
+
+                        <a href="#"
+                        class="group flex items-center justify-between
+                        px-5 py-5 rounded-2xl
+                        border border-white/10
+                        bg-black/30
+                        hover:bg-[#D4AF37]
+                        transition duration-300">
+
+                            <div>
+
+                                <h4
+                                class="text-white
+                                text-[15px]
+                                font-semibold
+                                font-['Outfit']">
+
+                                    Sponsorship Inquiry
+
+                                </h4>
+
+                                <p
+                                class="text-white/50
+                                text-[12px]
+                                mt-1">
+
+                                    Brand collaborations & partnerships
+
+                                </p>
 
                             </div>
 
-                        </div>
+                            <span
+                            class="text-[#D4AF37]
+                            text-xl
+                            group-hover:text-black
+                            transition">
+
+                                →
+
+                            </span>
+
+                        </a>
 
                     </div>
 
@@ -404,6 +734,8 @@
         </div>
 
     </div>
+
+</div>
 
 </section>
 

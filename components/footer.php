@@ -42,7 +42,7 @@ ULTRA PREMIUM FOOTER
 
                 <!-- LOGO -->
 
-                <a href="#"
+                <a href="index"
                 class="inline-flex items-center gap-4">
 
                     <img
@@ -96,7 +96,7 @@ ULTRA PREMIUM FOOTER
 
                     <!-- ICON -->
 
-                    <a href="#"
+                    <a href=""
                     class="group w-12 h-12 rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center hover:border-[#D4AF37]/20 transition duration-300">
 
                         <svg
@@ -170,15 +170,15 @@ ULTRA PREMIUM FOOTER
 
                 <ul class="mt-8 space-y-5">
 
-                    <li><a href="#" class="footer-link">Home</a></li>
+                    <li><a href="index" class="footer-link">Home</a></li>
 
-                    <li><a href="#" class="footer-link">About</a></li>
+                    <li><a href="aboutUs" class="footer-link">About</a></li>
 
-                    <li><a href="#" class="footer-link">Trials</a></li>
+                    <li><a href="trials" class="footer-link">Trials</a></li>
 
-                    <li><a href="#" class="footer-link">Players</a></li>
+                    <li><a href="players" class="footer-link">Players</a></li>
 
-                    <li><a href="#" class="footer-link">Gallery</a></li>
+                    <li><a href="gallery" class="footer-link">Gallery</a></li>
 
                 </ul>
 

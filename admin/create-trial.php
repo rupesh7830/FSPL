@@ -349,38 +349,240 @@ p-5 lg:p-8">
 
                 <!-- ENTRY FEE -->
 
-                <div>
+                <!-- =====================================
+                PRICING SECTION
+            ===================================== -->
 
-                    <label
-                    class="block mb-3
-                    text-white/60
-                    text-[12px]
-                    uppercase
-                    tracking-[2px]
-                    font-medium
-                    font-['Outfit']">
+            <div class="md:col-span-2">
 
-                        Entry Fee
+                <div
+                class="rounded-[30px]
+                border border-[#D4AF37]/10
+                bg-[#D4AF37]/[0.03]
+                p-6 lg:p-7">
 
-                    </label>
+                    <!-- HEADING -->
 
-                    <input
-                    type="text"
-                    name="entry_fee"
-                    placeholder="₹299"
-                    class="w-full h-[58px]
-                    px-5
-                    rounded-2xl
-                    border border-white/10
-                    bg-white/[0.03]
-                    text-white
-                    outline-none
-                    transition-all duration-300
-                    focus:border-[#D4AF37]/40
-                    placeholder:text-white/20
-                    font-['Outfit']">
+                    <div class="flex items-center justify-between gap-4">
+
+                        <div>
+
+                            <h3
+                            class="text-white
+                            text-[22px]
+                            font-bold
+                            font-['Cinzel']">
+
+                                Trial Pricing
+
+                            </h3>
+
+                            <p
+                            class="mt-2
+                            text-white/40
+                            text-[13px]
+                            font-['Outfit']">
+
+                                Configure dynamic pricing for different player roles.
+
+                            </p>
+
+                        </div>
+
+                        <!-- ICON -->
+
+                        <div
+                        class="w-16 h-16
+                        rounded-3xl
+                        bg-[#D4AF37]/10
+                        border border-[#D4AF37]/20
+                        flex items-center justify-center">
+
+                            <span class="text-2xl">
+
+                                💳
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- GRID -->
+
+                    <div
+                    class="grid
+                    grid-cols-1
+                    md:grid-cols-2
+                    lg:grid-cols-5
+                    gap-5
+                    mt-8">
+
+                        <!-- REGISTRATION -->
+
+                        <div>
+
+                            <label
+                            class="block mb-3
+                            text-white/60
+                            text-[11px]
+                            uppercase
+                            tracking-[2px]
+                            font-medium">
+
+                                Registration Fee
+
+                            </label>
+
+                            <input
+                            type="number"
+                            name="registration_fee"
+                            placeholder="299"
+                            required
+                            class="w-full h-[58px]
+                            px-5
+                            rounded-2xl
+                            border border-white/10
+                            bg-[#0B0B0B]
+                            text-white
+                            outline-none
+                            focus:border-[#D4AF37]/40">
+
+                        </div>
+
+                        <!-- BATSMAN -->
+
+                        <div>
+
+                            <label
+                            class="block mb-3
+                            text-white/60
+                            text-[11px]
+                            uppercase
+                            tracking-[2px]
+                            font-medium">
+
+                                Batsman Fee
+
+                            </label>
+
+                            <input
+                            type="number"
+                            name="batsman_fee"
+                            placeholder="899"
+                            required
+                            class="w-full h-[58px]
+                            px-5
+                            rounded-2xl
+                            border border-white/10
+                            bg-[#0B0B0B]
+                            text-white
+                            outline-none
+                            focus:border-[#D4AF37]/40">
+
+                        </div>
+
+                        <!-- BOWLER -->
+
+                        <div>
+
+                            <label
+                            class="block mb-3
+                            text-white/60
+                            text-[11px]
+                            uppercase
+                            tracking-[2px]
+                            font-medium">
+
+                                Bowler Fee
+
+                            </label>
+
+                            <input
+                            type="number"
+                            name="bowler_fee"
+                            placeholder="899"
+                            required
+                            class="w-full h-[58px]
+                            px-5
+                            rounded-2xl
+                            border border-white/10
+                            bg-[#0B0B0B]
+                            text-white
+                            outline-none
+                            focus:border-[#D4AF37]/40">
+
+                        </div>
+
+                        <!-- KEEPER -->
+
+                        <div>
+
+                            <label
+                            class="block mb-3
+                            text-white/60
+                            text-[11px]
+                            uppercase
+                            tracking-[2px]
+                            font-medium">
+
+                                Keeper Fee
+
+                            </label>
+
+                            <input
+                            type="number"
+                            name="keeper_fee"
+                            placeholder="1099"
+                            required
+                            class="w-full h-[58px]
+                            px-5
+                            rounded-2xl
+                            border border-white/10
+                            bg-[#0B0B0B]
+                            text-white
+                            outline-none
+                            focus:border-[#D4AF37]/40">
+
+                        </div>
+
+                        <!-- ALL ROUNDER -->
+
+                        <div>
+
+                            <label
+                            class="block mb-3
+                            text-white/60
+                            text-[11px]
+                            uppercase
+                            tracking-[2px]
+                            font-medium">
+
+                                All Rounder
+
+                            </label>
+
+                            <input
+                            type="number"
+                            name="allrounder_fee"
+                            placeholder="1099"
+                            required
+                            class="w-full h-[58px]
+                            px-5
+                            rounded-2xl
+                            border border-white/10
+                            bg-[#0B0B0B]
+                            text-white
+                            outline-none
+                            focus:border-[#D4AF37]/40">
+
+                        </div>
+
+                    </div>
 
                 </div>
+
+            </div>
 
                 <!-- LAST DATE -->
 
@@ -559,6 +761,8 @@ p-5 lg:p-8">
                         <option>Upcoming</option>
                         <option>Open</option>
                         <option>Closed</option>
+                        <option>Completed</option>
+                        <option>Cancelled</option>
 
                     </select>
 

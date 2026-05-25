@@ -1,16 +1,19 @@
 <?php 
+
 session_start();
+
 include "admin/config/db_connect.php";
 
-/* UPCOMING */
+/* =========================================
+   UPCOMING TRIAL
+========================================= */
+
 $status = "Upcoming";
 
 $stmt = $conn->prepare("
 SELECT *
 FROM trials
 WHERE status = ?
-AND trial_date >= CURDATE()
-ORDER BY trial_date ASC
 LIMIT 1
 ");
 
@@ -22,7 +25,9 @@ $result = $stmt->get_result();
 
 $trial = $result->fetch_assoc();
 
-
+/* =========================================
+   TRIALS LIST
+========================================= */
 
 $page = 1;
 
@@ -30,17 +35,18 @@ $limit = 3;
 
 $offset = ($page - 1) * $limit;
 
-$stmt = $conn->prepare("
+$stmt2 = $conn->prepare("
 SELECT *
 FROM trials
 LIMIT ?, ?
 ");
 
-$stmt->bind_param("ii", $offset, $limit);
+$stmt2->bind_param("ii", $offset, $limit);
 
-$stmt->execute();
+$stmt2->execute();
 
-$result = $stmt->get_result();
+$result = $stmt2->get_result();
+
 ?>
 
 <head>
@@ -105,7 +111,7 @@ $result = $stmt->get_result();
 
     <link
     rel="canonical"
-    href="https://yourdomain.com/trials.php">
+    href="https://yourdomain.com/trials">
 
     <!-- =========================================
     OPEN GRAPH SEO
@@ -125,7 +131,7 @@ $result = $stmt->get_result();
 
     <meta
     property="og:url"
-    content="https://yourdomain.com/trials.php">
+    content="https://yourdomain.com/trials">
 
     <meta
     property="og:type"
@@ -218,7 +224,7 @@ body{
 
 <?php include "components/navbar.php"; ?>
 
-<section class="relative overflow-hidden min-h-[100svh] bg-[#050505] flex items-center pt-0 lg:pt-0 px-4 sm:px-5">
+<section class="relative overflow-hidden min-h-[100svh] bg-[#050505] flex items-center pt-20 lg:pt-0 px-4 sm:px-5">
 
     <div class="absolute inset-0">
 
@@ -293,8 +299,8 @@ body{
                 <h1
                 class="mt-6 font-['Cinzel']
                 text-white
-                text-[30px]
-                sm:text-[42px]
+                text-[42px]
+                sm:text-[48px]
                 lg:text-[58px]
                 leading-[1.05]
                 font-bold
@@ -335,7 +341,7 @@ body{
                     <!-- BUTTON -->
 
                     <a
-                    href="register.php"
+                    href="register"
                     class="group relative overflow-hidden h-[46px] px-7 rounded-full bg-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:scale-105 transition duration-500">
 
                         <!-- SHINE -->
@@ -725,7 +731,7 @@ body{
 
                         <!-- BUTTON -->
 
-                        <a href="register.php?redirect=apply.php?trial_id=<?php echo $trial['id']; ?>"
+                        <a href="register?redirect=apply?trial_id=<?php echo $trial['id']; ?>"
                         class="group relative overflow-hidden flex items-center justify-center w-full h-[46px] rounded-xl bg-[#D4AF37] mt-7 shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:scale-[1.02] transition duration-500">
 
                             <!-- SHINE -->
@@ -881,7 +887,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
             <!-- RIGHT -->
 
             <a
-            href="trials.php"
+            href="trials"
             class="group relative overflow-hidden w-fit h-[54px] lg:h-[58px] px-8 lg:px-10 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl">
 
                 <!-- HOVER -->
@@ -997,14 +1003,14 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         text-3xl
                         font-bold">
 
-                            <?php echo date('d', strtotime($trial['trial_date'])); ?>
+                            <?php echo date('d', strtotime($row['trial_date'])); ?>
 
                         </span>
 
                         <span
                         class="mt-1 text-white/45 text-[10px] uppercase tracking-[3px]">
 
-                            <?php echo date('M', strtotime($trial['trial_date'])); ?>
+                            <?php echo date('M', strtotime($row['trial_date'])); ?>
 
                         </span>
 
@@ -1052,7 +1058,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
                         <span
                         class="text-[#D4AF37] text-[14px] font-medium">
 
-                            ₹<?php echo $row['entry_fee'] ?>
+                            ₹<?php echo $row['registration_fee'] ?>
 
                         </span>
 
@@ -1104,7 +1110,7 @@ class="relative overflow-hidden py-20 lg:py-32 bg-[#050505]">
 
                 <!-- BUTTON -->
 
-                <a href="register.php?redirect=apply.php?trial_id=<?php echo $row['id']; ?>"
+                <a href="register?redirect=apply?trial_id=<?php echo $row['id']; ?>"
                 class="group/btn relative overflow-hidden flex items-center justify-center w-full h-[56px] rounded-2xl bg-[#D4AF37] mt-10 shadow-[0_0_35px_rgba(212,175,55,0.18)]">
 
                     <!-- SHINE -->
@@ -1205,168 +1211,193 @@ CLEAN PREMIUM 4 CARDS UI
         </div>
 
 
-        <!-- =========================================
-             RESPONSIVE CARDS GRID
-        ========================================= -->
+<?php
 
-        <div class="grid 
-        grid-cols-1 
-        md:grid-cols-2 
-        xl:grid-cols-4 
-        gap-5 lg:gap-6 
-        mt-14">
+$roles = [
 
-            <!-- CARD START -->
+    [
+        'number' => '01',
+        'title'  => 'Batsman',
+        'fee'    => $trial['batsman_fee'],
+        'icon'   => '🏏',
+        'desc'   => 'Showcase timing, clean hitting and elite footwork under pressure.',
+        'tags'   => ['Timing','Power','Footwork']
+    ],
 
-            <div class="group relative overflow-hidden rounded-[28px]
-            bg-white/[0.04]
-            border border-white/10
-            backdrop-blur-2xl
-            p-5
-            transition-all duration-500
-            hover:-translate-y-2
-            hover:border-[#D4AF37]/40
-            hover:shadow-[0_20px_70px_rgba(212,175,55,0.16)]">
+    [
+        'number' => '02',
+        'title'  => 'Bowler',
+        'fee'    => $trial['bowler_fee'],
+        'icon'   => '⚡',
+        'desc'   => 'Dominate with pace, swing and perfect bowling accuracy.',
+        'tags'   => ['Speed','Swing','Accuracy']
+    ],
 
-                <!-- HOVER GLOW -->
+    [
+        'number' => '03',
+        'title'  => 'Wicket Keeper',
+        'fee'    => $trial['keeper_fee'],
+        'icon'   => '🧤',
+        'desc'   => 'Display quick reflexes, catching and sharp stumpings.',
+        'tags'   => ['Reflex','Catching','Stumping']
+    ],
 
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+    [
+        'number' => '04',
+        'title'  => 'All-Rounder',
+        'fee'    => $trial['allrounder_fee'],
+        'icon'   => '🔥',
+        'desc'   => 'Prove your complete cricket skills in every department.',
+        'tags'   => ['Batting','Bowling','Fitness']
+    ]
 
-                    <div class="absolute -top-20 right-[-40px]
-                    w-[180px] h-[180px]
-                    bg-[#D4AF37]/20
-                    blur-[90px]
-                    rounded-full"></div>
+];
 
-                </div>
+?>
 
-                <!-- TOP -->
+<div class="grid 
+grid-cols-1 
+md:grid-cols-2 
+xl:grid-cols-4 
+gap-5 lg:gap-6 
+mt-14">
 
-                <div class="relative flex items-center justify-between">
+<?php foreach($roles as $role){ ?>
 
-                    <span class="text-[#D4AF37]/70 text-[11px]
-                    tracking-[3px] uppercase font-semibold">
+<div class="group relative overflow-hidden rounded-[28px]
+bg-white/[0.04]
+border border-white/10
+backdrop-blur-2xl
+p-5
+transition-all duration-500
+hover:-translate-y-2
+hover:border-[#D4AF37]/40
+hover:shadow-[0_20px_70px_rgba(212,175,55,0.16)]">
 
-                        01
+    <!-- HOVER GLOW -->
 
-                    </span>
+    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none">
+        <div class="absolute -top-20 right-[-40px]
+        w-[180px] h-[180px]
+        bg-[#D4AF37]/20
+        blur-[90px]
+        rounded-full"></div>
 
-                    <!-- ICON -->
+    </div>
 
-                    <div class="w-14 h-14 rounded-2xl
-                    bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5
-                    border border-[#D4AF37]/20
-                    flex items-center justify-center
-                    text-[26px]
-                    shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+    <!-- TOP -->
 
-                        🏏
+    <div class="relative flex items-center justify-between">
 
-                    </div>
+        <span class="text-[#D4AF37]/70 text-[11px]
+        tracking-[3px] uppercase font-semibold">
 
-                </div>
+            <?php echo $role['number']; ?>
 
-                <!-- TITLE -->
+        </span>
 
-                <h3 class="mt-5 text-white text-[24px]
-                font-bold tracking-[-1px]">
+        <!-- ICON -->
 
-                    Batsman
+        <div class="w-14 h-14 rounded-2xl
+        bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5
+        border border-[#D4AF37]/20
+        flex items-center justify-center
+        text-[26px]
+        shadow-[0_0_30px_rgba(212,175,55,0.15)]">
 
-                </h3>
-
-                <!-- DESCRIPTION -->
-
-                <p class="mt-3 text-white/50 text-[13px]
-                leading-[24px]">
-
-                    Showcase timing, clean hitting and elite
-                    footwork under pressure.
-
-                </p>
-
-                <!-- TAGS -->
-
-                <div class="flex flex-wrap gap-2 mt-5">
-
-                    <span class="px-3 py-1 rounded-full
-                    bg-white/[0.05]
-                    border border-white/10
-                    text-[11px] text-white/70">
-
-                        Timing
-
-                    </span>
-
-                    <span class="px-3 py-1 rounded-full
-                    bg-white/[0.05]
-                    border border-white/10
-                    text-[11px] text-white/70">
-
-                        Power
-
-                    </span>
-
-                    <span class="px-3 py-1 rounded-full
-                    bg-white/[0.05]
-                    border border-white/10
-                    text-[11px] text-white/70">
-
-                        Footwork
-
-                    </span>
-
-                </div>
-
-                <!-- FOOTER -->
-
-                <div class="mt-6 flex items-end justify-between">
-
-                    <!-- PRICE -->
-
-                    <div>
-
-                        <p class="text-white/35 uppercase
-                        tracking-[2px] text-[9px]">
-
-                            Registration
-
-                        </p>
-
-                        <h4 class="text-[#D4AF37]
-                        text-[30px]
-                        font-bold mt-1">
-
-                            ₹799
-
-                        </h4>
-
-                    </div>
-
-                    <!-- BUTTON -->
-
-                    <a href="register.php"
-                    class="h-[46px] px-6 rounded-xl
-                    bg-[#D4AF37]
-                    text-black
-                    text-[11px]
-                    font-bold
-                    uppercase tracking-[2px]
-                    flex items-center justify-center
-                    transition duration-300
-                    hover:scale-105">
-
-                        Register
-
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- CARD END -->
+            <?php echo $role['icon']; ?>
 
         </div>
+
+    </div>
+
+    <!-- TITLE -->
+
+    <h3 class="mt-5 text-white text-[24px]
+    font-bold tracking-[-1px]">
+
+        <?php echo $role['title']; ?>
+
+    </h3>
+
+    <!-- DESCRIPTION -->
+
+    <p class="mt-3 text-white/50 text-[13px]
+    leading-[24px]">
+
+        <?php echo $role['desc']; ?>
+
+    </p>
+
+    <!-- TAGS -->
+
+    <div class="flex flex-wrap gap-2 mt-5">
+
+        <?php foreach($role['tags'] as $tag){ ?>
+
+        <span class="px-3 py-1 rounded-full
+        bg-white/[0.05]
+        border border-white/10
+        text-[11px] text-white/70">
+
+            <?php echo $tag; ?>
+
+        </span>
+
+        <?php } ?>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="mt-6 flex items-end justify-between">
+
+        <!-- PRICE -->
+
+        <div>
+
+            <p class="text-white/35 uppercase
+            tracking-[2px] text-[9px]">
+
+                Registration
+
+            </p>
+
+            <h4 class="text-[#D4AF37]
+            text-[30px]
+            font-bold mt-1">
+
+                ₹<?php echo $role['fee']; ?>
+
+            </h4>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <a
+        href="direct-register?trial_id=<?php echo $trial['id']; ?>&role=<?php echo urlencode($role['title']); ?>"
+        class="relative z-20 h-[46px] px-6 rounded-xl
+        bg-[#D4AF37]
+        text-black
+        text-[11px]
+        font-bold
+        uppercase tracking-[2px]
+        flex items-center justify-center
+        transition duration-300
+        hover:scale-105 cursor-pointer">
+
+            Register
+
+        </a>
+
+    </div>
+
+</div>
+
+<?php } ?>
+
+</div>
 
     </div>
 

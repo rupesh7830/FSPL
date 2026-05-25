@@ -13,7 +13,7 @@ if(isset($_SESSION['user_id'])){
 
     }else{
 
-        header("Location: dashboard.php");
+        header("Location: dashboard");
     }
 
     exit();
@@ -94,7 +94,7 @@ if(isset($_POST['register'])){
 
                 $redirect_url = isset($_SESSION['redirect_after_login'])
                 ? $_SESSION['redirect_after_login']
-                : "dashboard.php";
+                : "dashboard";
 
                 unset($_SESSION['redirect_after_login']);
 
@@ -465,7 +465,7 @@ if(isset($_POST['register'])){
                             Already have an account?
 
                             <a
-                                href="login.php?redirect=<?php echo urlencode($_GET['redirect'] ?? 'dashboard.php'); ?>"
+                                href="login?redirect=<?php echo urlencode($_GET['redirect'] ?? 'dashboard'); ?>"
                                 class="text-[#D4AF37] hover:text-white transition">
 
                                 Login

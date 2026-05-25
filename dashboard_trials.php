@@ -6,16 +6,41 @@ session_start();
 
 if(!isset($_SESSION['user_id'])){
 
-    header('location:login.php');
+    header('location:login');
     exit();
 
 }
 
 $user_id = $_SESSION['user_id'];
 
-$user_name = $_SESSION['user_name'];
+/* =========================================
+USER DATA
+========================================= */
 
-$user_email = $_SESSION['user_email'];
+$user_id = $_SESSION['user_id'];
+
+$user_name  = '';
+$user_email = '';
+$user_mobile = '';
+
+/* FETCH USER */
+
+$user_query = mysqli_query($conn,"
+SELECT full_name, email, mobile
+FROM users
+WHERE id='$user_id'
+LIMIT 1
+");
+
+if($user_query && mysqli_num_rows($user_query) > 0){
+
+    $user = mysqli_fetch_assoc($user_query);
+
+    $user_name   = $user['full_name'];
+    $user_email  = $user['email'];
+    $user_mobile = $user['mobile'];
+}
+
 
 
 $sql = "SELECT * FROM trial_registrations WHERE user_id ='$user_id'";
@@ -54,7 +79,12 @@ trials.category,
 trials.total_slots,
 trials.registered_players,
 trials.description,
-trials.status
+trials.status,
+trials.batsman_fee,
+trials.bowler_fee,
+trials.keeper_fee,
+trials.allrounder_fee,
+trials.registration_fee
 
 FROM trials_player
 
@@ -66,9 +96,33 @@ WHERE trials_player.user_id = '$user_id'
 ORDER BY trials_player.id DESC";
 
 $result = mysqli_query($conn, $sql);
+
+
+/* =========================================
+PROFILE APPROVAL CHECK
+========================================= */
+
+$profile_approved = 'Pending';
+
+$approval_query = mysqli_query($conn,"
+SELECT profile_approved
+FROM trials_player
+WHERE user_id='$user_id'
+AND profile_approved='Approved'
+LIMIT 1
+");
+
+if($approval_query && mysqli_num_rows($approval_query) > 0){
+
+    $profile_approved = 'Approved';
+
+}else{
+
+    $profile_approved = 'Pending';
+
+}
 ?>
 
-?>
 
 
 
@@ -125,7 +179,7 @@ SIDEBAR
         <div>
 
             <!-- LOGO -->
-            <a href="index.php">
+            <a href="index">
             <div class="flex items-center gap-3">
 
                 <div
@@ -165,7 +219,7 @@ SIDEBAR
                 <!-- ITEM -->
 
                 <a
-                href="dashboard.php"
+                href="dashboard"
                 class="flex items-center gap-4 h-[52px] px-5 rounded-2xl bg-[#D4AF37] text-black font-medium shadow-[0_0_30px_rgba(212,175,55,0.18)]">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5">
@@ -176,23 +230,67 @@ SIDEBAR
 
                 </a>
 
-                <!-- ITEM -->
-<a
-href="<?php echo $is_profile_complete ? 'dashboard_userprofile.php' : 'complete_profile.php'; ?>"
-class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
+                <a
+                href="<?php echo $profile_approved == 'Approved'
+                ? ($is_profile_complete ? 'dashboard_userprofile' : 'complete_profile')
+                : 'javascript:void(0)'; ?>"
 
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275" />
-    </svg>
+                class="group flex items-center justify-between h-[52px] px-5 rounded-2xl border border-white/5 transition duration-500
 
-    <?php echo $is_profile_complete ? 'My Profile' : 'Complete Profile'; ?>
+                <?php echo $profile_approved == 'Approved'
+                ? 'bg-white/[0.03] hover:border-[#D4AF37]/20'
+                : 'bg-white/[0.02] opacity-60 cursor-not-allowed'; ?>
+                ">
 
-</a>
+                    <!-- LEFT -->
+
+                    <div class="flex items-center gap-4">
+
+                        <!-- ICON -->
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.8"
+                        stroke="currentColor"
+                        class="w-5 h-5 text-[#D4AF37]">
+
+                            <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275" />
+
+                        </svg>
+
+                        <!-- TEXT -->
+
+                        <span class="text-sm">
+
+                            <?php echo $is_profile_complete ? 'My Profile' : 'Complete Profile'; ?>
+
+                        </span>
+
+                    </div>
+
+                    <!-- LOCK -->
+
+                    <?php if($profile_approved != 'Approved'){ ?>
+
+                        <span
+                        class="text-[9px] text-[#D4AF37] uppercase tracking-[2px]">
+
+                            Locked
+
+                        </span>
+
+                    <?php } ?>
+
+                </a>
 
                 <!-- ITEM -->
 
                 <a
-                href="dashboard_trials.php"
+                href="dashboard_trials"
                 class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
@@ -206,7 +304,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
                 <!-- ITEM -->
 
                 <a
-                href="dashboard_selectionstatus.php"
+                href="dashboard_selectionstatus"
                 class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
@@ -239,7 +337,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
             </p>
 
             <a
-            href="logout.php"
+            href="logout"
             class="mt-5 flex items-center justify-center h-[46px] rounded-xl bg-[#D4AF37] text-black uppercase tracking-[2px] text-[10px] font-bold hover:scale-[1.02] transition duration-500">
 
                 Logout
@@ -424,6 +522,24 @@ if(mysqli_num_rows($result) > 0){
 
                 </div>
 
+                <div
+                class="flex items-center justify-between gap-3 pb-3 border-b border-white/5">
+
+                    <span
+                    class="text-white/40 uppercase tracking-[2px] text-[9px]">
+
+                        Trial Date
+
+                    </span>
+
+                    <span class="text-sm font-medium">
+
+                        <?php echo $row['trial_date']; ?>
+
+                    </span>
+
+                </div>
+
                 <!-- ROW -->
 
                 <div
@@ -452,13 +568,15 @@ if(mysqli_num_rows($result) > 0){
                     <span
                     class="text-white/40 uppercase tracking-[2px] text-[9px]">
 
-                        Age Group
+                        Playing Role
 
                     </span>
 
-                    <span class="text-sm font-medium">
+                    <span class="text-sm font-medium text-[#D4AF37]">
 
-                        <?php echo $row['age_group']; ?>
+                        <?php echo !empty($row['playing_role'])
+                        ? $row['playing_role']
+                        : 'General Registration'; ?>
 
                     </span>
 
@@ -478,7 +596,45 @@ if(mysqli_num_rows($result) > 0){
 
                     <span class="text-[#D4AF37] font-semibold text-lg">
 
-                        ₹<?php echo $row['entry_fee']; ?>
+                        <?php
+
+                        $player_fee = $row['registration_fee'];
+
+                        /*
+                            ROLE WISE FEE
+                        */
+
+                        if($row['playing_role'] == 'Batsman'){
+
+                            $player_fee = $row['batsman_fee'];
+
+                        }elseif($row['playing_role'] == 'Bowler'){
+
+                            $player_fee = $row['bowler_fee'];
+
+                        }elseif($row['playing_role'] == 'Wicket Keeper'){
+
+                            $player_fee = $row['keeper_fee'];
+
+                        }elseif($row['playing_role'] == 'All-Rounder'){
+
+                            $player_fee = $row['allrounder_fee'];
+
+                        }
+
+                        /*
+                            DEFAULT REGISTRATION
+                        */
+
+                        else{
+
+                            $player_fee = $row['registration_fee'];
+
+                        }
+
+                        ?>
+
+                        ₹<?php echo $player_fee; ?>
 
                     </span>
 
@@ -531,7 +687,7 @@ if(mysqli_num_rows($result) > 0){
                 <?php if(strtolower($row['payment_status']) == 'paid'){ ?>
 
                     <a
-                    href="selection_status.php?id=<?php echo $row['registration_id']; ?>"
+                    href="selection_status?id=<?php echo $row['registration_id']; ?>"
                     class="flex items-center justify-center h-[48px] rounded-xl bg-green-500 text-black uppercase tracking-[2px] text-[10px] font-bold hover:scale-[1.02] transition duration-300">
 
                         Status
@@ -541,7 +697,7 @@ if(mysqli_num_rows($result) > 0){
                 <?php } else { ?>
 
                     <a
-                    href="pay.php?id=<?php echo $row['registration_id']; ?>"
+                    href="pay?id=<?php echo $row['registration_id']; ?>"
                     class="flex items-center justify-center h-[48px] rounded-xl bg-[#D4AF37] text-black uppercase tracking-[2px] text-[10px] font-bold hover:scale-[1.02] transition duration-300">
 
                         Pay Now
@@ -551,7 +707,7 @@ if(mysqli_num_rows($result) > 0){
                 <?php } ?>
 
                 <a
-                href="trial_details.php?id=<?php echo $row['id']; ?>"
+                href="trial_details?id=<?php echo $row['id']; ?>"
                 class="flex items-center justify-center h-[48px] rounded-xl border border-white/10 bg-white/[0.03] uppercase tracking-[2px] text-[10px] font-bold hover:border-[#D4AF37]/20 transition duration-300">
 
                     Details
@@ -590,7 +746,7 @@ if(mysqli_num_rows($result) > 0){
     </p>
 
     <a
-    href="trials.php"
+    href="trials"
     class="inline-flex items-center justify-center h-[54px] px-8 rounded-2xl bg-[#D4AF37] text-black uppercase tracking-[3px] text-[10px] font-bold mt-10 hover:scale-[1.03] transition duration-300">
 
         Explore Trials
@@ -648,7 +804,7 @@ UPCOMING TRIALS
         <!-- BUTTON -->
 
         <a
-        href="trials.php"
+        href="trials"
         class="hidden md:flex items-center justify-center h-[52px] px-8 rounded-2xl border border-white/10 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-300 uppercase tracking-[3px] text-[10px] font-bold">
 
             View All Trials
@@ -822,13 +978,13 @@ class="group rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur
                 <span
                 class="text-white/35 uppercase tracking-[2px] text-[8px]">
 
-                    Fee
+                    Book Slots
 
                 </span>
 
                 <span class="text-[#D4AF37] font-semibold text-sm">
 
-                    ₹<?php echo $trial['entry_fee']; ?>
+                    ₹<?php echo $trial['registration_fee']; ?>
 
                 </span>
 
@@ -864,7 +1020,7 @@ class="group rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur
             <!-- BUTTON -->
 
             <a
-            href="apply.php?trial_id=<?php echo $trial['id']; ?>"
+            href="apply?trial_id=<?php echo $trial['id']; ?>"
             class="h-[40px] px-5 rounded-xl bg-[#D4AF37] text-black flex items-center justify-center uppercase tracking-[2px] text-[9px] font-bold hover:scale-[1.02] transition duration-300">
 
                 Apply

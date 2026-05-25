@@ -761,7 +761,7 @@ margin:auto;
         </a>
 
         <a
-        href="dashboard.php"
+        href="dashboard"
         class="btn home">
 
             ⬅ Back To Home

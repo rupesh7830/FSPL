@@ -1,24 +1,14 @@
-<!-- =========================================
-FSCL LUXURY SPORTS NAVBAR
-========================================= -->
+
 <?php
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $is_logged_in = isset($_SESSION['user_id']);
 
 $current_page = basename($_SERVER['PHP_SELF']);
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>FSCL Luxury Navbar</title>
 
   <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,9 +20,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
   <style>
 
-/* =========================================
-GLOBAL RESET
-========================================= */
 
 *{
     margin:0;
@@ -740,14 +727,6 @@ RESPONSIVE
 }
   </style>
 
-</head>
-
-<body>
-
-  <!-- =========================================
-       NAVBAR
-  ========================================= -->
-
 <!-- =========================================
 NAVBAR
 ========================================= -->
@@ -776,32 +755,32 @@ NAVBAR
 
 <div class="hidden lg:flex items-center gap-12 relative z-10">
 
-<a href="index.php"
+<a href="index"
 class="nav-link <?= ($current_page == 'index.php') ? 'active-link' : '' ?>">
     Home
 </a>
 
-<a href="aboutUs.php"
+<a href="aboutUs"
 class="nav-link <?= ($current_page == 'aboutUs.php') ? 'active-link' : '' ?>">
     About
 </a>
 
-<a href="trials.php"
+<a href="trials"
 class="nav-link <?= ($current_page == 'trials.php') ? 'active-link' : '' ?>">
     Trials
 </a>
 
-<a href="gallery.php"
+<a href="gallery"
 class="nav-link <?= ($current_page == 'gallery.php') ? 'active-link' : '' ?>">
     Gallery
 </a>
 
-<a href="players.php"
+<a href="players"
 class="nav-link <?= ($current_page == 'players.php') ? 'active-link' : '' ?>">
     Players
 </a>
 
-<a href="contact.php"
+<a href="contact"
 class="nav-link <?= ($current_page == 'contact.php') ? 'active-link' : '' ?>">
     Contact
 </a>
@@ -817,7 +796,7 @@ class="nav-link <?= ($current_page == 'contact.php') ? 'active-link' : '' ?>">
     <!-- DASHBOARD BUTTON -->
 
     <a
-    href="dashboard.php"
+    href="dashboard"
     class="player-btn flex items-center gap-3 px-8 py-[13px] rounded-full text-[12px] tracking-[1px]">
 
         Go To Dashboard
@@ -886,7 +865,7 @@ class="nav-link <?= ($current_page == 'contact.php') ? 'active-link' : '' ?>">
 
                 <!-- REGISTER -->
 
-                <a href="register.php"
+                <a href="register"
                 class="dropdown-item">
 
                     <h3 class="dropdown-title">
@@ -901,7 +880,7 @@ class="nav-link <?= ($current_page == 'contact.php') ? 'active-link' : '' ?>">
 
                 <!-- LOGIN -->
 
-                <a href="login.php"
+                <a href="login"
                 class="dropdown-item mt-1">
 
                     <h3 class="dropdown-title">
@@ -1123,7 +1102,7 @@ class="mobile-menu">
         <!-- ITEM -->
 
         <a
-        href="index.php"
+        href="index"
         class="mobile-app-link <?= ($current_page == 'index.php') ? 'mobile-active' : '' ?>">
 
             <div class="flex items-center gap-4">
@@ -1156,7 +1135,7 @@ class="mobile-menu">
         <!-- ITEM -->
 
         <a
-        href="aboutUs.php"
+        href="aboutUs"
         class="mobile-app-link <?= ($current_page == 'aboutUs.php') ? 'mobile-active' : '' ?>">
 
             <div class="flex items-center gap-4">
@@ -1189,8 +1168,8 @@ class="mobile-menu">
         <!-- ITEM -->
 
         <a
-        href="trials.php"
-        class="mobile-app-link <?= ($current_page == 'trials.php') ? 'mobile-active' : '' ?>">
+        href="trials"
+        class="mobile-app-link <?= ($current_page == 'trials') ? 'mobile-active' : '' ?>">
 
             <div class="flex items-center gap-4">
 
@@ -1222,8 +1201,8 @@ class="mobile-menu">
         <!-- ITEM -->
 
         <a
-        href="gallery.php"
-        class="mobile-app-link <?= ($current_page == 'gallery.php') ? 'mobile-active' : '' ?>">
+        href="gallery"
+        class="mobile-app-link <?= ($current_page == 'gallery') ? 'mobile-active' : '' ?>">
 
             <div class="flex items-center gap-4">
 
@@ -1255,8 +1234,8 @@ class="mobile-menu">
         <!-- ITEM -->
 
         <a
-        href="players.php"
-        class="mobile-app-link <?= ($current_page == 'players.php') ? 'mobile-active' : '' ?>">
+        href="players"
+        class="mobile-app-link <?= ($current_page == 'players') ? 'mobile-active' : '' ?>">
 
             <div class="flex items-center gap-4">
 
@@ -1288,8 +1267,8 @@ class="mobile-menu">
         <!-- ITEM -->
 
         <a
-        href="contact.php"
-        class="mobile-app-link <?= ($current_page == 'contact.php') ? 'mobile-active' : '' ?>">
+        href="contact"
+        class="mobile-app-link <?= ($current_page == 'contact') ? 'mobile-active' : '' ?>">
 
             <div class="flex items-center gap-4">
 
@@ -1327,7 +1306,7 @@ class="mobile-menu">
     <div class="px-6 mt-8 pb-10">
 
         <a
-        href="register.php"
+        href="register"
         class="register-app-btn">
 
             Register Now
@@ -1370,6 +1349,3 @@ class="mobile-menu">
 
   </script>
 
-</body>
-
-</html>

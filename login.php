@@ -56,7 +56,7 @@ if(isset($_POST['login'])){
 
             $redirect_url = isset($_SESSION['redirect_after_login'])
             ? $_SESSION['redirect_after_login']
-            : "dashboard.php";
+            : "dashboard";
 
             unset($_SESSION['redirect_after_login']);
 
@@ -358,7 +358,7 @@ class="relative z-10 max-w-6xl mx-auto px-5 lg:px-8 w-full">
                         Don't have an account?
 
                         <a
-                        href="register.php?redirect=<?php echo urlencode($_GET['redirect'] ?? 'dashboard.php'); ?>"
+                        href="register?redirect=<?php echo urlencode($_GET['redirect'] ?? 'dashboard'); ?>"
                         class="text-[#D4AF37] hover:text-white transition">
 
                             Register

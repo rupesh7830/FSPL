@@ -14,7 +14,7 @@ session_destroy();
    REDIRECT TO LOGIN
 ========================================= */
 
-header("Location: index.php");
+header("Location: index");
 exit();
 
 ?>

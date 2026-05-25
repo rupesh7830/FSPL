@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <head>
 
     <!-- =========================================
@@ -64,7 +65,7 @@
 
     <link
     rel="canonical"
-    href="https://yourdomain.com/players.php">
+    href="https://yourdomain.com/players">
 
     <!-- =========================================
     OPEN GRAPH SEO
@@ -84,7 +85,7 @@
 
     <meta
     property="og:url"
-    content="https://yourdomain.com/players.php">
+    content="https://yourdomain.com/players">
 
     <meta
     property="og:type"
@@ -269,7 +270,7 @@ class="relative overflow-hidden bg-[#050505] min-h-screen flex items-center py-2
                 <h1
                 class="mt-7 font-['Cinzel']
                 text-white
-                text-4xl
+                text-[48px]
                 lg:text-[60px]
                 leading-[0.95]
                 font-bold
@@ -363,7 +364,7 @@ class="relative overflow-hidden bg-[#050505] min-h-screen flex items-center py-2
                     <!-- BUTTON -->
 
                     <a
-                    href="trials.php"
+                    href="trials"
                     class="group relative overflow-hidden h-[46px] px-7 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl hover:border-[#D4AF37]/40 transition duration-500">
 
                         <!-- CONTENT -->
@@ -2422,7 +2423,7 @@ class="relative overflow-hidden py-16 lg:py-24 bg-[#050505]">
                     <!-- BUTTON -->
 
                     <a
-                    href="register.php"
+                    href="register"
                     class="group relative overflow-hidden h-[46px] px-7 rounded-full bg-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:scale-105 transition duration-500">
 
                         <!-- SHINE -->
@@ -2477,7 +2478,7 @@ class="relative overflow-hidden py-16 lg:py-24 bg-[#050505]">
                     <!-- BUTTON -->
 
                     <a
-                    href="trials.php"
+                    href="trials"
                     class="group relative overflow-hidden h-[46px] px-7 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl hover:border-[#D4AF37]/40 transition duration-500">
 
                         <!-- HOVER -->

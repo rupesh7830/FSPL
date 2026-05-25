@@ -1,22 +1,48 @@
-
 <?php
-include "admin/config/db_connect.php";
+
 session_start();
 
+include "admin/config/db_connect.php";
+
+/* =========================================
+LOGIN CHECK
+========================================= */
 
 if(!isset($_SESSION['user_id'])){
 
-    header('location:login.php');
+    header("Location: login");
     exit();
 
 }
 
+/* =========================================
+USER DATA
+========================================= */
 
 $user_id = $_SESSION['user_id'];
 
-$user_name = $_SESSION['user_name'];
+$user_name  = '';
+$user_email = '';
+$user_mobile = '';
 
-$user_email = $_SESSION['user_email'];
+/* FETCH USER */
+
+$user_query = mysqli_query($conn,"
+SELECT full_name, email, mobile
+FROM users
+WHERE id='$user_id'
+LIMIT 1
+");
+
+if($user_query && mysqli_num_rows($user_query) > 0){
+
+    $user = mysqli_fetch_assoc($user_query);
+
+    $user_name   = $user['full_name'];
+    $user_email  = $user['email'];
+    $user_mobile = $user['mobile'];
+
+}
 
 
 $sql = "SELECT * FROM trial_registrations WHERE user_id ='$user_id'";
@@ -324,7 +350,7 @@ mysqli_stmt_bind_param(
 
                 $_SESSION['success'] = "Profile completed successfully";
 
-                header("location:dashboard_userprofile.php");
+                header("location:dashboard_userprofile");
                 exit();
 
             }else{
@@ -443,7 +469,7 @@ SIDEBAR
         <div>
 
             <!-- LOGO -->
-            <a href="index.php">
+            <a href="index">
             <div class="flex items-center gap-3">
 
                 <div
@@ -483,7 +509,7 @@ SIDEBAR
                 <!-- ITEM -->
 
                 <a
-                href="dashboard.php"
+                href="dashboard"
                 class="flex items-center gap-4 h-[52px] px-5 rounded-2xl bg-[#D4AF37] text-black font-medium shadow-[0_0_30px_rgba(212,175,55,0.18)]">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5">
@@ -496,7 +522,7 @@ SIDEBAR
 
                 <!-- ITEM -->
 <a
-href="<?php echo $is_profile_complete ? 'dashboard_userprofile.php' : 'complete_profile.php'; ?>"
+href="<?php echo $is_profile_complete ? 'dashboard_userprofile' : 'complete_profile'; ?>"
 class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
 
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
@@ -510,7 +536,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
                 <!-- ITEM -->
 
                 <a
-                href="dashboard_trials.php"
+                href="dashboard_trials"
                 class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
@@ -524,7 +550,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
                 <!-- ITEM -->
 
                 <a
-                href="dashboard_selectionstatus.php"
+                href="dashboard_selectionstatus"
                 class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
@@ -557,7 +583,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
             </p>
 
             <a
-            href="logout.php"
+            href="logout"
             class="mt-5 flex items-center justify-center h-[46px] rounded-xl bg-[#D4AF37] text-black uppercase tracking-[2px] text-[10px] font-bold hover:scale-[1.02] transition duration-500">
 
                 Logout
@@ -951,7 +977,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
                         type="text"
                         id="city"
                         name="city"
-                        placeholder="Enter city"
+                        placeholder="Detecting district..."
                         class="input">
 
                     </div>
@@ -1176,7 +1202,54 @@ AOS.init({
 });
 
 </script>
+<script>
 
+navigator.geolocation.getCurrentPosition(
+
+    async position => {
+
+        const lat = position.coords.latitude;
+
+        const lon = position.coords.longitude;
+
+        try{
+
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
+            );
+
+            const data = await response.json();
+
+            // STATE
+
+            document.getElementById('state').value =
+            data.address.state || '';
+
+            // DISTRICT / CITY
+
+            document.getElementById('city').value =
+            data.address.city ||
+            data.address.town ||
+            data.address.county ||
+            '';
+
+        }catch(error){
+
+            console.log(error);
+
+        }
+
+    },
+
+    error => {
+
+        console.log(error);
+
+    }
+
+);
+
+</script>
 </body>
 </html>
 

@@ -1,9 +1,14 @@
 <?php 
+session_start();
 include "admin/config/db_connect.php";
 
 $stmt= $conn->prepare("SELECT * FROM trials");
 $stmt->execute();
 $result = $stmt->get_result();
+
+$img=$conn->prepare("SELECT * FROM gallery");
+$img->execute();
+$img_result=$img->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -119,6 +124,11 @@ LUXURY BRAND HERO SECTION
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 
+<!-- =========================================
+PREMIUM CINEMATIC HERO SECTION
+UPGRADED VERSION
+========================================= -->
+
 <section class="relative min-h-screen overflow-hidden bg-[#050505]">
 
     <!-- =========================================
@@ -128,9 +138,9 @@ LUXURY BRAND HERO SECTION
     <div class="absolute inset-0">
 
         <img
-            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1974&auto=format&fit=crop"
-            alt=""
-            class="w-full h-full object-cover scale-105 opacity-40">
+        src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1974&auto=format&fit=crop"
+        alt=""
+        class="w-full h-full object-cover scale-105 opacity-40">
 
         <!-- DARK OVERLAY -->
 
@@ -139,7 +149,7 @@ LUXURY BRAND HERO SECTION
         <!-- GOLD LIGHT -->
 
         <div
-            class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.14),transparent_45%)]">
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.14),transparent_45%)]">
         </div>
 
     </div>
@@ -149,7 +159,19 @@ LUXURY BRAND HERO SECTION
     ========================================= -->
 
     <div
-        class="absolute top-[-250px] left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-[#D4AF37]/10 blur-[170px] rounded-full">
+    class="absolute top-[-250px] left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-[#D4AF37]/10 blur-[170px] rounded-full">
+    </div>
+
+    <!-- LEFT GLOW -->
+
+    <div
+    class="absolute top-[20%] left-[-200px] w-[450px] h-[450px] bg-[#D4AF37]/10 blur-[160px] rounded-full">
+    </div>
+
+    <!-- RIGHT GLOW -->
+
+    <div
+    class="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[180px] rounded-full">
     </div>
 
     <!-- =========================================
@@ -157,7 +179,7 @@ LUXURY BRAND HERO SECTION
     ========================================= -->
 
     <div
-        class="relative z-20 max-w-7xl mx-auto px-6 lg:px-10 min-h-screen flex items-center">
+    class="relative z-20 max-w-7xl mx-auto px-6 lg:px-10 min-h-screen flex items-center">
 
         <div class="grid lg:grid-cols-2 gap-20 items-center w-full">
 
@@ -170,12 +192,17 @@ LUXURY BRAND HERO SECTION
                 <!-- LABEL -->
 
                 <div
-                    class="inline-flex items-center gap-3 border border-[#D4AF37]/20 bg-white/[0.02] backdrop-blur-xl px-6 py-3 rounded-full">
+                class="inline-flex items-center gap-3 border border-[#D4AF37]/20 bg-white/[0.02] backdrop-blur-xl px-6 py-3 rounded-full animate-[fadeUp_1s_ease]">
 
-                    <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
 
                     <span
-                        class="font-['Outfit'] uppercase tracking-[4px] text-[11px] text-[#F5D76E]/90 font-medium">
+                    class="font-['Outfit']
+                    uppercase
+                    tracking-[4px]
+                    text-[11px]
+                    text-[#F5D76E]/90
+                    font-medium">
 
                         Future Star Premier League
 
@@ -188,11 +215,20 @@ LUXURY BRAND HERO SECTION
                 ========================================= -->
 
                 <h1
-                    class="mt-10 font-['Cinzel'] text-white text-5xl sm:text-6xl lg:text-[60px] leading-[0.95] font-bold tracking-[-3px] max-w-[750px]">
+                class="mt-10 font-['Cinzel']
+                text-white
+                text-5xl
+                sm:text-6xl
+                lg:text-[68px]
+                leading-[0.92]
+                font-bold
+                tracking-[-4px]
+                max-w-[750px]
+                animate-[fadeUp_1.2s_ease]">
 
                     Built For
 
-                    <span class="block text-[#D4AF37]">
+                    <span class="block text-[#D4AF37] mt-2">
 
                         Future Icons
 
@@ -203,9 +239,17 @@ LUXURY BRAND HERO SECTION
                 <!-- DESCRIPTION -->
 
                 <p
-                    class="mt-10 max-w-[590px] text-white/55 font-['Outfit'] text-[18px] leading-[34px] font-light tracking-[0.3px]">
+                class="mt-10 max-w-[590px]
+                text-white/55
+                font-['Outfit']
+                text-[18px]
+                leading-[34px]
+                font-light
+                tracking-[0.3px]
+                animate-[fadeUp_1.4s_ease]">
 
-                    India’s luxury cricket platform crafted for elite talent, professional exposure, and the next generation of champions.
+                    India’s luxury cricket platform crafted for elite talent,
+                    professional exposure, and the next generation of champions.
 
                 </p>
 
@@ -213,82 +257,101 @@ LUXURY BRAND HERO SECTION
                      ACTIONS
                 ========================================= -->
 
-                <div class="flex flex-wrap items-center gap-5 mt-14">
-                <button
-class="group relative overflow-hidden h-[66px] px-10 rounded-full border border-[#D4AF37]/20 bg-white/[0.03] backdrop-blur-2xl">
+                <div
+                class="flex flex-wrap items-center gap-5 mt-14 animate-[fadeUp_1.6s_ease]">
 
-    <!-- GOLD HOVER LIGHT -->
+                    <!-- REGISTER BUTTON -->
 
-    <div
-    class="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/20 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition duration-500">
-    </div>
+                    <button
+                    class="group relative overflow-hidden h-[66px] px-10 rounded-full border border-[#D4AF37]/20 bg-white/[0.03] backdrop-blur-2xl hover:scale-105 transition duration-500">
 
-    <!-- BUTTON CONTENT -->
+                        <!-- GOLD HOVER -->
 
-    <div class="relative flex items-center gap-4">
+                        <div
+                        class="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/20 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition duration-500">
+                        </div>
 
-<a href="<?php echo isset($_SESSION['user_id']) ? 'dashboard.php' : 'register.php' ?>">
+                        <!-- CONTENT -->
 
-    <span
-        class="font-['Cinzel']
-        uppercase
-        tracking-[3px]
-        text-[12px]
-        font-bold
-        text-[#F5D76E]">
+                        <div class="relative flex items-center gap-4">
 
-        <?php echo isset($_SESSION['user_id']) ? 'Go to Dashboard' : 'Register Now'; ?>
+                            <a href="<?php echo isset($_SESSION['user_id']) ? 'dashboard' : 'register' ?>">
 
-    </span>
+                                <span
+                                class="font-['Cinzel']
+                                uppercase
+                                tracking-[3px]
+                                text-[12px]
+                                font-bold
+                                text-[#F5D76E]">
 
-</a>
-   
-        <!-- ICON -->
+                                    <?php echo isset($_SESSION['user_id']) ? 'Go to Dashboard' : 'Register Now'; ?>
 
-        <div
-        class="w-8 h-8 rounded-full border border-[#D4AF37]/20 flex items-center justify-center group-hover:translate-x-1 transition duration-300">
+                                </span>
 
-            <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-3 h-3 text-[#F5D76E]"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor">
+                            </a>
 
-                <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            <!-- ICON -->
 
-            </svg>
+                            <div
+                            class="w-8 h-8 rounded-full border border-[#D4AF37]/20 flex items-center justify-center group-hover:translate-x-1 transition duration-300">
 
-        </div>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-3 h-3 text-[#F5D76E]"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
 
-    </div>
+                                    <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3"/>
 
-</button>
+                                </svg>
+
+                            </div>
+
+                        </div>
+
+                    </button>
+
                     <!-- WATCH FILM -->
 
                     <a href="#"
-                        class="group flex items-center gap-4">
+                    class="group flex items-center gap-4">
+
+                        <!-- PLAY BUTTON -->
 
                         <div
-                            class="w-14 h-14 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center group-hover:border-[#D4AF37]/40 transition">
+                        class="relative w-14 h-14 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center group-hover:border-[#D4AF37]/40 transition duration-500 group-hover:scale-110">
+
+                            <!-- PULSE -->
+
+                            <div
+                            class="absolute inset-0 rounded-full border border-[#D4AF37]/20 animate-ping">
+                            </div>
 
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                class="w-4 h-4 text-white"
-                                fill="currentColor"
-                                viewBox="0 0 16 16">
+                            class="w-4 h-4 text-white relative z-10"
+                            fill="currentColor"
+                            viewBox="0 0 16 16">
 
                                 <path
-                                    d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692c.541.313.541 1.08 0 1.393z" />
+                                d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692c.541.313.541 1.08 0 1.393z"/>
 
                             </svg>
 
                         </div>
 
                         <span
-                            class="font-['Outfit'] uppercase tracking-[3px] text-[12px] text-white/55 group-hover:text-[#F5D76E] transition">
+                        class="font-['Outfit']
+                        uppercase
+                        tracking-[3px]
+                        text-[12px]
+                        text-white/55
+                        group-hover:text-[#F5D76E]
+                        transition">
 
                             Watch Film
 
@@ -298,71 +361,225 @@ class="group relative overflow-hidden h-[66px] px-10 rounded-full border border-
 
                 </div>
 
+                <!-- =========================================
+                     STATS
+                ========================================= -->
+
+                <div
+                class="grid grid-cols-3 gap-5 mt-16 animate-[fadeUp_1.8s_ease]">
+
+                    <!-- ITEM -->
+
+                    <div
+                    class="rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/20 transition duration-500">
+
+                        <h3
+                        class="text-[#D4AF37] text-4xl font-black">
+
+                            12K+
+
+                        </h3>
+
+                        <p
+                        class="mt-2 text-white/45 uppercase tracking-[2px] text-[10px]">
+
+                            Registered Players
+
+                        </p>
+
+                    </div>
+
+                    <!-- ITEM -->
+
+                    <div
+                    class="rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/20 transition duration-500">
+
+                        <h3
+                        class="text-[#D4AF37] text-4xl font-black">
+
+                            25+
+
+                        </h3>
+
+                        <p
+                        class="mt-2 text-white/45 uppercase tracking-[2px] text-[10px]">
+
+                            Trial Cities
+
+                        </p>
+
+                    </div>
+
+                    <!-- ITEM -->
+
+                    <div
+                    class="rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/20 transition duration-500">
+
+                        <h3
+                        class="text-[#D4AF37] text-4xl font-black">
+
+                            ₹80K
+
+                        </h3>
+
+                        <p
+                        class="mt-2 text-white/45 uppercase tracking-[2px] text-[10px]">
+
+                            Prize Pool
+
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
 
             <!-- =========================================
-RIGHT VISUAL
-========================================= -->
+                 RIGHT VISUAL
+            ========================================= -->
 
-<div class="relative hidden lg:flex justify-end items-end pt-24">
+            <div class="relative hidden lg:flex justify-end items-end pt-24">
 
-    <!-- GOLD GLOW -->
+                <!-- GOLD GLOW -->
 
-    <div
-    class="absolute w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[140px] rounded-full">
-    </div>
+                <div
+                class="absolute w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[140px] rounded-full">
+                </div>
 
-    <!-- VIDEO FRAME -->
+                <!-- VIDEO FRAME -->
 
-    <div
-    class="relative z-10 w-full max-w-[650px] rounded-[36px] overflow-hidden border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl shadow-[0_40px_120px_rgba(0,0,0,0.9)]">
+                <div
+                class="group relative z-10 w-full max-w-[650px]
+                rounded-[40px]
+                overflow-hidden
+                border border-[#D4AF37]/15
+                bg-white/[0.03]
+                backdrop-blur-2xl
+                shadow-[0_40px_120px_rgba(0,0,0,0.9)]
+                hover:-translate-y-3
+                hover:rotate-[0.5deg]
+                transition duration-700">
 
-        <!-- TOP LIGHT -->
+                    <!-- TOP LIGHT -->
 
-        <div
-        class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(212,175,55,0.08),transparent_30%)] pointer-events-none z-20">
-        </div>
+                    <div
+                    class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(212,175,55,0.08),transparent_30%)] pointer-events-none z-20">
+                    </div>
 
-        <!-- VIDEO -->
+                    <!-- VIDEO -->
 
-        <video
-        autoplay
-        muted
-        loop
-        playsinline
-        class="w-full h-[520px] object-cover">
+                    <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    class="w-full h-[520px] object-cover group-hover:scale-105 group-hover:brightness-110 transition duration-700 animate-[slowZoom_12s_linear_infinite_alternate]">
 
-            <source
-            src="assets/videos/cricket.mp4"
-            type="video/mp4">
+                        <source
+                        src="assets/videos/cricket.mp4"
+                        type="video/mp4">
 
-        </video>
+                    </video>
 
-        <!-- DARK FADE -->
+                    <!-- DARK FADE -->
 
-        <div
-        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20">
-        </div>
+                    <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20">
+                    </div>
 
-        <!-- LIVE TAG -->
+                    <!-- LIVE TAG -->
 
-        <div
-        class="absolute top-6 left-6 z-30 flex items-center gap-3 px-5 py-3 rounded-full border border-red-500/20 bg-black/40 backdrop-blur-xl">
+                    <div
+                    class="absolute top-6 left-6 z-30 flex items-center gap-3 px-5 py-3 rounded-full border border-red-500/20 bg-black/40 backdrop-blur-xl">
 
-            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
 
-            <span
-            class="font-['Outfit'] uppercase tracking-[3px] text-[11px] text-white/80">
+                        <span
+                        class="font-['Outfit']
+                        uppercase
+                        tracking-[3px]
+                        text-[11px]
+                        text-white/80">
 
-                Live Cricket Experience
+                            Live Cricket Experience
 
-            </span>
+                        </span>
+
+                    </div>
+
+                    <!-- BOTTOM CONTENT -->
+
+                    <div class="absolute bottom-0 left-0 w-full p-8 z-30">
+
+                        <h3
+                        class="text-white font-['Cinzel']
+                        text-4xl leading-[1]
+                        font-bold">
+
+                            EXPERIENCE
+
+                            <span class="block text-[#D4AF37] mt-2">
+
+                                FSPL TRIALS
+
+                            </span>
+
+                        </h3>
+
+                        <p
+                        class="mt-4 text-white/55 text-[15px] leading-[28px] max-w-[420px]">
+
+                            Showcase your talent in front of elite selectors
+                            and professional franchise scouts.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
 </section>
+
+<!-- =========================================
+ANIMATIONS
+========================================= -->
+
+<style>
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes slowZoom{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.08);
+    }
+
+}
+
+</style>
 
 <!-- hero section close -->
 
@@ -1173,7 +1390,7 @@ UPCOMING TRIALS
                 </div>
 
                 <!-- BUTTON -->
-                <a href="register.php?redirect=apply.php?trial_id=<?php echo $row['id']; ?>">
+                <a href="register?redirect=apply?trial_id=<?php echo $row['id']; ?>">
                 <button
                 class="relative z-10 mt-6 w-full h-[46px] lg:h-[50px]
                 rounded-full border border-[#D4AF37]/15
@@ -1677,6 +1894,126 @@ FSPL TEAMS SECTION
 
             </div>
 
+            <div
+            class="team-card hidden extra-team
+            group relative overflow-hidden rounded-[34px]
+            border border-white/5
+            bg-white/[0.03]
+            backdrop-blur-2xl
+            hover:border-[#D4AF37]/20
+            transition duration-500
+            hover:-translate-y-3">
+
+                <div
+                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/0 via-[#D4AF37]/0 to-[#D4AF37]/5 opacity-0 group-hover:opacity-100 transition duration-500">
+                </div>
+
+                <div
+                class="relative overflow-hidden p-5 lg:p-6">
+
+                    <img
+                    src="assets/images/teams/mp.webp"
+                    alt=""
+                    class="w-full aspect-square object-contain transition duration-700 group-hover:scale-105">
+
+                </div>
+
+                <div class="pb-6 px-5 text-center">
+
+                    <h3
+                    class="font-['Cinzel']
+                    text-white
+                    text-[18px]
+                    lg:text-[22px]
+                    leading-[1.2]
+                    font-bold">
+
+                        MP Royals
+
+                        <span class="block text-[#D4AF37] mt-1">
+
+                            Warriors
+
+                        </span>
+
+                    </h3>
+
+                    <p
+                    class="mt-4
+                    text-white/45
+                    font-['Outfit']
+                    text-[11px]
+                    uppercase
+                    tracking-[4px]">
+
+                        Madhya Pradesh
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div
+            class="team-card hidden extra-team
+            group relative overflow-hidden rounded-[34px]
+            border border-white/5
+            bg-white/[0.03]
+            backdrop-blur-2xl
+            hover:border-[#D4AF37]/20
+            transition duration-500
+            hover:-translate-y-3">
+
+                <div
+                class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/0 via-[#D4AF37]/0 to-[#D4AF37]/5 opacity-0 group-hover:opacity-100 transition duration-500">
+                </div>
+
+                <div
+                class="relative overflow-hidden p-5 lg:p-6">
+
+                    <img
+                    src="assets/images/teams/uk.webp"
+                    alt=""
+                    class="w-full aspect-square object-contain transition duration-700 group-hover:scale-105">
+
+                </div>
+
+                <div class="pb-6 px-5 text-center">
+
+                    <h3
+                    class="font-['Cinzel']
+                    text-white
+                    text-[18px]
+                    lg:text-[22px]
+                    leading-[1.2]
+                    font-bold">
+
+                        Uttarakhand
+
+                        <span class="block text-[#D4AF37] mt-1">
+
+                            Titans
+
+                        </span>
+
+                    </h3>
+
+                    <p
+                    class="mt-4
+                    text-white/45
+                    font-['Outfit']
+                    text-[11px]
+                    uppercase
+                    tracking-[4px]">
+
+                    UTTARAKHAND
+
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
 
         <!-- BUTTON -->
@@ -1836,240 +2173,117 @@ MATCH GALLERY
 
         <!-- GALLERY GRID -->
 
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[250px] gap-5 mt-20">
+
+<?php 
+$count = 0;
+while ($img = mysqli_fetch_assoc($img_result)) { 
+
+    $large = ($count % 5 == 0) ? 'lg:col-span-2 lg:row-span-2' : '';
+
+?>
+
+    <div
+    class="group relative overflow-hidden rounded-[34px]
+    border border-white/5
+    bg-white/[0.03]
+    backdrop-blur-2xl
+    <?php echo $large; ?>">
+
+        <!-- IMAGE -->
+
+        <img
+        src="admin/<?php echo $img['image']; ?>"
+        alt="<?php echo $img['title']; ?>"
+        class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:rotate-1">
+
+        <!-- DARK OVERLAY -->
+
         <div
-        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5 mt-16 lg:mt-20">
+        class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent">
+        </div>
 
-            <!-- IMAGE 1 -->
+        <!-- GOLD LIGHT -->
 
-            <div
-            class="group relative overflow-hidden rounded-[26px] lg:rounded-[30px] col-span-1 row-span-2 h-[320px] lg:h-[420px]">
+        <div
+        class="absolute inset-0 bg-gradient-to-t from-[#D4AF37]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+        </div>
 
-                <img
-                src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+        <!-- CONTENT -->
 
-                <!-- OVERLAY -->
+        <div
+        class="absolute bottom-0 left-0 w-full p-5 lg:p-6">
 
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                </div>
+            <!-- CATEGORY -->
 
-                <!-- LABEL -->
+            <span
+            class="inline-block px-4 py-2 rounded-full
+            border border-[#D4AF37]/20
+            bg-black/40
+            backdrop-blur-xl
+            text-[#F5D76E]
+            text-[10px]
+            uppercase
+            tracking-[3px]
+            font-semibold">
 
-                <div
-                class="absolute bottom-5 left-5">
+                <?php echo $img['category']; ?>
 
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    text-[#F5D76E]">
+            </span>
 
-                        Stadium Atmosphere
+            <!-- TITLE -->
 
-                    </span>
+            <h3
+            class="mt-4 text-white
+            font-['Cinzel']
+            text-[20px]
+            lg:text-[26px]
+            leading-[1.2]
+            font-bold">
 
-                </div>
+                <?php echo $img['title']; ?>
 
-            </div>
-
-            <!-- IMAGE 2 -->
-
-            <div
-            class="group relative overflow-hidden rounded-[26px] lg:rounded-[30px] h-[150px] lg:h-[200px]">
-
-                <img
-                src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                </div>
-
-                <div
-                class="absolute bottom-5 left-5">
-
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    text-[#F5D76E]">
-
-                        Match Action
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <!-- IMAGE 3 -->
-
-            <div
-            class="group relative overflow-hidden rounded-[26px] lg:rounded-[30px] h-[150px] lg:h-[200px]">
-
-                <img
-                src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                </div>
-
-                <div
-                class="absolute bottom-5 left-5">
-
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    text-[#F5D76E]">
-
-                        Team Spirit
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <!-- IMAGE 4 -->
-
-            <div
-            class="group relative overflow-hidden rounded-[26px] lg:rounded-[30px] col-span-2 h-[150px] lg:h-[200px]">
-
-                <img
-                src="https://images.unsplash.com/photo-1628890923662-2cb23c2e7d8b?q=80&w=1400&auto=format&fit=crop"
-                alt=""
-                class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                </div>
-
-                <div
-                class="absolute bottom-5 left-5">
-
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    text-[#F5D76E]">
-
-                        Elite Trials
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <!-- IMAGE 5 -->
-
-            <div
-            class="group relative overflow-hidden rounded-[26px] lg:rounded-[30px] h-[150px] lg:h-[200px]">
-
-                <img
-                src="https://images.unsplash.com/photo-1593766827228-8737b4534aa6?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                </div>
-
-                <div
-                class="absolute bottom-5 left-5">
-
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    text-[#F5D76E]">
-
-                        Victory Moments
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <!-- IMAGE 6 -->
-
-            <div
-            class="group relative overflow-hidden rounded-[26px] lg:rounded-[30px] h-[150px] lg:h-[200px]">
-
-                <img
-                src="https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?q=80&w=1200&auto=format&fit=crop"
-                alt=""
-                class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                </div>
-
-                <div
-                class="absolute bottom-5 left-5">
-
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    text-[#F5D76E]">
-
-                        Crowd Energy
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <!-- IMAGE 7 -->
-
-            <div
-            class="group relative overflow-hidden rounded-[26px] lg:rounded-[30px] col-span-2 h-[180px] lg:h-[220px]">
-
-                <img
-                src="https://images.unsplash.com/photo-1486286701208-1d58e9338013?q=80&w=1400&auto=format&fit=crop"
-                alt=""
-                class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-
-                <div
-                class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent">
-                </div>
-
-                <div
-                class="absolute bottom-5 left-5">
-
-                    <span
-                    class="font-['Outfit']
-                    uppercase
-                    tracking-[3px]
-                    text-[10px]
-                    text-[#F5D76E]">
-
-                        Premium Experience
-
-                    </span>
-
-                </div>
-
-            </div>
-            
+            </h3>
 
         </div>
+
+        <!-- HOVER ICON -->
+
+        <div
+        class="absolute top-5 right-5 w-12 h-12 rounded-full
+        border border-[#D4AF37]/20
+        bg-black/40
+        backdrop-blur-xl
+        flex items-center justify-center
+        opacity-0 group-hover:opacity-100
+        translate-y-5 group-hover:translate-y-0
+        transition duration-500">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 text-[#F5D76E]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+
+                <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14 3h7m0 0v7m0-7L10 14"/>
+
+            </svg>
+
+        </div>
+
     </div>
+
+<?php 
+$count++;
+} 
+?>
+
+</div>
+</div>
     <!-- =========================================
 VIEW MORE BUTTON
 ========================================= -->
@@ -2077,7 +2291,7 @@ VIEW MORE BUTTON
 <div class="flex justify-center mt-14 lg:mt-16">
 
     <a
-    href="gallery.php"
+    href="gallery"
     class="group relative overflow-hidden h-[50px] lg:h-[56px] px-8 lg:px-10 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl">
 
         <!-- HOVER LIGHT -->
@@ -2704,7 +2918,7 @@ MODERN FSPL CTA SECTION
                     <!-- PRIMARY -->
 
                     <a
-                    href="register.php"
+                    href="register"
                     class="group relative overflow-hidden h-[50px] lg:h-[54px] px-6 lg:px-8 rounded-full bg-[#D4AF37] shadow-[0_0_35px_rgba(212,175,55,0.16)]">
 
                         <!-- SHINE -->
@@ -2759,7 +2973,7 @@ MODERN FSPL CTA SECTION
                     <!-- SECONDARY -->
 
                     <a
-                    href="trials.php"
+                    href="trials"
                     class="group relative overflow-hidden h-[50px] lg:h-[54px] px-6 lg:px-8 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl">
 
                         <!-- HOVER -->
@@ -2930,6 +3144,111 @@ MODERN FSPL CTA SECTION
 
 </section>
 
+
+<!-- WHATSAPP FLOATING BUTTON START -->
+
+<a href="https://wa.link/pmiklt"
+   class="whatsapp-float"
+   target="_blank">
+
+    <i class="fab fa-whatsapp"></i>
+
+</a>
+
+<!-- FONT AWESOME -->
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+.whatsapp-float{
+
+    position: fixed;
+
+    width: 60px;
+    height: 60px;
+
+    bottom: 25px;
+    right: 25px;
+
+    background: linear-gradient(135deg,#25D366,#128C7E);
+
+    color: #fff;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+
+    text-decoration: none;
+
+    box-shadow: 0 10px 25px rgba(37,211,102,0.4);
+
+    z-index: 99999;
+
+    transition: 0.4s ease;
+
+    border: 2px solid rgba(255,255,255,0.1);
+
+    animation: whatsappPulse 2s infinite;
+
+}
+
+.whatsapp-float:hover{
+
+    transform: translateY(-6px) scale(1.08);
+
+    box-shadow: 0 15px 35px rgba(37,211,102,0.6);
+
+}
+
+@keyframes whatsappPulse{
+
+    0%{
+
+        box-shadow: 0 0 0 0 rgba(37,211,102,0.5);
+
+    }
+
+    70%{
+
+        box-shadow: 0 0 0 18px rgba(37,211,102,0);
+
+    }
+
+    100%{
+
+        box-shadow: 0 0 0 0 rgba(37,211,102,0);
+
+    }
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .whatsapp-float{
+
+        width: 55px;
+        height: 55px;
+
+        font-size: 28px;
+
+        bottom: 20px;
+        right: 20px;
+
+    }
+
+}
+
+</style>
+
+<!-- WHATSAPP FLOATING BUTTON END -->
 <?php include 'components/footer.php'; ?>
 
 </body>

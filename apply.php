@@ -1,13 +1,14 @@
 <?php
 session_start();
 include "admin/config/db_connect.php";
+include 'mail_config.php';
 
 /* =========================
 CHECK LOGIN
 ========================= */
 
 if(!isset($_SESSION['user_id'])){
-    header("Location: login.php");
+    header("Location: login");
     exit();
 }
 
@@ -118,14 +119,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             if($insert->execute()){
 
-                header("Location: pay.php?trial_id=".$trial_id);
-
-                exit();
-
-            }else{
-
-                $error = "Something went wrong.";
-            }
+            // SEND EMAIL
+        
+            sendMail(
+                $user['email'],
+                $user['full_name'],
+                $trial_id
+            );
+        
+            // REDIRECT PAYMENT
+        
+            header("Location: pay?trial_id=".$trial_id);
+        
+            exit();
+        
+        }
     }
 }
 
@@ -433,7 +441,7 @@ select.input option{
 </head>
 
 <body>
-
+<?php include "components/navbar.php"; ?>
 <div class="glow glow-1"></div>
 <div class="glow glow-2"></div>
 
@@ -647,12 +655,13 @@ Trial Date
 <div class="info-card">
 
 <span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-Entry Fee
+    Entry Fee
 </span>
 
-<h3 class="mt-4 text-[#F5D76E] text-4xl font-bold">
+<h3 id="entryFee"
+class="mt-4 text-[#F5D76E] text-4xl font-bold">
 
-₹<?php echo htmlspecialchars($trial['entry_fee']); ?>
+    ₹<?php echo htmlspecialchars($trial['registration_fee']); ?>
 
 </h3>
 
@@ -809,31 +818,30 @@ Playing Role
 </label>
 
 <div class="relative">
-
 <select
+id="playingRole"
 name="playing_role"
-required
 class="input pr-14">
 
-<option value="" disabled selected>
-Select Playing Role
-</option>
+    <option value="General Registration" selected>
+        General Registration
+    </option>
 
-<option value="Batsman">
-Batsman
-</option>
+    <option value="Batsman">
+        Batsman
+    </option>
 
-<option value="Bowler">
-Bowler
-</option>
+    <option value="Bowler">
+        Bowler
+    </option>
 
-<option value="All-Rounder">
-All-Rounder
-</option>
+    <option value="All-Rounder">
+        All-Rounder
+    </option>
 
-<option value="Wicket Keeper">
-Wicket Keeper
-</option>
+    <option value="Wicket Keeper">
+        Wicket Keeper
+    </option>
 
 </select>
 
@@ -878,6 +886,46 @@ Apply For Trial
 </div>
 
 </section>
+<script>
 
+const roleSelect = document.getElementById("playingRole");
+
+const feeBox = document.getElementById("entryFee");
+
+const roleFees = {
+
+    "General Registration": <?php echo (int)$trial['registration_fee']; ?>,
+
+    "Batsman": <?php echo (int)$trial['batsman_fee']; ?>,
+
+    "Bowler": <?php echo (int)$trial['bowler_fee']; ?>,
+
+    "All-Rounder": <?php echo (int)$trial['allrounder_fee']; ?>,
+
+    "Wicket Keeper": <?php echo (int)$trial['keeper_fee']; ?>
+
+};
+
+/*
+    DEFAULT
+*/
+
+feeBox.innerHTML = "₹" + roleFees["General Registration"];
+
+/*
+    CHANGE
+*/
+
+roleSelect.addEventListener("change", function(){
+
+    const selectedRole = this.value;
+
+    feeBox.innerHTML = "₹" + roleFees[selectedRole];
+
+});
+
+</script>
+
+<?php include "components/footer.php"; ?>
 </body>
 </html>

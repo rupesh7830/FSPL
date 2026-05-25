@@ -3,12 +3,13 @@
 require_once 'config/db_connect.php';
 
 /* =========================================
-   GET ID
+GET ID
 ========================================= */
 
 if(!isset($_GET['id'])){
 
     header("Location: trials.php");
+
     exit();
 
 }
@@ -16,13 +17,15 @@ if(!isset($_GET['id'])){
 $id = intval($_GET['id']);
 
 /* =========================================
-   FETCH TRIAL
+FETCH TRIAL
 ========================================= */
 
 $stmt = $conn->prepare("
+
     SELECT *
     FROM trials
     WHERE id = ?
+
 ");
 
 $stmt->bind_param("i", $id);
@@ -34,12 +37,13 @@ $result = $stmt->get_result();
 $trial = $result->fetch_assoc();
 
 /* =========================================
-   NOT FOUND
+NOT FOUND
 ========================================= */
 
 if(!$trial){
 
     header("Location: trials.php");
+
     exit();
 
 }
@@ -57,64 +61,137 @@ if(!$trial){
 
 <title>Edit Trial</title>
 
+<!-- TAILWIND -->
+
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- GOOGLE FONTS -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
 </head>
 
 <body class="bg-[#050505] overflow-x-hidden">
 
-<!-- SIDEBAR -->
+<!-- =========================================
+SIDEBAR
+========================================= -->
 
 <?php include 'includes/sidebar.php'; ?>
 
-<!-- NAVBAR -->
+<!-- =========================================
+NAVBAR
+========================================= -->
 
 <?php include 'includes/navbar.php'; ?>
 
-<!-- MAIN -->
+<!-- =========================================
+MAIN
+========================================= -->
 
 <main
 class="lg:ml-[280px]
 pt-[100px]
 p-5 lg:p-8">
 
-    <!-- HEADER -->
+    <!-- =====================================
+    PAGE HEADER
+    ====================================== -->
 
-    <div>
+    <div
+    class="flex flex-col lg:flex-row
+    lg:items-center
+    justify-between
+    gap-5">
 
-        <h1
-        class="text-white
-        text-[36px]
-        font-bold
-        tracking-[-1px]
-        font-['Cinzel']">
+        <!-- LEFT -->
 
-            Edit Trial
+        <div>
 
-        </h1>
+            <h1
+            class="text-white
+            text-[36px]
+            font-bold
+            tracking-[-1px]
+            font-['Cinzel']">
 
-        <p
-        class="mt-2
-        text-white/40
-        text-[14px]
-        font-['Outfit']">
+                Edit Trial
 
-            Update trial information and settings.
+            </h1>
 
-        </p>
+            <p
+            class="mt-2
+            text-white/40
+            text-[14px]
+            font-['Outfit']">
+
+                Update professional cricket trial information.
+
+            </p>
+
+        </div>
 
     </div>
 
-    <!-- FORM CARD -->
+    <!-- =====================================
+    FORM CARD
+    ====================================== -->
 
     <div
     class="mt-8
     rounded-[32px]
     border border-white/10
     bg-white/[0.03]
-    backdrop-blur-3xl">
+    backdrop-blur-3xl
+    overflow-hidden">
+
+        <!-- TOP -->
+
+        <div
+        class="h-[80px]
+        px-6
+        border-b border-white/10
+        flex items-center justify-between">
+
+            <div>
+
+                <h2
+                class="text-white
+                text-[24px]
+                font-bold
+                tracking-[-1px]
+                font-['Cinzel']">
+
+                    Trial Details
+
+                </h2>
+
+            </div>
+
+            <!-- STATUS -->
+
+            <span
+            class="px-5 py-2
+            rounded-full
+            border border-[#D4AF37]/20
+            bg-[#D4AF37]/10
+            text-[#F5D76E]
+            text-[10px]
+            uppercase
+            tracking-[2px]
+            font-bold">
+
+                <?= $trial['status']; ?>
+
+            </span>
+
+        </div>
+
+        <!-- =================================
+        FORM
+        ================================== -->
 
         <form
         action="update-trial.php"
@@ -137,7 +214,7 @@ p-5 lg:p-8">
             md:grid-cols-2
             gap-6">
 
-                <!-- TITLE -->
+                <!-- TRIAL TITLE -->
 
                 <div class="md:col-span-2">
 
@@ -164,7 +241,9 @@ p-5 lg:p-8">
                     border border-white/10
                     bg-white/[0.03]
                     text-white
-                    outline-none">
+                    outline-none
+                    transition-all duration-300
+                    focus:border-[#D4AF37]/40">
 
                 </div>
 
@@ -318,7 +397,7 @@ p-5 lg:p-8">
 
                 </div>
 
-                <!-- FEE -->
+                <!-- TOTAL SLOTS -->
 
                 <div>
 
@@ -329,14 +408,14 @@ p-5 lg:p-8">
                     uppercase
                     tracking-[2px]">
 
-                        Entry Fee
+                        Total Slots
 
                     </label>
 
                     <input
-                    type="text"
-                    name="entry_fee"
-                    value="<?= htmlspecialchars($trial['entry_fee']); ?>"
+                    type="number"
+                    name="total_slots"
+                    value="<?= $trial['total_slots']; ?>"
                     class="w-full h-[58px]
                     px-5
                     rounded-2xl
@@ -344,6 +423,359 @@ p-5 lg:p-8">
                     bg-white/[0.03]
                     text-white
                     outline-none">
+
+                </div>
+
+            </div>
+
+            <!-- =====================================
+            PRICING SECTION
+            ====================================== -->
+
+            <div
+            class="mt-8
+            rounded-[30px]
+            border border-[#D4AF37]/10
+            bg-[#D4AF37]/[0.03]
+            p-6 lg:p-7">
+
+                <!-- HEADER -->
+
+                <div class="flex items-center justify-between gap-4">
+
+                    <div>
+
+                        <h3
+                        class="text-white
+                        text-[22px]
+                        font-bold
+                        font-['Cinzel']">
+
+                            Trial Pricing
+
+                        </h3>
+
+                        <p
+                        class="mt-2
+                        text-white/40
+                        text-[13px]">
+
+                            Update dynamic role based pricing.
+
+                        </p>
+
+                    </div>
+
+                    <!-- ICON -->
+
+                    <div
+                    class="w-16 h-16
+                    rounded-3xl
+                    bg-[#D4AF37]/10
+                    border border-[#D4AF37]/20
+                    flex items-center justify-center">
+
+                        <span class="text-2xl">
+
+                            💳
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- GRID -->
+
+                <div
+                class="grid
+                grid-cols-1
+                md:grid-cols-2
+                lg:grid-cols-5
+                gap-5
+                mt-8">
+
+                    <!-- REGISTRATION -->
+
+                    <div>
+
+                        <label
+                        class="block mb-3
+                        text-white/60
+                        text-[11px]
+                        uppercase
+                        tracking-[2px]">
+
+                            Registration Fee
+
+                        </label>
+
+                        <input
+                        type="number"
+                        name="registration_fee"
+                        value="<?= $trial['registration_fee']; ?>"
+                        required
+                        class="w-full h-[58px]
+                        px-5
+                        rounded-2xl
+                        border border-white/10
+                        bg-[#0B0B0B]
+                        text-white
+                        outline-none">
+
+                    </div>
+
+                    <!-- BATSMAN -->
+
+                    <div>
+
+                        <label
+                        class="block mb-3
+                        text-white/60
+                        text-[11px]
+                        uppercase
+                        tracking-[2px]">
+
+                            Batsman Fee
+
+                        </label>
+
+                        <input
+                        type="number"
+                        name="batsman_fee"
+                        value="<?= $trial['batsman_fee']; ?>"
+                        required
+                        class="w-full h-[58px]
+                        px-5
+                        rounded-2xl
+                        border border-white/10
+                        bg-[#0B0B0B]
+                        text-white
+                        outline-none">
+
+                    </div>
+
+                    <!-- BOWLER -->
+
+                    <div>
+
+                        <label
+                        class="block mb-3
+                        text-white/60
+                        text-[11px]
+                        uppercase
+                        tracking-[2px]">
+
+                            Bowler Fee
+
+                        </label>
+
+                        <input
+                        type="number"
+                        name="bowler_fee"
+                        value="<?= $trial['bowler_fee']; ?>"
+                        required
+                        class="w-full h-[58px]
+                        px-5
+                        rounded-2xl
+                        border border-white/10
+                        bg-[#0B0B0B]
+                        text-white
+                        outline-none">
+
+                    </div>
+
+                    <!-- KEEPER -->
+
+                    <div>
+
+                        <label
+                        class="block mb-3
+                        text-white/60
+                        text-[11px]
+                        uppercase
+                        tracking-[2px]">
+
+                            Keeper Fee
+
+                        </label>
+
+                        <input
+                        type="number"
+                        name="keeper_fee"
+                        value="<?= $trial['keeper_fee']; ?>"
+                        required
+                        class="w-full h-[58px]
+                        px-5
+                        rounded-2xl
+                        border border-white/10
+                        bg-[#0B0B0B]
+                        text-white
+                        outline-none">
+
+                    </div>
+
+                    <!-- ALL ROUNDER -->
+
+                    <div>
+
+                        <label
+                        class="block mb-3
+                        text-white/60
+                        text-[11px]
+                        uppercase
+                        tracking-[2px]">
+
+                            All Rounder Fee
+
+                        </label>
+
+                        <input
+                        type="number"
+                        name="allrounder_fee"
+                        value="<?= $trial['allrounder_fee']; ?>"
+                        required
+                        class="w-full h-[58px]
+                        px-5
+                        rounded-2xl
+                        border border-white/10
+                        bg-[#0B0B0B]
+                        text-white
+                        outline-none">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =====================================
+            EXTRA DETAILS
+            ====================================== -->
+
+            <div
+            class="grid
+            grid-cols-1
+            md:grid-cols-2
+            gap-6
+            mt-8">
+
+                <!-- LAST DATE -->
+
+                <div>
+
+                    <label
+                    class="block mb-3
+                    text-white/60
+                    text-[12px]
+                    uppercase
+                    tracking-[2px]">
+
+                        Last Registration Date
+
+                    </label>
+
+                    <input
+                    type="date"
+                    name="last_date"
+                    value="<?= $trial['last_date']; ?>"
+                    class="w-full h-[58px]
+                    px-5
+                    rounded-2xl
+                    border border-white/10
+                    bg-white/[0.03]
+                    text-white
+                    outline-none">
+
+                </div>
+
+                <!-- AGE GROUP -->
+
+                <div>
+
+                    <label
+                    class="block mb-3
+                    text-white/60
+                    text-[12px]
+                    uppercase
+                    tracking-[2px]">
+
+                        Age Group
+
+                    </label>
+
+                    <select
+                    name="age_group"
+                    class="w-full h-[58px]
+                    px-5
+                    rounded-2xl
+                    border border-white/10
+                    bg-[#0B0B0B]
+                    text-white
+                    outline-none">
+
+                        <option <?= $trial['age_group']=="Under 14" ? 'selected' : ''; ?>>
+                            Under 14
+                        </option>
+
+                        <option <?= $trial['age_group']=="Under 16" ? 'selected' : ''; ?>>
+                            Under 16
+                        </option>
+
+                        <option <?= $trial['age_group']=="Under 19" ? 'selected' : ''; ?>>
+                            Under 19
+                        </option>
+
+                        <option <?= $trial['age_group']=="Open" ? 'selected' : ''; ?>>
+                            Open
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- CATEGORY -->
+
+                <div>
+
+                    <label
+                    class="block mb-3
+                    text-white/60
+                    text-[12px]
+                    uppercase
+                    tracking-[2px]">
+
+                        Category
+
+                    </label>
+
+                    <select
+                    name="category"
+                    class="w-full h-[58px]
+                    px-5
+                    rounded-2xl
+                    border border-white/10
+                    bg-[#0B0B0B]
+                    text-white
+                    outline-none">
+
+                        <option <?= $trial['category']=="Professional" ? 'selected' : ''; ?>>
+                            Professional
+                        </option>
+
+                        <option <?= $trial['category']=="District" ? 'selected' : ''; ?>>
+                            District
+                        </option>
+
+                        <option <?= $trial['category']=="State" ? 'selected' : ''; ?>>
+                            State
+                        </option>
+
+                        <option <?= $trial['category']=="National" ? 'selected' : ''; ?>>
+                            National
+                        </option>
+
+                    </select>
 
                 </div>
 
@@ -384,7 +816,202 @@ p-5 lg:p-8">
                             Closed
                         </option>
 
+                        <option <?= $trial['status']=="Completed" ? 'selected' : ''; ?>>
+                            Completed
+                        </option>
+
+                        <option <?= $trial['status']=="Cancelled" ? 'selected' : ''; ?>>
+                            Cancelled
+                        </option>
+
                     </select>
+
+                </div>
+
+                <!-- REGISTERED PLAYERS -->
+
+                <div>
+
+                    <label
+                    class="block mb-3
+                    text-white/60
+                    text-[12px]
+                    uppercase
+                    tracking-[2px]">
+
+                        Registered Players
+
+                    </label>
+
+                    <input
+                    type="number"
+                    name="registered_players"
+                    value="<?= $trial['registered_players']; ?>"
+                    class="w-full h-[58px]
+                    px-5
+                    rounded-2xl
+                    border border-white/10
+                    bg-white/[0.03]
+                    text-white
+                    outline-none">
+
+                </div>
+
+            </div>
+
+            <!-- ADDRESS -->
+
+            <div class="mt-8">
+
+                <label
+                class="block mb-3
+                text-white/60
+                text-[12px]
+                uppercase
+                tracking-[2px]">
+
+                    Address
+
+                </label>
+
+                <textarea
+                name="address"
+                rows="4"
+                class="w-full
+                p-5
+                rounded-2xl
+                border border-white/10
+                bg-white/[0.03]
+                text-white
+                outline-none
+                resize-none"><?= htmlspecialchars($trial['address']); ?></textarea>
+
+            </div>
+
+            <!-- DESCRIPTION -->
+
+            <div class="mt-8">
+
+                <label
+                class="block mb-3
+                text-white/60
+                text-[12px]
+                uppercase
+                tracking-[2px]">
+
+                    Description
+
+                </label>
+
+                <textarea
+                name="description"
+                rows="5"
+                class="w-full
+                p-5
+                rounded-2xl
+                border border-white/10
+                bg-white/[0.03]
+                text-white
+                outline-none
+                resize-none"><?= htmlspecialchars($trial['description']); ?></textarea>
+
+            </div>
+
+            <!-- CURRENT BANNER -->
+
+            <?php if(!empty($trial['banner_image'])){ ?>
+
+            <div class="mt-8">
+
+                <label
+                class="block mb-4
+                text-white/60
+                text-[12px]
+                uppercase
+                tracking-[2px]">
+
+                    Current Banner
+
+                </label>
+
+                <img
+                src="<?= $trial['banner_image']; ?>"
+                class="w-full max-w-[500px]
+                rounded-3xl
+                border border-white/10">
+
+            </div>
+
+            <?php } ?>
+
+            <!-- NEW BANNER -->
+
+            <div class="mt-8">
+
+                <label
+                class="block mb-4
+                text-white/60
+                text-[12px]
+                uppercase
+                tracking-[2px]">
+
+                    Update Banner
+
+                </label>
+
+                <div
+                class="relative
+                border-2 border-dashed border-white/10
+                rounded-3xl
+                p-10
+                text-center
+                bg-white/[0.02]">
+
+                    <input
+                    type="file"
+                    name="banner_image"
+                    class="absolute inset-0
+                    opacity-0
+                    cursor-pointer">
+
+                    <div>
+
+                        <div
+                        class="w-20 h-20
+                        mx-auto
+                        rounded-3xl
+                        bg-[#D4AF37]/10
+                        border border-[#D4AF37]/20
+                        flex items-center justify-center">
+
+                            <span class="text-3xl">
+
+                                📤
+
+                            </span>
+
+                        </div>
+
+                        <h4
+                        class="mt-5
+                        text-white
+                        text-[18px]
+                        font-semibold">
+
+                            Upload New Banner
+
+                        </h4>
+
+                        <p
+                        class="mt-2
+                        text-white/35
+                        text-[13px]">
+
+                            PNG, JPG or WEBP Supported
+
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -393,33 +1020,47 @@ p-5 lg:p-8">
             <!-- BUTTONS -->
 
             <div
-            class="flex justify-end gap-4
-            mt-8">
+            class="flex flex-col sm:flex-row
+            items-center justify-end
+            gap-4
+            mt-10">
+
+                <!-- CANCEL -->
 
                 <a
                 href="trials.php"
-                class="h-[56px]
+                class="w-full sm:w-auto
+                h-[58px]
                 px-8
                 rounded-2xl
                 border border-white/10
                 bg-white/[0.03]
                 text-white
+                hover:bg-white/[0.05]
+                transition-all duration-300
                 flex items-center justify-center">
 
                     Cancel
 
                 </a>
 
+                <!-- SUBMIT -->
+
                 <button
                 type="submit"
-                class="h-[56px]
+                class="w-full sm:w-auto
+                h-[58px]
                 px-10
                 rounded-2xl
                 bg-[#D4AF37]
                 text-black
-                font-bold
+                text-[13px]
                 uppercase
-                tracking-[2px]">
+                tracking-[2px]
+                font-bold
+                shadow-[0_0_35px_rgba(212,175,55,0.25)]
+                hover:scale-[1.02]
+                transition-all duration-300">
 
                     Update Trial
 

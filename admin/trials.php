@@ -3,22 +3,94 @@
 require_once 'config/db_connect.php';
 
 /* =========================================
-   FETCH TRIALS
+SEARCH
+========================================= */
+
+$search = $_GET['search'] ?? '';
+
+$where = "";
+
+if(!empty($search)){
+
+    $search = mysqli_real_escape_string($conn, $search);
+
+    $where = "
+
+    WHERE
+
+    trial_title LIKE '%$search%'
+
+    OR city LIKE '%$search%'
+
+    OR state LIKE '%$search%'
+
+    OR category LIKE '%$search%'
+
+    ";
+
+}
+
+/* =========================================
+FETCH TRIALS
 ========================================= */
 
 $query = "
-    SELECT *
-    FROM trials
-    ORDER BY id DESC
+
+SELECT
+*,
+
+(total_slots - registered_players) AS remaining_slots
+
+FROM trials
+
+$where
+
+ORDER BY id DESC
+
 ";
 
 $result = mysqli_query($conn, $query);
 
 /* =========================================
-   COUNTS
+COUNTS
 ========================================= */
 
 $total_trials = mysqli_num_rows($result);
+
+/* OPEN TRIALS */
+
+$open_trials = mysqli_num_rows(
+
+    mysqli_query($conn,"
+    SELECT id
+    FROM trials
+    WHERE status='Open'
+    ")
+
+);
+
+/* CLOSED TRIALS */
+
+$closed_trials = mysqli_num_rows(
+
+    mysqli_query($conn,"
+    SELECT id
+    FROM trials
+    WHERE status='Closed'
+    ")
+
+);
+
+/* TOTAL SLOTS */
+
+$slot_query = mysqli_query($conn,"
+SELECT SUM(total_slots) AS total
+FROM trials
+");
+
+$slot_data = mysqli_fetch_assoc($slot_query);
+
+$total_slots_count = $slot_data['total'];
 
 ?>
 
@@ -39,43 +111,62 @@ $total_trials = mysqli_num_rows($result);
 
 <!-- GOOGLE FONTS -->
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link
+href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
 <style>
 
 /* =========================================
-   BODY
+BODY
 ========================================= */
 
 body{
+
     background:#050505;
+
     overflow-x:hidden;
+
 }
 
 /* =========================================
-   SCROLLBAR
+SCROLLBAR
 ========================================= */
 
 .custom-scrollbar{
+
     width:100%;
+
     overflow-x:auto;
+
     overflow-y:hidden;
+
     padding-bottom:12px;
+
 }
 
 .custom-scrollbar::-webkit-scrollbar{
+
     height:14px;
+
 }
 
 .custom-scrollbar::-webkit-scrollbar-track{
+
     background:#111111;
+
     border-radius:50px;
+
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb{
+
     background:#D4AF37;
+
     border-radius:50px;
+
     border:3px solid #111111;
+
 }
 
 </style>
@@ -85,18 +176,14 @@ body{
 <body>
 
 <!-- =========================================
-     SIDEBAR
+SIDEBAR
 ========================================= -->
 
 <?php include 'includes/sidebar.php'; ?>
 
-<!-- =========================================
-     NAVBAR
-========================================= -->
-
 
 <!-- =========================================
-     MAIN
+MAIN
 ========================================= -->
 
 <main
@@ -105,7 +192,7 @@ pt-[100px]
 p-5 lg:p-8">
 
     <!-- =====================================
-         PAGE HEADER
+    PAGE HEADER
     ====================================== -->
 
     <div
@@ -135,7 +222,7 @@ p-5 lg:p-8">
             text-[14px]
             font-['Outfit']">
 
-                Manage all upcoming and active cricket trials.
+                Manage all cricket trials, registrations and pricing systems.
 
             </p>
 
@@ -149,27 +236,33 @@ p-5 lg:p-8">
 
             <!-- SEARCH -->
 
-            <div
-            class="w-full sm:w-[300px]
-            h-[54px]
-            px-5
-            rounded-2xl
-            border border-white/10
-            bg-white/[0.03]
-            flex items-center">
+            <form method="GET">
 
-                <input
-                type="text"
-                placeholder="Search trials..."
-                class="w-full
-                bg-transparent
-                outline-none
-                text-white
-                text-[14px]
-                placeholder:text-white/25
-                font-['Outfit']">
+                <div
+                class="w-full sm:w-[320px]
+                h-[54px]
+                px-5
+                rounded-2xl
+                border border-white/10
+                bg-white/[0.03]
+                flex items-center">
 
-            </div>
+                    <input
+                    type="text"
+                    name="search"
+                    value="<?= htmlspecialchars($search); ?>"
+                    placeholder="Search trials..."
+                    class="w-full
+                    bg-transparent
+                    outline-none
+                    text-white
+                    text-[14px]
+                    placeholder:text-white/25
+                    font-['Outfit']">
+
+                </div>
+
+            </form>
 
             <!-- BUTTON -->
 
@@ -200,7 +293,7 @@ p-5 lg:p-8">
     </div>
 
     <!-- =====================================
-         STATS
+    STATS
     ====================================== -->
 
     <div
@@ -211,7 +304,7 @@ p-5 lg:p-8">
     gap-5
     mt-8">
 
-        <!-- CARD -->
+        <!-- TOTAL -->
 
         <div
         class="rounded-[30px]
@@ -226,8 +319,7 @@ p-5 lg:p-8">
 
                     <p
                     class="text-white/40
-                    text-[13px]
-                    font-['Outfit']">
+                    text-[13px]">
 
                         Total Trials
 
@@ -262,7 +354,7 @@ p-5 lg:p-8">
 
         </div>
 
-        <!-- CARD -->
+        <!-- OPEN -->
 
         <div
         class="rounded-[30px]
@@ -277,8 +369,7 @@ p-5 lg:p-8">
 
                     <p
                     class="text-white/40
-                    text-[13px]
-                    font-['Outfit']">
+                    text-[13px]">
 
                         Open Trials
 
@@ -291,7 +382,7 @@ p-5 lg:p-8">
                     font-bold
                     font-['Cinzel']">
 
-                        08
+                        <?= $open_trials; ?>
 
                     </h2>
 
@@ -313,7 +404,7 @@ p-5 lg:p-8">
 
         </div>
 
-        <!-- CARD -->
+        <!-- CLOSED -->
 
         <div
         class="rounded-[30px]
@@ -328,8 +419,7 @@ p-5 lg:p-8">
 
                     <p
                     class="text-white/40
-                    text-[13px]
-                    font-['Outfit']">
+                    text-[13px]">
 
                         Closed Trials
 
@@ -342,7 +432,7 @@ p-5 lg:p-8">
                     font-bold
                     font-['Cinzel']">
 
-                        04
+                        <?= $closed_trials; ?>
 
                     </h2>
 
@@ -364,7 +454,7 @@ p-5 lg:p-8">
 
         </div>
 
-        <!-- CARD -->
+        <!-- TOTAL SLOTS -->
 
         <div
         class="rounded-[30px]
@@ -379,8 +469,7 @@ p-5 lg:p-8">
 
                     <p
                     class="text-white/40
-                    text-[13px]
-                    font-['Outfit']">
+                    text-[13px]">
 
                         Total Slots
 
@@ -393,7 +482,7 @@ p-5 lg:p-8">
                     font-bold
                     font-['Cinzel']">
 
-                        1200
+                        <?= $total_slots_count; ?>
 
                     </h2>
 
@@ -418,7 +507,7 @@ p-5 lg:p-8">
     </div>
 
     <!-- =====================================
-         TABLE CARD
+    TABLE CARD
     ====================================== -->
 
     <div
@@ -461,8 +550,7 @@ p-5 lg:p-8">
                 text-[12px]
                 uppercase
                 tracking-[2px]
-                font-medium
-                font-['Outfit']">
+                font-medium">
 
                     <?= $total_trials; ?> Trials
 
@@ -472,21 +560,16 @@ p-5 lg:p-8">
 
         </div>
 
-        <!-- =================================
-             TABLE WRAPPER
-        ================================== -->
+        <!-- TABLE -->
 
         <div class="p-4">
 
-            <div class="custom-scrollbar">
-
-                <!-- TABLE -->
-
-                <table
-                class="min-w-[1700px]
-                w-full
-                border-separate
-                border-spacing-y-2">
+        <div class="custom-scrollbar overflow-x-auto">
+            <table
+            class="w-full
+            min-w-[1400px]
+            border-separate
+            border-spacing-y-3">
 
                     <!-- HEAD -->
 
@@ -494,43 +577,35 @@ p-5 lg:p-8">
 
                         <tr>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
                                 Trial
                             </th>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
                                 Date
                             </th>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
                                 Time
                             </th>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
-                                State
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
+                                Location
                             </th>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
-                                City
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
+                                Registration
                             </th>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
-                                Ground
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
+                                Players
                             </th>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
-                                Fee
-                            </th>
-
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
-                                Slots
-                            </th>
-
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
                                 Status
                             </th>
 
-                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap font-medium font-['Outfit']">
+                            <th class="px-6 py-5 text-left text-white/35 text-[11px] uppercase tracking-[3px] whitespace-nowrap">
                                 Actions
                             </th>
 
@@ -557,17 +632,46 @@ p-5 lg:p-8">
 
                                     <!-- IMAGE -->
 
+                                    <?php
+
+                                    /* INITIALS */
+
+                                    $words = explode(' ', $trial['trial_title']);
+
+                                    $initials = '';
+
+                                    foreach($words as $word){
+
+                                        $initials .= strtoupper(substr($word,0,1));
+
+                                        if(strlen($initials) >= 2){
+
+                                            break;
+
+                                        }
+
+                                    }
+
+                                    ?>
+
                                     <div
-                                    class="w-14 h-14
+                                    class="w-16 h-16
                                     rounded-2xl
-                                    overflow-hidden
-                                    border border-white/10
+                                    bg-[#D4AF37]/10
+                                    border border-[#D4AF37]/20
+                                    flex items-center justify-center
                                     shrink-0">
 
-                                        <img
-                                        src="<?= $trial['banner_image']; ?>"
-                                        alt=""
-                                        class="w-full h-full object-cover">
+                                        <span
+                                        class="text-[#F5D76E]
+                                        text-[18px]
+                                        font-bold
+                                        tracking-[1px]
+                                        font-['Cinzel']">
+
+                                            <?= $initials; ?>
+
+                                        </span>
 
                                     </div>
 
@@ -579,8 +683,7 @@ p-5 lg:p-8">
                                         class="text-white
                                         text-[14px]
                                         font-medium
-                                        whitespace-nowrap
-                                        font-['Outfit']">
+                                        whitespace-nowrap">
 
                                             <?= htmlspecialchars($trial['trial_title']); ?>
 
@@ -590,8 +693,7 @@ p-5 lg:p-8">
                                         class="mt-1
                                         text-white/35
                                         text-[12px]
-                                        whitespace-nowrap
-                                        font-['Outfit']">
+                                        whitespace-nowrap">
 
                                             <?= htmlspecialchars($trial['category']); ?>
 
@@ -605,44 +707,77 @@ p-5 lg:p-8">
 
                             <!-- DATE -->
 
-                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px] font-medium font-['Outfit']">
+                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px]">
                                 <?= htmlspecialchars($trial['trial_date']); ?>
                             </td>
 
                             <!-- TIME -->
 
-                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px] font-medium font-['Outfit']">
+                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px]">
                                 <?= htmlspecialchars($trial['trial_time']); ?>
                             </td>
 
-                            <!-- STATE -->
+                            <!-- LOCATION -->
 
-                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px] font-medium font-['Outfit']">
-                                <?= htmlspecialchars($trial['state']); ?>
+                            <td class="px-6 py-6">
+
+                                <div>
+
+                                    <p class="text-white text-[13px]">
+                                        <?= htmlspecialchars($trial['city']); ?>
+                                    </p>
+
+                                    <p class="text-white/35 text-[12px] mt-1">
+                                        <?= htmlspecialchars($trial['ground_name']); ?>
+                                    </p>
+
+                                </div>
+
                             </td>
 
-                            <!-- CITY -->
+                            <!-- REGISTRATION -->
 
-                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px] font-medium font-['Outfit']">
-                                <?= htmlspecialchars($trial['city']); ?>
+                            <td class="px-6 py-6 text-white whitespace-nowrap text-[13px]">
+                                ₹<?= htmlspecialchars($trial['registration_fee']); ?>
                             </td>
 
-                            <!-- GROUND -->
+                            <!-- PLAYERS -->
 
-                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px] font-medium font-['Outfit']">
-                                <?= htmlspecialchars($trial['ground_name']); ?>
-                            </td>
+                            <td class="px-6 py-6">
 
-                            <!-- FEE -->
+                                <div>
 
-                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px] font-medium font-['Outfit']">
-                                <?= htmlspecialchars($trial['entry_fee']); ?>
-                            </td>
+                                    <p class="text-white text-[13px] font-medium">
 
-                            <!-- SLOTS -->
+                                        <?= $trial['registered_players']; ?>
 
-                            <td class="px-6 py-6 text-white/60 whitespace-nowrap text-[13px] font-medium font-['Outfit']">
-                                <?= htmlspecialchars($trial['total_slots']); ?>
+                                        /
+
+                                        <?= $trial['total_slots']; ?>
+
+                                    </p>
+
+                                    <!-- BAR -->
+
+                                    <div
+                                    class="w-[130px]
+                                    h-[7px]
+                                    rounded-full
+                                    bg-white/5
+                                    overflow-hidden
+                                    mt-2">
+
+                                        <div
+                                        class="h-full
+                                        bg-[#D4AF37]
+                                        rounded-full"
+                                        style="width:<?= ($trial['total_slots'] > 0)? ($trial['registered_players'] / $trial['total_slots']) * 100: 0; ?>%">
+                                        
+
+                                    </div>
+
+                                </div>
+
                             </td>
 
                             <!-- STATUS -->
@@ -650,17 +785,29 @@ p-5 lg:p-8">
                             <td class="px-6 py-6">
 
                                 <?php
-                                    $status = $trial['status'];
 
-                                    $statusClass = "bg-emerald-500/10 border-emerald-500/20 text-emerald-300";
+                                $status = $trial['status'];
 
-                                    if($status == "Closed"){
-                                        $statusClass = "bg-red-500/10 border-red-500/20 text-red-300";
-                                    }
+                                $statusClass = "bg-emerald-500/10 border-emerald-500/20 text-emerald-300";
 
-                                    if($status == "Upcoming"){
-                                        $statusClass = "bg-yellow-500/10 border-yellow-500/20 text-yellow-300";
-                                    }
+                                if($status == "Closed"){
+
+                                    $statusClass = "bg-red-500/10 border-red-500/20 text-red-300";
+
+                                }
+
+                                if($status == "Upcoming"){
+
+                                    $statusClass = "bg-yellow-500/10 border-yellow-500/20 text-yellow-300";
+
+                                }
+
+                                if($status == "Completed"){
+
+                                    $statusClass = "bg-blue-500/10 border-blue-500/20 text-blue-300";
+
+                                }
+
                                 ?>
 
                                 <span
@@ -671,7 +818,6 @@ p-5 lg:p-8">
                                 text-[11px]
                                 whitespace-nowrap
                                 font-medium
-                                font-['Outfit']
                                 <?= $statusClass; ?>">
 
                                     <span
@@ -692,6 +838,27 @@ p-5 lg:p-8">
 
                                 <div class="flex items-center gap-3">
 
+                                    <!-- PLAYERS -->
+
+                                    <a
+                                    href="trial_players.php?trial_id=<?= $trial['id']; ?>"
+                                    class="inline-flex items-center justify-center
+                                    h-[40px]
+                                    px-5
+                                    rounded-xl
+                                    whitespace-nowrap
+                                    bg-blue-500/10
+                                    border border-blue-500/20
+                                    text-blue-300
+                                    text-[12px]
+                                    font-medium
+                                    hover:bg-blue-500/20
+                                    transition-all duration-300">
+
+                                        Players
+
+                                    </a>
+
                                     <!-- EDIT -->
 
                                     <a
@@ -707,8 +874,7 @@ p-5 lg:p-8">
                                     text-[12px]
                                     font-medium
                                     hover:bg-[#D4AF37]/20
-                                    transition-all duration-300
-                                    font-['Outfit']">
+                                    transition-all duration-300">
 
                                         Edit
 
@@ -730,9 +896,7 @@ p-5 lg:p-8">
                                     text-[12px]
                                     font-medium
                                     hover:bg-red-500/20
-                                    hover:border-red-500/40
-                                    transition-all duration-300
-                                    font-['Outfit']">
+                                    transition-all duration-300">
 
                                         Delete
 

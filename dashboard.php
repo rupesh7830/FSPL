@@ -1,51 +1,108 @@
-
 <?php
-include "admin/config/db_connect.php";
+
 session_start();
 
+include "admin/config/db_connect.php";
+
+/* =========================================
+LOGIN CHECK
+========================================= */
 
 if(!isset($_SESSION['user_id'])){
 
-    header('location:login.php');
+    header("Location: login.php");
     exit();
 
 }
 
+/* =========================================
+USER DATA
+========================================= */
+
 $user_id = $_SESSION['user_id'];
 
-$user_name = $_SESSION['user_name'];
+$user_name  = '';
+$user_email = '';
+$user_mobile = '';
 
-$user_email = $_SESSION['user_email'];
-
-
-$sql = "SELECT * FROM trial_registrations WHERE user_id ='$user_id'";
-
-$profile_check = mysqli_query($conn, $sql);
-
-$is_profile_complete = mysqli_num_rows($profile_check) > 0;
+/* FETCH USER */
 
 $user_query = mysqli_query($conn,"
-SELECT full_name, mobile, email 
-FROM users 
+SELECT full_name, email, mobile
+FROM users
 WHERE id='$user_id'
+LIMIT 1
 ");
 
-$user_data = mysqli_fetch_assoc($user_query);
-?>
+if($user_query && mysqli_num_rows($user_query) > 0){
 
-<?php
+    $user = mysqli_fetch_assoc($user_query);
+
+    $user_name   = $user['full_name'];
+    $user_email  = $user['email'];
+    $user_mobile = $user['mobile'];
+}
+
+/* =========================================
+PROFILE CHECK
+========================================= */
+
+$is_profile_complete = false;
+
+$profile_check = mysqli_query($conn,"
+SELECT id
+FROM trial_registrations
+WHERE user_id='$user_id'
+");
+
+if($profile_check && mysqli_num_rows($profile_check) > 0){
+
+    $is_profile_complete = true;
+
+}
+
+
+/* =========================================
+PROFILE APPROVAL CHECK
+========================================= */
+
+$profile_approved = 'Pending';
+
+$approval_query = mysqli_query($conn,"
+SELECT profile_approved
+FROM trials_player
+WHERE user_id='$user_id'
+AND profile_approved='Approved'
+LIMIT 1
+");
+
+if($approval_query && mysqli_num_rows($approval_query) > 0){
+
+    $profile_approved = 'Approved';
+
+}else{
+
+    $profile_approved = 'Pending';
+
+}
+
+/* =========================================
+APPLY TRIAL
+========================================= */
+
 if(isset($_POST['apply_trial'])){
 
-    $trial_id = $_POST['trial_id'];
-    $full_name = $_POST['full_name'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $playing_role = $_POST['playing_role'];
+    $trial_id     = mysqli_real_escape_string($conn,$_POST['trial_id']);
+    $full_name    = mysqli_real_escape_string($conn,$_POST['full_name']);
+    $phone        = mysqli_real_escape_string($conn,$_POST['phone']);
+    $email        = mysqli_real_escape_string($conn,$_POST['email']);
+    $playing_role = mysqli_real_escape_string($conn,$_POST['playing_role']);
 
-    // CHECK ALREADY APPLIED
+    /* CHECK ALREADY APPLIED */
 
     $check = mysqli_query($conn,"
-    SELECT * FROM trials_player
+    SELECT id
+    FROM trials_player
     WHERE trial_id='$trial_id'
     AND user_id='$user_id'
     ");
@@ -56,34 +113,38 @@ if(isset($_POST['apply_trial'])){
 
     }else{
 
-        mysqli_query($conn,"
-            INSERT INTO trials_player
-            (
-                trial_id,
-                user_id,
-                full_name,
-                mobile,
-                email,
-                playing_role,
-                application_status,
-                payment_status,
-                created_at
-            )
-            VALUES
-            (
-                '$trial_id',
-                '$user_id',
-                '$full_name',
-                '$phone',
-                '$email',
-                '$playing_role',
-                'Pending',
-                'Pending',
-                NOW()
-            )
-            ");
+        /* INSERT APPLICATION */
 
-            /* UPDATE PLAYERS */
+        $insert = mysqli_query($conn,"
+        INSERT INTO trials_player
+        (
+            trial_id,
+            user_id,
+            full_name,
+            mobile,
+            email,
+            playing_role,
+            application_status,
+            payment_status,
+            created_at
+        )
+        VALUES
+        (
+            '$trial_id',
+            '$user_id',
+            '$full_name',
+            '$phone',
+            '$email',
+            '$playing_role',
+            'Pending',
+            'Pending',
+            NOW()
+        )
+        ");
+
+        if($insert){
+
+            /* UPDATE REGISTERED PLAYERS */
 
             mysqli_query($conn,"
             UPDATE trials
@@ -93,11 +154,25 @@ if(isset($_POST['apply_trial'])){
 
             /* REDIRECT */
 
-            header("Location: pay.php?trial_id=$trial_id");
+            header("Location: pay.php?trial_id=".$trial_id);
             exit();
+
+        }
+
     }
 
 }
+
+/* =========================================
+TRIALS
+========================================= */
+
+$trial_query = mysqli_query($conn,"
+SELECT *
+FROM trials
+ORDER BY id DESC
+");
+
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +228,7 @@ SIDEBAR
         <div>
 
             <!-- LOGO -->
-            <a href="index.php">
+            <a href="index">
             <div class="flex items-center gap-3">
 
                 <div
@@ -193,7 +268,7 @@ SIDEBAR
                 <!-- ITEM -->
 
                 <a
-                href="#"
+                href="dashboard"
                 class="flex items-center gap-4 h-[52px] px-5 rounded-2xl bg-[#D4AF37] text-black font-medium shadow-[0_0_30px_rgba(212,175,55,0.18)]">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5">
@@ -204,23 +279,66 @@ SIDEBAR
 
                 </a>
 
-                <!-- ITEM -->
-<a
-href="<?php echo $is_profile_complete ? 'dashboard_userprofile.php' : 'complete_profile.php'; ?>"
-class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
+                <a
+                href="<?php echo $profile_approved == 'Approved'
+                ? ($is_profile_complete ? 'dashboard_userprofile' : 'complete_profile')
+                : 'javascript:void(0)'; ?>"
 
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275" />
-    </svg>
+                class="group flex items-center justify-between h-[52px] px-5 rounded-2xl border border-white/5 transition duration-500
 
-    <?php echo $is_profile_complete ? 'My Profile' : 'Complete Profile'; ?>
+                <?php echo $profile_approved == 'Approved'
+                ? 'bg-white/[0.03] hover:border-[#D4AF37]/20'
+                : 'bg-white/[0.02] opacity-60 cursor-not-allowed'; ?>
+                ">
 
-</a>
+                    <!-- LEFT -->
 
+                    <div class="flex items-center gap-4">
+
+                        <!-- ICON -->
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.8"
+                        stroke="currentColor"
+                        class="w-5 h-5 text-[#D4AF37]">
+
+                            <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275" />
+
+                        </svg>
+
+                        <!-- TEXT -->
+
+                        <span class="text-sm">
+
+                            <?php echo $is_profile_complete ? 'My Profile' : 'Complete Profile'; ?>
+
+                        </span>
+
+                    </div>
+
+                    <!-- LOCK -->
+
+                    <?php if($profile_approved != 'Approved'){ ?>
+
+                        <span
+                        class="text-[9px] text-[#D4AF37] uppercase tracking-[2px]">
+
+                            Locked
+
+                        </span>
+
+                    <?php } ?>
+
+                </a>
                 <!-- ITEM -->
 
                 <a
-                href="dashboard_trials.php"
+                href="dashboard_trials"
                 class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
@@ -234,7 +352,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
                 <!-- ITEM -->
 
                 <a
-                href="dashboard_selectionstatus.php"
+                href="dashboard_selectionstatus"
                 class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500">
 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-[#D4AF37]">
@@ -405,7 +523,7 @@ class="group flex items-center gap-4 h-[52px] px-5 rounded-2xl border border-whi
                             </a>
 
                             <a
-                            href="trials.php"
+                            href="trials"
                             class="flex items-center justify-center h-[46px] px-7 rounded-full border border-white/10 bg-white/[0.03] hover:border-[#D4AF37]/20 transition duration-500 uppercase tracking-[2px] text-[9px] text-[#F5D76E] font-bold">
 
                                 View Trials
@@ -820,7 +938,7 @@ if(mysqli_num_rows($trial_query) > 0){
 
                     <h4 class="mt-2 text-[#D4AF37] font-semibold">
 
-                        ₹<?php echo $row['entry_fee']; ?>
+                        ₹<?php echo $row['registration_fee']; ?>
 
                     </h4>
 
@@ -983,36 +1101,31 @@ class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/70 back
             <!-- FORM -->
 
             <form method="POST" class="mt-6 space-y-3">
+            <input
+                type="text"
+                name="full_name"
+                value="<?php echo $user_name; ?>"
+                placeholder="Player Full Name"
+                class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
 
                 <input
-                type="hidden"
-                name="trial_id"
-                id="modalTrialId">
+                type="text"
+                name="phone"
+                value="<?php echo $user_mobile; ?>"
+                placeholder="Mobile Number"
+                class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
 
                 <input
-                    type="text"
-                    name="full_name"
-                    value="<?php echo $user_data['full_name']; ?>"
-                    placeholder="Player Full Name"
-                    class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
-                <input
-                    type="text"
-                    name="phone"
-                    value="<?php echo $user_data['mobile']; ?>"
-                    placeholder="Mobile Number"
-                    class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
-
-                <input
-                    type="email"
-                    name="email"
-                    value="<?php echo $user_data['email']; ?>"
-                    placeholder="Email Address"
-                    class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
+                type="email"
+                name="email"
+                value="<?php echo $user_email; ?>"
+                placeholder="Email Address"
+                class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
 
                 <select
-name="playing_role"
-required
-class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
+                    name="playing_role"
+                    required
+                    class="w-full h-[48px] rounded-2xl border border-white/10 bg-[#111111] text-white px-5 text-sm outline-none focus:border-[#D4AF37]/30 transition duration-300">
 
     <option value="" class="bg-[#111111] text-white">
         Select Role
