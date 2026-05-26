@@ -445,447 +445,693 @@ select.input option{
 <div class="glow glow-1"></div>
 <div class="glow glow-2"></div>
 
-<section class="relative min-h-screen py-10 lg:py-0 px-4 sm:px-6 overflow-hidden">
+<!-- =========================================
+PREMIUM FSPL REGISTRATION SECTION
+FULLY OPTIMIZED RESPONSIVE VERSION
+========================================= -->
 
-<div class="relative z-10 max-w-7xl mx-auto">
+<section class="relative overflow-hidden px-4 sm:px-6 py-20 lg:py-24 bg-[#050505]">
 
-<div class="relative text-center max-w-6xl mx-auto py-10">
+    <!-- =========================================
+         BACKGROUND GLOWS
+    ========================================= -->
 
-    <!-- TOP BADGE -->
-
-    <div class="inline-flex items-center gap-3 px-7 py-4 rounded-full border border-[#D4AF37]/20 bg-black/40 backdrop-blur-2xl shadow-[0_0_40px_rgba(212,175,55,0.08)]">
-
-        <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
-
-        <span class="uppercase tracking-[5px] text-[11px] text-[#F5D76E] font-semibold">
-
-            FSPL Elite Registration
-
-        </span>
-
-        <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
-
+    <div
+    class="absolute top-[-180px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[130px] rounded-full">
     </div>
 
-    <!-- BIG TITLE -->
+    <div
+    class="absolute bottom-[-150px] right-[-100px] w-[350px] h-[350px] bg-[#D4AF37]/10 blur-[120px] rounded-full">
+    </div>
 
-    <div class="mt-10 relative">
+    <!-- =========================================
+         MAIN CONTAINER
+    ========================================= -->
 
-        <h1 class="font-['Cinzel'] text-white text-[48px] sm:text-[72px] lg:text-[110px] leading-[0.9] font-black tracking-[-4px]">
+    <div class="relative z-10 max-w-[1380px] mx-auto">
 
-            Trial
+        <!-- =========================================
+             HERO TOP
+        ========================================= -->
 
-            <span class="block bg-gradient-to-b from-[#F5D76E] to-[#D4AF37] bg-clip-text text-transparent mt-2">
+        <div class="text-center max-w-5xl mx-auto">
 
-                Registration
+            <!-- BADGE -->
 
-            </span>
+            <div
+            class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-[#D4AF37]/20 bg-white/[0.03] backdrop-blur-2xl shadow-[0_0_40px_rgba(212,175,55,0.05)]">
 
-        </h1>
+                <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
 
-        <!-- GOLD LINE -->
+                <span
+                class="uppercase tracking-[4px] text-[10px] sm:text-[11px] text-[#F5D76E] font-semibold">
 
-        <div class="flex items-center justify-center gap-5 mt-8">
+                    FSPL Elite Registration
 
-            <div class="w-28 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]"></div>
+                </span>
 
-            <div class="text-[#D4AF37] text-xl">
-
-                👑
+                <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
 
             </div>
 
-            <div class="w-28 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]"></div>
+            <!-- TITLE -->
 
-        </div>
+            <div class="mt-8">
 
-        <!-- DESCRIPTION -->
+                <h1
+                class="font-['Cinzel']
+                text-white
+                text-4xl
+                sm:text-6xl
+                lg:text-[88px]
+                leading-[0.92]
+                font-black
+                tracking-[-3px]">
 
-        <p class="max-w-3xl mx-auto mt-8 text-white/60 text-[15px] sm:text-[17px] leading-[34px] font-light">
+                    Trial
 
-            Take the first step towards your professional cricket journey with
-            Future Star Premier League and showcase your talent on a premium platform.
+                    <span
+                    class="block mt-2 bg-gradient-to-b from-[#F5D76E] to-[#D4AF37] bg-clip-text text-transparent">
 
-        </p>
+                        Registration
 
-    </div>
+                    </span>
 
-    <!-- FEATURE BOXES -->
+                </h1>
 
-    <div class="grid md:grid-cols-3 gap-5 mt-14">
+                <!-- LINE -->
 
-        <!-- CARD -->
+                <div class="flex items-center justify-center gap-5 mt-7">
 
-        <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/30 transition duration-500">
+                    <div
+                    class="w-20 sm:w-28 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]">
+                    </div>
 
-            <div class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="text-[#D4AF37] text-lg">
 
-            <div class="relative">
+                        👑
 
-                <div class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
+                    </div>
 
-                    🛡️
+                    <div
+                    class="w-20 sm:w-28 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]">
+                    </div>
 
                 </div>
 
-                <h3 class="mt-5 font-semibold text-xl">
+                <!-- DESCRIPTION -->
 
-                    Verified Trials
+                <p
+                class="max-w-3xl mx-auto mt-7 text-white/60 text-[15px] sm:text-[16px] lg:text-[17px] leading-[32px] font-light">
 
-                </h3>
-
-                <p class="mt-3 text-white/45 leading-[28px] text-sm">
-
-                    All cricket trials are verified and professionally managed by FSPL.
+                    Take the first step towards your professional cricket journey
+                    with Future Star Premier League and showcase your talent on
+                    a premium platform.
 
                 </p>
 
             </div>
 
-        </div>
+            <!-- =========================================
+                 FEATURE CARDS
+            ========================================= -->
 
-        <!-- CARD -->
+            <div class="grid md:grid-cols-3 gap-5 mt-14">
 
-        <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/30 transition duration-500">
+                <!-- CARD -->
 
-            <div class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                <div
+                class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-7 hover:border-[#D4AF37]/30 transition duration-500">
 
-            <div class="relative">
+                    <div
+                    class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+                    </div>
 
-                <div class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
+                    <div class="relative">
 
-                    🏏
+                        <div
+                        class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
+
+                            🛡️
+
+                        </div>
+
+                        <h3
+                        class="mt-5 font-semibold text-white text-xl">
+
+                            Verified Trials
+
+                        </h3>
+
+                        <p
+                        class="mt-3 text-white/45 leading-[28px] text-sm">
+
+                            All cricket trials are verified and professionally
+                            managed by FSPL.
+
+                        </p>
+
+                    </div>
 
                 </div>
 
-                <h3 class="mt-5 font-semibold text-xl">
+                <!-- CARD -->
 
-                    Professional Platform
+                <div
+                class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-7 hover:border-[#D4AF37]/30 transition duration-500">
 
-                </h3>
+                    <div
+                    class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+                    </div>
 
-                <p class="mt-3 text-white/45 leading-[28px] text-sm">
+                    <div class="relative">
 
-                    Get opportunities to perform in front of selectors and coaches.
+                        <div
+                        class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
 
-                </p>
+                            🏏
+
+                        </div>
+
+                        <h3
+                        class="mt-5 font-semibold text-white text-xl">
+
+                            Professional Platform
+
+                        </h3>
+
+                        <p
+                        class="mt-3 text-white/45 leading-[28px] text-sm">
+
+                            Perform in front of selectors, coaches and elite scouts.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- CARD -->
+
+                <div
+                class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-7 hover:border-[#D4AF37]/30 transition duration-500">
+
+                    <div
+                    class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500">
+                    </div>
+
+                    <div class="relative">
+
+                        <div
+                        class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
+
+                            🏆
+
+                        </div>
+
+                        <h3
+                        class="mt-5 font-semibold text-white text-xl">
+
+                            Build Your Career
+
+                        </h3>
+
+                        <p
+                        class="mt-3 text-white/45 leading-[28px] text-sm">
+
+                            Showcase your cricket skills and grow professionally.
+
+                        </p>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-        <!-- CARD -->
+        <!-- =========================================
+             MAIN CONTENT
+        ========================================= -->
 
-        <div class="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/30 transition duration-500">
+        <div
+        class="grid xl:grid-cols-[1.08fr_.92fr] gap-8 xl:gap-10 mt-16 items-start">
 
-            <div class="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+            <!-- =========================================
+                 LEFT SIDE
+            ========================================= -->
 
-            <div class="relative">
+            <div
+            class="rounded-[34px] overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-2xl">
 
-                <div class="w-16 h-16 mx-auto rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] text-2xl">
+                <!-- IMAGE -->
 
-                    🏆
+                <div class="relative h-[260px] sm:h-[340px] lg:h-[430px] overflow-hidden">
+
+                    <img
+                    src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1800&auto=format&fit=crop"
+                    class="w-full h-full object-cover scale-105">
+
+                    <!-- OVERLAY -->
+
+                    <div
+                    class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent">
+                    </div>
+
+                    <!-- CONTENT -->
+
+                    <div class="absolute bottom-8 left-6 sm:left-8">
+
+                        <h2
+                        class="font-['Cinzel']
+                        text-3xl
+                        sm:text-4xl
+                        lg:text-5xl
+                        text-white
+                        font-bold
+                        leading-[1]
+                        tracking-[-1px]
+                        max-w-[700px]">
+
+                            <?php echo htmlspecialchars($trial['trial_title']); ?>
+
+                        </h2>
+
+                    </div>
 
                 </div>
 
-                <h3 class="mt-5 font-semibold text-xl">
+                <!-- DETAILS -->
 
-                    Build Your Career
+                <div class="p-6 sm:p-8 lg:p-10">
 
-                </h3>
+                    <!-- INFO GRID -->
 
-                <p class="mt-3 text-white/45 leading-[28px] text-sm">
+                    <div class="grid sm:grid-cols-2 gap-5">
 
-                    Showcase your cricket skills and grow your professional journey.
+                        <!-- ITEM -->
 
-                </p>
+                        <div class="info-card">
+
+                            <span class="info-label">
+
+                                Trial Date
+
+                            </span>
+
+                            <h3 class="info-title">
+
+                                <?php echo htmlspecialchars($trial['trial_date']); ?>
+
+                            </h3>
+
+                        </div>
+
+                        <!-- ITEM -->
+
+                        <div class="info-card">
+
+                            <span class="info-label">
+
+                                Entry Fee
+
+                            </span>
+
+                            <h3
+                            id="entryFee"
+                            class="mt-4 text-[#F5D76E] text-3xl sm:text-4xl font-bold">
+
+                                ₹<?php echo htmlspecialchars($trial['registration_fee']); ?>
+
+                            </h3>
+
+                        </div>
+
+                        <!-- ITEM -->
+
+                        <div class="info-card">
+
+                            <span class="info-label">
+
+                                Venue
+
+                            </span>
+
+                            <h3 class="info-title text-xl">
+
+                                <?php echo htmlspecialchars($trial['ground_name']); ?>
+
+                            </h3>
+
+                        </div>
+
+                        <!-- ITEM -->
+
+                        <div class="info-card">
+
+                            <span class="info-label">
+
+                                Location
+
+                            </span>
+
+                            <h3 class="info-title text-xl">
+
+                                <?php echo htmlspecialchars($trial['city']); ?>,
+                                <?php echo htmlspecialchars($trial['state']); ?>
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ABOUT -->
+
+                    <div class="info-card mt-6">
+
+                        <span class="info-label">
+
+                            About Trial
+
+                        </span>
+
+                        <p
+                        class="mt-5 text-white/70 leading-[32px] text-[15px] sm:text-[16px]">
+
+                            <?php echo nl2br(htmlspecialchars($trial['description'])); ?>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =========================================
+                 RIGHT FORM
+            ========================================= -->
+
+            <div
+            class="rounded-[34px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 sm:p-8 lg:p-10 sticky top-6">
+
+                <!-- USER -->
+
+                <div
+                class="flex items-center gap-5 pb-8 border-b border-[#D4AF37]/10">
+
+                    <div
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-br from-[#D4AF37] to-[#F5D76E] flex items-center justify-center text-black text-2xl font-bold shadow-[0_10px_30px_rgba(212,175,55,0.3)]">
+
+                        <?php echo strtoupper(substr($user['full_name'],0,1)); ?>
+
+                    </div>
+
+                    <div>
+
+                        <h2
+                        class="font-['Cinzel']
+                        text-2xl sm:text-3xl
+                        text-white
+                        font-bold">
+
+                            <?php echo htmlspecialchars($user['full_name']); ?>
+
+                        </h2>
+
+                        <p
+                        class="mt-2 text-[#F5D76E] uppercase tracking-[3px] text-[10px]">
+
+                            Verified FSPL Player
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ALERTS -->
+
+                <?php if($success): ?>
+
+                <div
+                class="mt-7 rounded-2xl border border-green-500/20 bg-green-500/10 px-5 py-4 text-green-300 text-sm">
+
+                    Registration submitted successfully.
+
+                </div>
+
+                <?php endif; ?>
+
+                <?php if(!empty($error)): ?>
+
+                <div
+                class="mt-7 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-red-300 text-sm">
+
+                    <?php echo $error; ?>
+
+                </div>
+
+                <?php endif; ?>
+
+                <!-- FORM -->
+
+                <form method="POST" class="mt-8 space-y-6">
+
+                    <!-- INPUT -->
+
+                    <div>
+
+                        <label class="label">
+
+                            Full Name
+
+                        </label>
+
+                        <input
+                        type="text"
+                        class="input"
+                        value="<?php echo htmlspecialchars($user['full_name']); ?>"
+                        readonly>
+
+                    </div>
+
+                    <!-- INPUT -->
+
+                    <div>
+
+                        <label class="label">
+
+                            Mobile Number
+
+                        </label>
+
+                        <input
+                        type="text"
+                        class="input"
+                        value="<?php echo htmlspecialchars($user['mobile']); ?>"
+                        readonly>
+
+                    </div>
+
+                    <!-- INPUT -->
+
+                    <div>
+
+                        <label class="label">
+
+                            Email Address
+
+                        </label>
+
+                        <input
+                        type="email"
+                        class="input"
+                        value="<?php echo htmlspecialchars($user['email']); ?>"
+                        readonly>
+
+                    </div>
+
+                    <!-- SELECT -->
+
+                    <div>
+
+                        <label class="label">
+
+                            Playing Role
+
+                        </label>
+
+                        <div class="relative">
+
+                            <select
+                            id="playingRole"
+                            name="playing_role"
+                            required
+                            class="input appearance-none pr-14">
+
+                                <option value="General Registration" selected>
+                                    General Registration
+                                </option>
+
+                                <option value="Batsman">
+                                    Batsman
+                                </option>
+
+                                <option value="Bowler">
+                                    Bowler
+                                </option>
+
+                                <option value="All-Rounder">
+                                    All-Rounder
+                                </option>
+
+                                <option value="Wicket Keeper">
+                                    Wicket Keeper
+                                </option>
+
+                            </select>
+
+                            <div
+                            class="absolute right-5 top-1/2 -translate-y-1/2 text-[#D4AF37] pointer-events-none">
+
+                                ▼
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BUTTON -->
+
+                    <?php if($already_applied): ?>
+
+                    <button
+                    type="button"
+                    class="w-full h-[62px] rounded-[20px] bg-white/10 text-white/40 uppercase tracking-[3px] text-[11px] font-bold cursor-not-allowed">
+
+                        Already Applied
+
+                    </button>
+
+                    <?php else: ?>
+
+                    <button
+                    type="submit"
+                    class="w-full h-[62px] rounded-[20px] bg-gradient-to-r from-[#D4AF37] to-[#F5D76E] text-black uppercase tracking-[3px] text-[11px] font-bold hover:scale-[1.02] transition duration-500 shadow-[0_10px_40px_rgba(212,175,55,0.35)]">
+
+                        Apply For Trial
+
+                    </button>
+
+                    <?php endif; ?>
+
+                </form>
 
             </div>
 
         </div>
 
     </div>
-
-</div>
-
-<div class="grid xl:grid-cols-[1.15fr_.85fr] gap-8 mt-14">
-
-<!-- LEFT -->
-
-<div class="glass rounded-[36px] overflow-hidden">
-
-<div class="relative h-[300px] lg:h-[420px] overflow-hidden">
-
-<img
-src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1800&auto=format&fit=crop"
-class="w-full h-full object-cover scale-105">
-
-<div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-
-<div class="absolute bottom-8 left-8">
-
-<h2 class="font-['Cinzel'] text-3xl lg:text-5xl font-bold leading-tight tracking-[-1px]">
-
-<?php echo htmlspecialchars($trial['trial_title']); ?>
-
-</h2>
-
-</div>
-
-</div>
-
-<div class="p-6 sm:p-8 lg:p-10">
-
-<div class="grid sm:grid-cols-2 gap-5">
-
-<div class="info-card">
-
-<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-Trial Date
-</span>
-
-<h3 class="mt-4 text-2xl font-semibold">
-
-<?php echo htmlspecialchars($trial['trial_date']); ?>
-
-</h3>
-
-</div>
-
-<div class="info-card">
-
-<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-    Entry Fee
-</span>
-
-<h3 id="entryFee"
-class="mt-4 text-[#F5D76E] text-4xl font-bold">
-
-    ₹<?php echo htmlspecialchars($trial['registration_fee']); ?>
-
-</h3>
-
-</div>
-
-<div class="info-card">
-
-<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-Venue
-</span>
-
-<h3 class="mt-4 text-xl">
-
-<?php echo htmlspecialchars($trial['ground_name']); ?>
-
-</h3>
-
-</div>
-
-<div class="info-card">
-
-<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-Location
-</span>
-
-<h3 class="mt-4 text-xl">
-
-<?php echo htmlspecialchars($trial['city']); ?>,
-
-<?php echo htmlspecialchars($trial['state']); ?>
-
-</h3>
-
-</div>
-
-</div>
-
-<div class="info-card mt-6">
-
-<span class="text-[#D4AF37] uppercase tracking-[3px] text-[10px]">
-About Trial
-</span>
-
-<p class="mt-5 text-white/70 leading-[34px]">
-
-<?php echo nl2br(htmlspecialchars($trial['description'])); ?>
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="glass rounded-[36px] p-6 sm:p-8 lg:p-10 h-fit sticky top-6">
-
-<div class="flex items-center gap-5 pb-8 border-b border-[#D4AF37]/10">
-
-<div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#D4AF37] to-[#F5D76E] flex items-center justify-center text-black text-2xl font-bold">
-
-<?php echo strtoupper(substr($user['full_name'],0,1)); ?>
-
-</div>
-
-<div>
-
-<h2 class="font-['Cinzel'] text-3xl font-bold">
-
-<?php echo htmlspecialchars($user['full_name']); ?>
-
-</h2>
-
-<p class="mt-2 text-[#F5D76E] uppercase tracking-[3px] text-[10px]">
-
-Verified FSPL Player
-
-</p>
-
-</div>
-
-</div>
-
-<?php if($success): ?>
-
-<div class="success-box mt-8">
-
-Registration submitted successfully.
-
-</div>
-
-<?php endif; ?>
-
-<?php if(!empty($error)): ?>
-
-<div class="error-box mt-8">
-
-<?php echo $error; ?>
-
-</div>
-
-<?php endif; ?>
-
-<form method="POST" class="mt-8 space-y-6">
-
-<div>
-
-<label class="label">
-Full Name
-</label>
-
-<input
-type="text"
-class="input"
-value="<?php echo htmlspecialchars($user['full_name']); ?>"
-readonly>
-
-</div>
-
-<div>
-
-<label class="label">
-Mobile Number
-</label>
-
-<input
-type="text"
-class="input"
-value="<?php echo htmlspecialchars($user['mobile']); ?>"
-readonly>
-
-</div>
-
-<div>
-
-<label class="label">
-Email Address
-</label>
-
-<input
-type="email"
-class="input"
-value="<?php echo htmlspecialchars($user['email']); ?>"
-readonly>
-
-</div>
-
-<div>
-
-<label class="label">
-Playing Role
-</label>
-
-<div class="relative">
-<select
-id="playingRole"
-name="playing_role"
-class="input pr-14">
-
-    <option value="General Registration" selected>
-        General Registration
-    </option>
-
-    <option value="Batsman">
-        Batsman
-    </option>
-
-    <option value="Bowler">
-        Bowler
-    </option>
-
-    <option value="All-Rounder">
-        All-Rounder
-    </option>
-
-    <option value="Wicket Keeper">
-        Wicket Keeper
-    </option>
-
-</select>
-
-<div class="absolute right-5 top-1/2 -translate-y-1/2 text-[#D4AF37]">
-
-▼
-
-</div>
-
-</div>
-
-</div>
-
-<?php if($already_applied): ?>
-
-<button
-type="button"
-class="w-full h-[68px] rounded-[22px] bg-white/10 text-white/40 uppercase tracking-[4px] text-[11px] font-bold cursor-not-allowed">
-
-Already Applied
-
-</button>
-
-<?php else: ?>
-
-<button
-type="submit"
-class="primary-btn">
-
-Apply For Trial
-
-</button>
-
-<?php endif; ?>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
 
 </section>
+
+<!-- =========================================
+GLOBAL CLASSES
+========================================= -->
+
+<style>
+
+.info-card{
+
+    border:1px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(24px);
+    border-radius:24px;
+    padding:28px;
+    transition:.4s ease;
+
+}
+
+.info-card:hover{
+
+    border-color:rgba(212,175,55,0.25);
+
+}
+
+.info-label{
+
+    color:#D4AF37;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:10px;
+    display:block;
+
+}
+
+.info-title{
+
+    margin-top:16px;
+    font-size:28px;
+    line-height:1.3;
+    font-weight:700;
+    color:white;
+
+}
+
+.label{
+
+    display:block;
+    margin-bottom:12px;
+    color:rgba(255,255,255,.75);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:3px;
+
+}
+
+.input{
+
+    width:100%;
+    height:60px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);
+    padding:0 22px;
+    color:white;
+    outline:none;
+    transition:.4s ease;
+    backdrop-filter:blur(20px);
+
+}
+
+.input:focus{
+
+    border-color:rgba(212,175,55,.35);
+    box-shadow:0 0 0 4px rgba(212,175,55,.08);
+
+}
+
+@media(max-width:640px){
+
+    .info-card{
+
+        padding:22px;
+
+    }
+
+    .info-title{
+
+        font-size:22px;
+
+    }
+
+}
+
+</style>
 <script>
 
 const roleSelect = document.getElementById("playingRole");

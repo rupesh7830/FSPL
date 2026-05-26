@@ -101,8 +101,6 @@ if(isset($_POST['register'])){
                 echo "
                 <script>
 
-                    alert('Registration Successful');
-
                     window.location.href='$redirect_url';
 
                 </script>

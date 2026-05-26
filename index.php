@@ -80,6 +80,45 @@ $img_result=$img->get_result();
     </script>
     <style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+html,body{
+    width:100%;
+    overflow-x:hidden;
+}
+
+body{
+    background:#050505;
+    font-family:'Outfit',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+}
+
+img,
+video{
+    max-width:100%;
+    display:block;
+}
+
+.glass{
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+}
+
+.gpu{
+    transform:translateZ(0);
+    will-change:transform;
+}
+
 /* PREMIUM GOLD BORDER FIX */
 
 .border-white\/5{
@@ -101,11 +140,6 @@ section{
 
 /* CLEAN UI */
 
-body{
-    background:#050505;
-    overflow-x:hidden;
-}
-
 </style>
 
 </head>
@@ -126,52 +160,72 @@ LUXURY BRAND HERO SECTION
 
 <!-- =========================================
 PREMIUM CINEMATIC HERO SECTION
-UPGRADED VERSION
+OPTIMIZED PERFECT RESPONSIVE VERSION
 ========================================= -->
 
-<section class="relative min-h-screen overflow-hidden bg-[#050505]">
+<section class="relative overflow-hidden bg-[#050505]">
 
     <!-- =========================================
          CINEMATIC BACKGROUND
     ========================================= -->
 
+    <!-- SECTION -->
+<section class="relative overflow-hidden bg-[#050505]">
+
+    <!-- PREMIUM GOLD + BLACK BACKGROUND -->
     <div class="absolute inset-0">
 
-        <img
-        src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1974&auto=format&fit=crop"
-        alt=""
-        class="w-full h-full object-cover scale-105 opacity-40">
-
-        <!-- DARK OVERLAY -->
-
-        <div class="absolute inset-0 bg-black/80"></div>
+        <!-- GRADIENT BASE -->
+        <div class="absolute inset-0 bg-[linear-gradient(135deg,#050505_0%,#0d0d0d_35%,#111111_100%)]"></div>
 
         <!-- GOLD LIGHT -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.16),transparent_45%)]"></div>
 
-        <div
-        class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.14),transparent_45%)]">
+        <!-- SIDE LIGHT -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(212,175,55,0.08),transparent_35%)]"></div>
+
+        <!-- GRID EFFECT -->
+        <div class="absolute inset-0 opacity-[0.04]"
+            style="background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px);background-size:80px 80px;">
         </div>
 
     </div>
 
+    <!-- TOP GLOW -->
+    <div
+    class="absolute top-[-180px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[120px] rounded-full">
+    </div>
+
+    <!-- LEFT GLOW -->
+    <div
+    class="absolute top-[25%] left-[-120px] w-[280px] h-[280px] bg-[#D4AF37]/10 blur-[100px] rounded-full">
+    </div>
+
+    <!-- RIGHT GLOW -->
+    <div
+    class="absolute bottom-[-120px] right-[-80px] w-[320px] h-[320px] bg-[#D4AF37]/10 blur-[110px] rounded-full">
+    </div>
+
     <!-- =========================================
-         GOLD GLOW
+         SOFT GLOWS
     ========================================= -->
 
+    <!-- TOP GLOW -->
+
     <div
-    class="absolute top-[-250px] left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-[#D4AF37]/10 blur-[170px] rounded-full">
+    class="absolute top-[-180px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[120px] rounded-full">
     </div>
 
     <!-- LEFT GLOW -->
 
     <div
-    class="absolute top-[20%] left-[-200px] w-[450px] h-[450px] bg-[#D4AF37]/10 blur-[160px] rounded-full">
+    class="absolute top-[25%] left-[-120px] w-[280px] h-[280px] bg-[#D4AF37]/10 blur-[100px] rounded-full">
     </div>
 
     <!-- RIGHT GLOW -->
 
     <div
-    class="absolute bottom-[-200px] right-[-100px] w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[180px] rounded-full">
+    class="absolute bottom-[-120px] right-[-80px] w-[320px] h-[320px] bg-[#D4AF37]/10 blur-[110px] rounded-full">
     </div>
 
     <!-- =========================================
@@ -179,28 +233,29 @@ UPGRADED VERSION
     ========================================= -->
 
     <div
-    class="relative z-20 max-w-7xl mx-auto px-6 lg:px-10 min-h-screen flex items-center">
+    class="relative z-20 max-w-[1350px] mx-auto px-5 sm:px-6 lg:px-8 py-24 lg:py-14 lg:mt-10">
 
-        <div class="grid lg:grid-cols-2 gap-20 items-center w-full">
+        <div class="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
 
             <!-- =========================================
                  LEFT CONTENT
             ========================================= -->
 
-            <div class="lg:pt-28 pt-28 lg:pt-0">
+            <div>
 
                 <!-- LABEL -->
 
                 <div
-                class="inline-flex items-center gap-3 border border-[#D4AF37]/20 bg-white/[0.02] backdrop-blur-xl px-6 py-3 rounded-full animate-[fadeUp_1s_ease]">
+                class="inline-flex items-center gap-3 border border-[#D4AF37]/20 bg-white/[0.03] backdrop-blur-xl px-5 py-2.5 rounded-full animate-[fadeUp_1s_ease]">
 
                     <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
 
                     <span
                     class="font-['Outfit']
                     uppercase
-                    tracking-[4px]
-                    text-[11px]
+                    tracking-[3px]
+                    text-[10px]
+                    sm:text-[11px]
                     text-[#F5D76E]/90
                     font-medium">
 
@@ -215,15 +270,16 @@ UPGRADED VERSION
                 ========================================= -->
 
                 <h1
-                class="mt-10 font-['Cinzel']
+                class="mt-8 font-['Cinzel']
                 text-white
-                text-5xl
-                sm:text-6xl
-                lg:text-[68px]
-                leading-[0.92]
+                text-4xl
+                sm:text-5xl
+                lg:text-[58px]
+                xl:text-[64px]
+                leading-[0.96]
                 font-bold
-                tracking-[-4px]
-                max-w-[750px]
+                tracking-[-2px]
+                max-w-[700px]
                 animate-[fadeUp_1.2s_ease]">
 
                     Built For
@@ -239,13 +295,14 @@ UPGRADED VERSION
                 <!-- DESCRIPTION -->
 
                 <p
-                class="mt-10 max-w-[590px]
-                text-white/55
+                class="mt-6 max-w-[540px]
+                text-white/60
                 font-['Outfit']
-                text-[18px]
-                leading-[34px]
+                text-[16px]
+                lg:text-[17px]
+                leading-[30px]
                 font-light
-                tracking-[0.3px]
+                tracking-[0.2px]
                 animate-[fadeUp_1.4s_ease]">
 
                     India’s luxury cricket platform crafted for elite talent,
@@ -258,12 +315,13 @@ UPGRADED VERSION
                 ========================================= -->
 
                 <div
-                class="flex flex-wrap items-center gap-5 mt-14 animate-[fadeUp_1.6s_ease]">
+                class="flex flex-wrap items-center gap-5 mt-10 animate-[fadeUp_1.6s_ease]">
 
                     <!-- REGISTER BUTTON -->
 
-                    <button
-                    class="group relative overflow-hidden h-[66px] px-10 rounded-full border border-[#D4AF37]/20 bg-white/[0.03] backdrop-blur-2xl hover:scale-105 transition duration-500">
+                    <a
+                    href="<?php echo isset($_SESSION['user_id']) ? 'dashboard' : 'register' ?>"
+                    class="group relative overflow-hidden h-[58px] px-8 rounded-full border border-[#D4AF37]/20 bg-white/[0.04] backdrop-blur-2xl hover:scale-105 transition duration-500 flex items-center">
 
                         <!-- GOLD HOVER -->
 
@@ -275,21 +333,18 @@ UPGRADED VERSION
 
                         <div class="relative flex items-center gap-4">
 
-                            <a href="<?php echo isset($_SESSION['user_id']) ? 'dashboard' : 'register' ?>">
+                            <span
+                            class="font-['Cinzel']
+                            uppercase
+                            tracking-[2px]
+                            text-[11px]
+                            sm:text-[12px]
+                            font-bold
+                            text-[#F5D76E]">
 
-                                <span
-                                class="font-['Cinzel']
-                                uppercase
-                                tracking-[3px]
-                                text-[12px]
-                                font-bold
-                                text-[#F5D76E]">
+                                <?php echo isset($_SESSION['user_id']) ? 'Go to Dashboard' : 'Register Now'; ?>
 
-                                    <?php echo isset($_SESSION['user_id']) ? 'Go to Dashboard' : 'Register Now'; ?>
-
-                                </span>
-
-                            </a>
+                            </span>
 
                             <!-- ICON -->
 
@@ -314,7 +369,7 @@ UPGRADED VERSION
 
                         </div>
 
-                    </button>
+                    </a>
 
                     <!-- WATCH FILM -->
 
@@ -324,7 +379,7 @@ UPGRADED VERSION
                         <!-- PLAY BUTTON -->
 
                         <div
-                        class="relative w-14 h-14 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center group-hover:border-[#D4AF37]/40 transition duration-500 group-hover:scale-110">
+                        class="relative w-12 h-12 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-xl flex items-center justify-center group-hover:border-[#D4AF37]/40 transition duration-500 group-hover:scale-110">
 
                             <!-- PULSE -->
 
@@ -347,8 +402,8 @@ UPGRADED VERSION
                         <span
                         class="font-['Outfit']
                         uppercase
-                        tracking-[3px]
-                        text-[12px]
+                        tracking-[2px]
+                        text-[11px]
                         text-white/55
                         group-hover:text-[#F5D76E]
                         transition">
@@ -366,22 +421,22 @@ UPGRADED VERSION
                 ========================================= -->
 
                 <div
-                class="grid grid-cols-3 gap-5 mt-16 animate-[fadeUp_1.8s_ease]">
+                class="grid grid-cols-3 gap-4 mt-10 animate-[fadeUp_1.8s_ease]">
 
                     <!-- ITEM -->
 
                     <div
-                    class="rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/20 transition duration-500">
+                    class="rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-5 hover:border-[#D4AF37]/20 transition duration-500">
 
                         <h3
-                        class="text-[#D4AF37] text-4xl font-black">
+                        class="text-[#D4AF37] text-2xl sm:text-3xl font-black">
 
                             12K+
 
                         </h3>
 
                         <p
-                        class="mt-2 text-white/45 uppercase tracking-[2px] text-[10px]">
+                        class="mt-2 text-white/45 uppercase tracking-[1.5px] text-[9px] sm:text-[10px] leading-[18px]">
 
                             Registered Players
 
@@ -392,17 +447,17 @@ UPGRADED VERSION
                     <!-- ITEM -->
 
                     <div
-                    class="rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/20 transition duration-500">
+                    class="rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-5 hover:border-[#D4AF37]/20 transition duration-500">
 
                         <h3
-                        class="text-[#D4AF37] text-4xl font-black">
+                        class="text-[#D4AF37] text-2xl sm:text-3xl font-black">
 
                             25+
 
                         </h3>
 
                         <p
-                        class="mt-2 text-white/45 uppercase tracking-[2px] text-[10px]">
+                        class="mt-2 text-white/45 uppercase tracking-[1.5px] text-[9px] sm:text-[10px] leading-[18px]">
 
                             Trial Cities
 
@@ -413,17 +468,17 @@ UPGRADED VERSION
                     <!-- ITEM -->
 
                     <div
-                    class="rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 hover:border-[#D4AF37]/20 transition duration-500">
+                    class="rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-5 hover:border-[#D4AF37]/20 transition duration-500">
 
                         <h3
-                        class="text-[#D4AF37] text-4xl font-black">
+                        class="text-[#D4AF37] text-2xl sm:text-3xl font-black">
 
                             ₹80K
 
                         </h3>
 
                         <p
-                        class="mt-2 text-white/45 uppercase tracking-[2px] text-[10px]">
+                        class="mt-2 text-white/45 uppercase tracking-[1.5px] text-[9px] sm:text-[10px] leading-[18px]">
 
                             Prize Pool
 
@@ -439,26 +494,25 @@ UPGRADED VERSION
                  RIGHT VISUAL
             ========================================= -->
 
-            <div class="relative hidden lg:flex justify-end items-end pt-24">
+            <div class="relative hidden lg:flex justify-end">
 
                 <!-- GOLD GLOW -->
 
                 <div
-                class="absolute w-[500px] h-[500px] bg-[#D4AF37]/10 blur-[140px] rounded-full">
+                class="absolute w-[400px] h-[400px] bg-[#D4AF37]/10 blur-[120px] rounded-full">
                 </div>
 
                 <!-- VIDEO FRAME -->
 
                 <div
-                class="group relative z-10 w-full max-w-[650px]
-                rounded-[40px]
+                class="group relative z-10 w-full max-w-[560px] xl:max-w-[620px]
+                rounded-[34px]
                 overflow-hidden
                 border border-[#D4AF37]/15
                 bg-white/[0.03]
                 backdrop-blur-2xl
-                shadow-[0_40px_120px_rgba(0,0,0,0.9)]
-                hover:-translate-y-3
-                hover:rotate-[0.5deg]
+                shadow-[0_30px_90px_rgba(0,0,0,0.8)]
+                hover:-translate-y-2
                 transition duration-700">
 
                     <!-- TOP LIGHT -->
@@ -474,7 +528,7 @@ UPGRADED VERSION
                     muted
                     loop
                     playsinline
-                    class="w-full h-[520px] object-cover group-hover:scale-105 group-hover:brightness-110 transition duration-700 animate-[slowZoom_12s_linear_infinite_alternate]">
+                    class="w-full h-[420px] xl:h-[480px] object-cover group-hover:scale-105 transition duration-700 animate-[slowZoom_12s_linear_infinite_alternate]">
 
                         <source
                         src="assets/videos/cricket.mp4"
@@ -491,15 +545,15 @@ UPGRADED VERSION
                     <!-- LIVE TAG -->
 
                     <div
-                    class="absolute top-6 left-6 z-30 flex items-center gap-3 px-5 py-3 rounded-full border border-red-500/20 bg-black/40 backdrop-blur-xl">
+                    class="absolute top-5 left-5 z-30 flex items-center gap-3 px-4 py-2.5 rounded-full border border-red-500/20 bg-black/40 backdrop-blur-xl">
 
                         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
 
                         <span
                         class="font-['Outfit']
                         uppercase
-                        tracking-[3px]
-                        text-[11px]
+                        tracking-[2px]
+                        text-[10px]
                         text-white/80">
 
                             Live Cricket Experience
@@ -510,11 +564,11 @@ UPGRADED VERSION
 
                     <!-- BOTTOM CONTENT -->
 
-                    <div class="absolute bottom-0 left-0 w-full p-8 z-30">
+                    <div class="absolute bottom-0 left-0 w-full p-7 z-30">
 
                         <h3
                         class="text-white font-['Cinzel']
-                        text-4xl leading-[1]
+                        text-3xl xl:text-4xl leading-[1]
                         font-bold">
 
                             EXPERIENCE
@@ -528,7 +582,7 @@ UPGRADED VERSION
                         </h3>
 
                         <p
-                        class="mt-4 text-white/55 text-[15px] leading-[28px] max-w-[420px]">
+                        class="mt-4 text-white/55 text-[14px] leading-[26px] max-w-[400px]">
 
                             Showcase your talent in front of elite selectors
                             and professional franchise scouts.
@@ -557,7 +611,7 @@ ANIMATIONS
 
     from{
         opacity:0;
-        transform:translateY(40px);
+        transform:translateY(35px);
     }
 
     to{
@@ -574,14 +628,12 @@ ANIMATIONS
     }
 
     to{
-        transform:scale(1.08);
+        transform:scale(1.06);
     }
 
 }
 
 </style>
-
-<!-- hero section close -->
 
 <!-- =========================================
 WHY FSPL SECTION
@@ -1179,7 +1231,7 @@ ELITE SELECTION PROCESS
 UPCOMING TRIALS
 ========================================= -->
 
-<section class="relative py-20 lg:py-28 overflow-hidden bg-[#050505]">
+<section class="relative py-20 lg:py-28 overflow-hidden bg-[#050505]" id="trials">
 
     <!-- =========================================
          GOLD GLOW
@@ -1415,6 +1467,64 @@ UPCOMING TRIALS
             <?php } ?>
 
         </div>
+        <div class="flex justify-center mt-14 lg:mt-16">
+
+    <a
+    href="trials"
+    class="group relative overflow-hidden h-[50px] lg:h-[56px] px-8 lg:px-10 rounded-full border border-[#D4AF37]/15 bg-white/[0.03] backdrop-blur-2xl">
+
+        <!-- HOVER LIGHT -->
+
+        <div
+        class="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/20 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition duration-500">
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="relative flex items-center gap-4 h-full">
+
+            <!-- TEXT -->
+
+            <span
+            class="font-['Cinzel']
+            uppercase
+            tracking-[3px]
+            text-[10px]
+            lg:text-[11px]
+            font-bold
+            text-[#F5D76E]">
+
+                View More Trials
+
+            </span>
+
+            <!-- ICON -->
+
+            <div
+            class="w-7 h-7 rounded-full border border-[#D4AF37]/20 flex items-center justify-center transition duration-300 group-hover:translate-x-1">
+
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-3 h-3 text-[#F5D76E]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+
+                </svg>
+
+            </div>
+
+        </div>
+
+    </a>
+
+</div>
 
     </div>
 
@@ -3143,6 +3253,133 @@ MODERN FSPL CTA SECTION
     </div>
 
 </section>
+
+
+<!-- PREMIUM FLOATING TRIAL BUTTON -->
+
+<!-- =========================================
+PREMIUM VERTICAL TRIAL BUTTON
+========================================= -->
+<a href="#trials"
+class="fixed right-[20px] top-1/2 -translate-y-1/2 z-[9999] group">
+
+    <!-- MAIN WRAPPER -->
+
+    <div
+    class="relative w-[45px] h-[150px]
+    rounded-[40px]
+
+    border border-[#D4AF37]/25
+
+    bg-[linear-gradient(180deg,#0b0b0b_0%,#111111_45%,#050505_100%)]
+
+    backdrop-blur-2xl
+
+    shadow-[0_0_25px_rgba(212,175,55,0.18)]
+
+    overflow-hidden
+
+    hover:translate-x-[-5px]
+    transition duration-500">
+
+        <!-- GOLD SIDE LINE -->
+
+        <div
+        class="absolute left-0 top-0 w-[1px] h-full
+        bg-gradient-to-b
+        from-transparent
+        via-[#D4AF37]
+        to-transparent">
+        </div>
+
+        <!-- GOLD GLOW -->
+
+        <div
+        class="absolute inset-0
+        bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.12),transparent_40%)]">
+        </div>
+
+        <!-- SMALL PARTICLES -->
+
+        <div
+        class="absolute inset-0 opacity-20
+        bg-[radial-gradient(#D4AF37_0.8px,transparent_0.8px)]
+        [background-size:14px_14px]">
+        </div>
+
+        <!-- TOP ICON -->
+
+
+
+        <!-- VERTICAL TEXT -->
+
+        <div
+        class="absolute inset-0 flex items-center justify-center">
+
+            <span
+            class="rotate-[-90deg]
+
+            text-[#F5D76E]
+
+            text-[10px]
+            font-bold
+
+            uppercase
+            tracking-[2px]
+
+            font-['Cinzel']
+
+            whitespace-nowrap">
+
+                Go To Trials
+
+            </span>
+
+        </div>
+
+        <!-- BOTTOM LIGHT -->
+
+        <div
+        class="absolute bottom-3 left-1/2 -translate-x-1/2">
+
+            <div
+            class="w-2 h-2 rounded-full
+            bg-[#F5D76E]
+
+            shadow-[0_0_12px_rgba(212,175,55,0.8)]
+
+            animate-pulse">
+            </div>
+
+        </div>
+
+    </div>
+
+</a>
+
+<style>
+
+@keyframes arrowMove{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    50%{
+        transform:translateX(4px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
+
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+</style>
 
 
 <!-- WHATSAPP FLOATING BUTTON START -->
